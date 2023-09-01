@@ -1,20 +1,6 @@
-# Welcome to the Comet Starter App!
+# Welcome to the MAIDEN UI!
 
-The goal of this project is to provide a React with TypeScript starter application, which comes pre-configured with the USWDS-based [Comet Component Library](https://github.com/MetroStar/comet) as well as other tools to accelerate development. Some of these tools are as follows:
-
-- Tooling: [Vite](https://vitejs.dev/)
-- Platform: [React](https://react.dev/) with [TypeScript](https://www.typescriptlang.org/)
-- Component Library: [Comet Component Library](https://github.com/MetroStar/comet)
-- Data Visualization: [Victory Charts](https://formidable.com/open-source/victory/)
-- State Management: [Recoil](https://recoiljs.org/)
-- Form Validation: [React Hook Form](https://react-hook-form.com/)
-- Unit Testing: [Jest](https://jestjs.io/) with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
-- Code Analysis: [ES Lint](https://eslint.org/)
-- Code Formatting: [Prettier](https://prettier.io/)
-- End-to-End (E2E) Testing: [Cypress](https://www.cypress.io/)
-- Accessibility Testing: [cypress-axe](https://www.npmjs.com/package/cypress-axe)
-- API support: [axios](https://axios-http.com/)
-- Authentication support: [Keycloak](https://www.keycloak.org/)
+The goal of this project is to provide [MAIDEN](https://github.com/MetroStar/maiden-ui) users with a web-based tool for performing investigations against a dataset, utilizing Natural Language Processing (NLP) and in-context search.
 
 ## Table of Contents
 
@@ -22,7 +8,6 @@ The goal of this project is to provide a React with TypeScript starter applicati
 2. [Running Unit Tests](#running-unit-tests)
 3. [Running Code Quality Checks](#running-code-quality-checks)
 4. [Running End-to-End (E2E) Tests](#running-end-to-end-e2e-tests)
-5. [Contributing](#contributing)
 
 ## Running the Project Locally
 
@@ -32,14 +17,7 @@ The goal of this project is to provide a React with TypeScript starter applicati
 npm install
 ```
 
-2. To run locally with SSO, add a file called `.env.local` to the `comet-starter` directory. Copy and paste the template below and replace the placeholder values with your own (optional):
-
-```
-SSO_AUTHORITY=[SOME_KEYCLOAK_REALM_URL] # Ex: http://localhost:8088/realms/dev
-SSO_CLIENT_ID=[SOME_CLIENT_ID] # Ex: dev-client
-```
-
-3. To start the app, run the following:
+2. To start the app, run the following:
 
 ```sh
 npm run dev
@@ -77,11 +55,3 @@ Note: running E2E tests requires the app to be running as well, run the followin
 ```sh
 npm run e2e
 ```
-
-## Contributing
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature_a`)
-3. Commit your Changes (`git commit -m 'Added new feature_a'`)
-4. Push to the Branch (`git push origin feature_a`)
-5. Open a Pull Request
