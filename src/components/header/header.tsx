@@ -1,4 +1,4 @@
-import { Banner, Icon, Search } from '@metrostar/comet-uswds';
+import { Banner, Icon } from '@metrostar/comet-uswds';
 import { APP_TITLE } from '@src/utils/constants';
 import navigation from '@uswds/uswds/js/usa-header';
 import React, { SyntheticEvent, useEffect, useState } from 'react';
@@ -88,19 +88,6 @@ export const Header = (): React.ReactElement => {
                   Home
                 </NavLink>
               </li>
-              {isSignedIn && (
-                <li className="usa-nav__primary-item">
-                  <NavLink
-                    id="dashboard-link"
-                    to="/dashboard"
-                    className={`usa-nav__link ${
-                      location.pathname === '/dashboard' ? 'usa-current' : ''
-                    }`}
-                  >
-                    Dashboard
-                  </NavLink>
-                </li>
-              )}
               <li className="usa-nav__primary-item">
                 <Link
                   id="auth-link"
@@ -114,9 +101,6 @@ export const Header = (): React.ReactElement => {
                 </Link>
               </li>
             </ul>
-            <section aria-label="Search component">
-              <Search id="search" type="small" placeholder="Search our Site" />
-            </section>
           </nav>
         </div>
       </header>
