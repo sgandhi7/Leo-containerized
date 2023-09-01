@@ -37,8 +37,8 @@ describe('Header', () => {
 
     render(headerComponent);
 
-    await userEvent.click(screen.getByText('Dashboard', { selector: 'a' }));
-    expect(window.location.pathname).toBe('/dashboard');
+    await userEvent.click(screen.getByText('Home', { selector: 'a' }));
+    expect(window.location.pathname).toBe('/');
   });
 
   test('should Sign In', async () => {

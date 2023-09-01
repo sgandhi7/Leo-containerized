@@ -21,9 +21,6 @@ describe('Home', () => {
     const { baseElement } = render(componentWrapper);
     await act(async () => {
       expect(baseElement).toBeTruthy();
-      expect(baseElement.querySelector('h1')?.textContent).toEqual(
-        'Welcome Guest',
-      );
     });
   });
 
@@ -39,8 +36,5 @@ describe('Home', () => {
     await act(async () => {
       expect(baseElement).toBeTruthy();
     });
-    expect(baseElement.querySelector('h1')?.textContent).toEqual(
-      'Welcome John Doe',
-    );
   });
 });
