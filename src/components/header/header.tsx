@@ -89,6 +89,17 @@ export const Header = (): React.ReactElement => {
                 </NavLink>
               </li>
               <li className="usa-nav__primary-item">
+                <NavLink
+                  id="investigations-link"
+                  to="/investigations"
+                  className={`usa-nav__link ${
+                    location.pathname === '/investigations' ? 'usa-current' : ''
+                  }`}
+                >
+                  Current Investigations
+                </NavLink>
+              </li>
+              <li className="usa-nav__primary-item">
                 <Link
                   id="auth-link"
                   to="/signin"

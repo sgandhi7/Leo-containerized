@@ -2,7 +2,7 @@ import axios from '@src/utils/axios';
 import { act, renderHook } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import { RecoilRoot } from 'recoil';
-import { launchData } from '../data/launch';
+import { launchData } from '../data/investigation';
 import useApi from './use-api';
 
 describe('useApi', () => {

@@ -16,29 +16,36 @@ export const Home = (): React.ReactElement => {
   };
 
   return (
-    <div className="grid-container padding-top-1">
-      <div className="grid-row padding-bottom-3">
-        <div className="grid-col-12 display-flex flex-justify-center">
-          <TextInput
-            id="search-input"
-            name="search-input"
-            className="width-full padding-top-3 padding-bottom-3 margin-right-3"
-            placeholder="What would you like to investigate?"
-            autoFocus
-            onChange={handleOnChange}
-          />
-          <Button
-            id="search-btn"
-            onClick={handleSearch}
-            style={{ marginTop: '7px' }}
-          >
-            Search
-          </Button>
+    <>
+      <div className="grid-container padding-top-1">
+        <div className="grid-row">
+          <div className="grid-col">{prompt}</div>
         </div>
       </div>
-      <div className="grid-row">
-        <div className="grid-col">{prompt}</div>
+      <div className="grid-container padding-top-1">
+        <div className="grid-row padding-bottom-3">
+          <div
+            className="grid-col-12 display-flex flex-justify-center"
+            style={{ position: 'static', bottom: '20px' }}
+          >
+            <TextInput
+              id="search-input"
+              name="search-input"
+              className="width-full padding-top-3 padding-bottom-3 margin-right-3"
+              placeholder="What would you like to investigate?"
+              autoFocus
+              onChange={handleOnChange}
+            />
+            <Button
+              id="search-btn"
+              onClick={handleSearch}
+              style={{ marginTop: '7px' }}
+            >
+              Search
+            </Button>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
