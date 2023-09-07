@@ -14,6 +14,13 @@ export const Investigation = (): React.ReactElement => {
   const [currentInvestigation, setCurrentInvestigation] =
     useState<CurrentInvestigation>();
 
+  const updateFocus = () => {
+    const input = document.querySelector('input');
+    if (input) {
+      input.focus();
+    }
+  };
+
   const submitSearch = () => {
     const queryCopy = query;
     setQuery('');
@@ -48,10 +55,7 @@ export const Investigation = (): React.ReactElement => {
         prompts: [...newData],
       }));
 
-      const input = document.querySelector('input');
-      if (input) {
-        input.focus();
-      }
+      updateFocus();
     }, 2000);
   };
 
@@ -74,6 +78,9 @@ export const Investigation = (): React.ReactElement => {
   useEffect(() => {
     if (id) {
       getItem(id);
+    } else {
+      setCurrentInvestigation(undefined);
+      updateFocus();
     }
   }, [id, getItem]);
 

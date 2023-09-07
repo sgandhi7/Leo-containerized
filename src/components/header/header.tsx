@@ -89,6 +89,28 @@ export const Header = (): React.ReactElement => {
                 </NavLink>
               </li>
               <li className="usa-nav__primary-item">
+                <NavLink
+                  id="collaborate-link"
+                  to="/collaborate"
+                  className={`usa-nav__link ${
+                    location.pathname === '/collaborate' ? 'usa-current' : ''
+                  }`}
+                >
+                  Collaborate
+                </NavLink>
+              </li>
+              <li className="usa-nav__primary-item">
+                <NavLink
+                  id="history-link"
+                  to="/history"
+                  className={`usa-nav__link ${
+                    location.pathname === '/history' ? 'usa-current' : ''
+                  }`}
+                >
+                  History
+                </NavLink>
+              </li>
+              <li className="usa-nav__primary-item">
                 <Link
                   id="auth-link"
                   to="/signin"
