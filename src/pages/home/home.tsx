@@ -1,51 +1,104 @@
-import { Button, TextInput } from '@metrostar/comet-uswds';
-import React, { SyntheticEvent, useState } from 'react';
+import { DataTable } from '@metrostar/comet-extras';
+import { Button } from '@metrostar/comet-uswds';
+import useApi from '@src/hooks/use-api';
+import { Investigation } from '@src/types/investigation';
+import { ColumnDef } from '@tanstack/react-table';
+import React, { useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 export const Home = (): React.ReactElement => {
-  const [query, setQuery] = useState('');
-  const [prompt, setPrompt] = useState('');
+  const navigate = useNavigate();
+  const { getItems, items } = useApi();
+  const [investigations, setInvestigiations] = useState<Investigation[]>();
+  const cols = React.useMemo<ColumnDef<Investigation>[]>(
+    () => [
+      {
+        accessorKey: 'id',
+        header: 'ID',
+        cell: (info) => info.getValue(),
+      },
+      {
+        accessorKey: 'name',
+        header: 'Name',
+        cell: (info) => info.getValue(),
+      },
+      {
+        accessorKey: 'created',
+        header: 'Created',
+        cell: (info) => info.getValue(),
+      },
+      {
+        accessorKey: 'createdBy',
+        header: 'Created By',
+        cell: (info) => info.getValue(),
+      },
+      {
+        accessorKey: 'status',
+        header: 'Status',
+        cell: (info) => info.getValue(),
+      },
+    ],
+    [],
+  );
 
-  const handleOnChange = (event: SyntheticEvent) => {
-    const target = event.target as HTMLInputElement;
-    const value = target.value;
-    setQuery(value);
-  };
+  useEffect(() => {
+    if (items) {
+      const newData: Investigation[] = [];
+      items.forEach((item: Investigation) => {
+        newData.push({
+          id: item.id,
+          name: (
+            <NavLink
+              id={`investigation-link-${item.id}`}
+              to={`/investigations/${item.id}`}
+            >
+              {item.name}
+            </NavLink>
+          ),
+          created: item.created.toLocaleString(),
+          createdBy: item.createdBy,
+          status: item.status,
+        });
+      });
+      setInvestigiations(newData);
+    }
+  }, [items]);
 
-  const handleSearch = () => {
-    setPrompt(query);
-  };
+  useEffect(() => {
+    getItems();
+  }, [getItems]);
 
   return (
-    <>
-      <div className="grid-container padding-top-1">
-        <div className="grid-row">
-          <div className="grid-col">{prompt}</div>
+    <div className="grid-container padding-top-1">
+      <div className="grid-row">
+        <div className="grid-col">
+          <h1>Current Investigations</h1>
         </div>
       </div>
-      <div className="grid-container padding-top-1">
-        <div className="grid-row padding-bottom-3">
-          <div
-            className="grid-col-12 display-flex flex-justify-center"
-            style={{ position: 'static', bottom: '20px' }}
-          >
-            <TextInput
-              id="search-input"
-              name="search-input"
-              className="width-full padding-top-3 padding-bottom-3 margin-right-3"
-              placeholder="What would you like to investigate?"
-              autoFocus
-              onChange={handleOnChange}
-            />
-            <Button
-              id="search-btn"
-              onClick={handleSearch}
-              style={{ marginTop: '7px' }}
-            >
-              Search
-            </Button>
-          </div>
+      <div className="grid-row padding-bottom-3">
+        <div className="grid-col">
+          {investigations ? (
+            <DataTable
+              id="investigation-table"
+              className="width-full"
+              columns={cols}
+              data={investigations}
+              sortable
+              sortCol="id"
+              sortDir="desc"
+            ></DataTable>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
-    </>
+      <div className="grid-row">
+        <div className="grid-col">
+          <Button id="start-btn" onClick={() => navigate('/investigations')}>
+            Start a New Investigation
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 };

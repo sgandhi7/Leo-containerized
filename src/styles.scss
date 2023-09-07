@@ -1,5 +1,5 @@
 .usa-section {
-  padding-top: 1em !important;
+  padding-top: 0 !important;
 }
 
 #mainSection {
@@ -12,4 +12,34 @@
 
 .loading-text {
   color: #005ea2;
+}
+
+.chat-content {
+  background-color: #f0f0f0;
+}
+
+.chat-content-question {
+  background-color: #fff;
+  border-bottom: 1px solid #dfe1e2;
+  padding: 30px 20px;
+}
+
+.chat-content-answer {
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #dfe1e2;
+  padding: 30px 20px;
+}
+
+.chat-content-suggestion {
+  padding-top: 10px;
+  font-weight: 600;
+}
+
+.search-area {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  max-width: 64rem;
+  padding: 40px 0 20px 0;
+  background-color: #fff;
 }

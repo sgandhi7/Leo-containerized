@@ -1,47 +1,28 @@
-import axios from '@src/utils/axios';
+import { investigationData } from '@src/data/investigation';
 import { useCallback, useState } from 'react';
-import { Launch } from '../types/investigation';
+import { Investigation } from '../types/investigation';
 
 const useApi = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [items, setItems] = useState<Launch[]>();
-  const [item, setItem] = useState<Launch>();
-  const [error, setError] = useState<string | null>(null);
+  const [items, setItems] = useState<Investigation[]>();
+  const [item, setItem] = useState<Investigation>();
+  const [error] = useState<string | null>(null);
 
   const getItems = useCallback((): void => {
     setLoading(true);
-    axios
-      .get(`/?format=json`)
-      .then((response) => {
-        return response.data;
-      })
-      .then((data) => {
-        setItems(data.results);
-      })
-      .catch((error) => {
-        setError(error.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    setItems(investigationData);
+    setLoading(false);
   }, []);
 
   const getItem = useCallback((id: string): void => {
     setLoading(true);
-    axios
-      .get(`/${id}/?format=json`)
-      .then((response) => {
-        return response.data;
-      })
-      .then((data) => {
-        setItem(data);
-      })
-      .catch((error) => {
-        setError(error.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    const investigationItems = investigationData.filter(
+      (item) => item.id === id,
+    );
+    if (investigationItems) {
+      setItem(investigationItems[0]);
+    }
+    setLoading(false);
   }, []);
 
   return {

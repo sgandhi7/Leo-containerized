@@ -4,7 +4,7 @@ import { RecoilRoot } from 'recoil';
 import { Header } from './components/header/header';
 import { ProtectedRoute } from './components/protected-route/protected-route';
 import { Home } from './pages/home/home';
-import { Investigations } from './pages/investigations/investigations';
+import { Investigation } from './pages/investigation/investigation';
 import { SignIn } from './pages/sign-in/sign-in';
 
 export const App = (): React.ReactElement => (
@@ -16,7 +16,8 @@ export const App = (): React.ReactElement => (
           <Route path="/signin" element={<SignIn />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Home />} />
-            <Route path="/investigations" element={<Investigations />} />
+            <Route path="/investigations" element={<Investigation />} />
+            <Route path="/investigations/:id" element={<Investigation />} />
           </Route>
         </Routes>
       </main>

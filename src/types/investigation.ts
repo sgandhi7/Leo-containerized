@@ -8,4 +8,13 @@ export interface Investigation {
   createdBy: string;
   modified?: string | Date;
   modifiedBy?: string;
+  prompts: Prompt[];
+}
+
+export interface Prompt {
+  id: string;
+  prompt: string;
+  completion: string;
+  score: number;
+  suggestion?: string;
 }
