@@ -101,7 +101,7 @@ export const SignIn = (): React.ReactElement => {
               <Button
                 id="cancel"
                 type="button"
-                variant="secondary"
+                variant="outline"
                 onClick={handleCancel}
               >
                 Cancel

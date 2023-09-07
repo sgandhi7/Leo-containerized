@@ -1,9 +1,9 @@
-import { Banner, Icon } from '@metrostar/comet-uswds';
-import { APP_TITLE } from '@src/utils/constants';
+import { Icon } from '@metrostar/comet-uswds';
 import navigation from '@uswds/uswds/js/usa-header';
 import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
+import logo from '/img/logo.svg';
 
 export const Header = (): React.ReactElement => {
   const [showMenu, setShowMenu] = useState(false);
@@ -52,7 +52,6 @@ export const Header = (): React.ReactElement => {
       <a className="usa-skipnav " href="#mainSection">
         Skip to main content
       </a>
-      <Banner id="banner" />
       <div className="usa-overlay"></div>
       <header className="usa-header usa-header--basic">
         <div className="usa-nav-container">
@@ -60,7 +59,11 @@ export const Header = (): React.ReactElement => {
             <div className="usa-logo" id="-logo">
               <em className="usa-logo__text">
                 <NavLink id="logo-link" to="/">
-                  {APP_TITLE}
+                  <img
+                    className="usa-header__logo-img"
+                    src={logo}
+                    alt="Horizon Hunt Logo"
+                  />
                 </NavLink>
               </em>
             </div>
@@ -90,17 +93,6 @@ export const Header = (): React.ReactElement => {
               </li>
               <li className="usa-nav__primary-item">
                 <NavLink
-                  id="collaborate-link"
-                  to="/collaborate"
-                  className={`usa-nav__link ${
-                    location.pathname === '/collaborate' ? 'usa-current' : ''
-                  }`}
-                >
-                  Collaborate
-                </NavLink>
-              </li>
-              <li className="usa-nav__primary-item">
-                <NavLink
                   id="history-link"
                   to="/history"
                   className={`usa-nav__link ${
@@ -108,6 +100,17 @@ export const Header = (): React.ReactElement => {
                   }`}
                 >
                   History
+                </NavLink>
+              </li>
+              <li className="usa-nav__primary-item">
+                <NavLink
+                  id="collaborate-link"
+                  to="/collaborate"
+                  className={`usa-nav__link ${
+                    location.pathname === '/collaborate' ? 'usa-current' : ''
+                  }`}
+                >
+                  Collaborate
                 </NavLink>
               </li>
               <li className="usa-nav__primary-item">

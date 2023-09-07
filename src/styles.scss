@@ -1,3 +1,23 @@
+$color-primary: #381f59;
+$color-secondary: #d83933;
+$text-link: #005ea2;
+$text-primary: #00cfc8;
+
+a {
+  color: $text-link;
+}
+a:visited {
+  color: $color-primary;
+}
+
+.usa-header {
+  background-color: $color-primary;
+}
+
+.usa-menu-btn {
+  background-color: $color-primary;
+}
+
 .usa-section {
   padding-top: 0 !important;
 }
@@ -6,8 +26,30 @@
   min-height: 500px;
 }
 
+.usa-button {
+  background-color: $color-primary;
+}
+
+.usa-button--secondary {
+  background-color: $color-secondary;
+}
+
+.usa-button--outline {
+  background-color: #fff;
+  border-radius: $color-primary;
+  color: $color-primary;
+}
+
+.usa-button:hover:not(.usa-button--secondary):not(.usa-button--outline) {
+  background-color: $color-primary;
+}
+
 .usa-input {
   max-width: unset;
+}
+
+.usa-input:focus {
+  border-color: $color-primary;
 }
 
 .loading-text {
@@ -21,13 +63,18 @@
 .chat-content-question {
   background-color: #fff;
   border-bottom: 1px solid #dfe1e2;
-  padding: 30px 20px;
+  padding: 40px 20px;
 }
 
 .chat-content-answer {
-  background-color: #f0f0f0;
+  background-color: #fafafa;
   border-bottom: 1px solid #dfe1e2;
-  padding: 30px 20px;
+  padding: 40px 20px;
+}
+
+.chat-content-question:hover,
+.chat-content-answer:hover {
+  background-color: #fafafa;
 }
 
 .chat-content-suggestion {
@@ -42,4 +89,19 @@
   max-width: 64rem;
   padding: 40px 0 20px 0;
   background-color: #fff;
+}
+
+@media (min-width: 64em) {
+  .usa-logo a,
+  .usa-nav__primary > .usa-nav__primary-item > a,
+  .usa-nav__primary > .usa-nav__primary-item > a:hover {
+    color: $text-primary;
+  }
+  .usa-header--basic .usa-nav__link:hover::after,
+  .usa-header--basic .usa-nav__primary-item > .usa-current::after {
+    background-color: $text-primary;
+  }
+  .usa-logo {
+    margin-top: 1rem;
+  }
 }
