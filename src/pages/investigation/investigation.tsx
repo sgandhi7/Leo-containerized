@@ -11,6 +11,7 @@ export const Investigation = (): React.ReactElement => {
   const { id } = useParams();
   const { getItem, item } = useApi();
   const [query, setQuery] = useState('');
+  const [queryCounter, setQueryCounter] = useState(0);
   const [currentInvestigation, setCurrentInvestigation] =
     useState<CurrentInvestigation>();
 
@@ -42,11 +43,18 @@ export const Investigation = (): React.ReactElement => {
       prompts: [...newData],
     }));
 
+    const completions = [
+      'John Doe is a very common name, can you narrow it down further?',
+      'Fortunately, there is only 1 John Doe from New York. He lives on Fifth Avenue, right next to the park.',
+      'The address is 12345 Fifth Avenue, New York, NY 20000.',
+      'I do not have any more information than that.',
+      'I do not have any more information than that.',
+    ];
+
     setTimeout(() => {
       newPrompt = {
         ...newPrompt,
-        completion:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        completion: completions[queryCounter],
       };
 
       newData[0] = newPrompt;
@@ -55,6 +63,7 @@ export const Investigation = (): React.ReactElement => {
         prompts: [...newData],
       }));
 
+      setQueryCounter((prev) => prev + 1);
       updateFocus();
     }, 2000);
   };
@@ -80,6 +89,7 @@ export const Investigation = (): React.ReactElement => {
       getItem(id);
     } else {
       setCurrentInvestigation(undefined);
+      setQueryCounter(0);
       updateFocus();
     }
   }, [id, getItem]);
