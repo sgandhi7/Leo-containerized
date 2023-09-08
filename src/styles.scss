@@ -74,7 +74,7 @@ a:visited {
 
 .chat-content-question:hover,
 .chat-content-answer:hover {
-  background-color: #fafafa;
+  background-color: rgba(0, 207, 200, 0.3);
 }
 
 .chat-content-suggestion {
@@ -89,6 +89,14 @@ a:visited {
   max-width: 64rem;
   padding: 40px 0 20px 0;
   background-color: #fff;
+}
+
+table.data-table th {
+  background-color: rgba(0, 207, 200, 0.3);
+}
+
+table.data-table tr:hover {
+  background-color: rgba(0, 207, 200, 0.3);
 }
 
 @media (min-width: 64em) {
