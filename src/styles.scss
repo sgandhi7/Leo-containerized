@@ -1,10 +1,18 @@
 $color-primary: #381f59;
 $color-secondary: #d83933;
-$text-link: #005ea2;
-$text-primary: #00cfc8;
+$color-white: #ffffff;
+$color-black: #000000;
+$color-gray: #dfe1e2;
+$color-blue: #005ea2;
+$color-green: #00bb9d;
+$color-green-light: #00cfc8;
+
+h1 {
+  color: $color-green-light;
+}
 
 a {
-  color: $text-link;
+  color: $color-blue;
 }
 a:visited {
   color: $color-primary;
@@ -14,7 +22,8 @@ a:visited {
   background-color: $color-primary;
 }
 
-.usa-menu-btn {
+.usa-menu-btn,
+.usa-menu-btn:hover {
   background-color: $color-primary;
 }
 
@@ -23,7 +32,8 @@ a:visited {
 }
 
 #mainSection {
-  min-height: 500px;
+  min-height: 800px;
+  background-image: url('/img/hero.jpg');
 
   .grid-container {
     max-width: 80rem;
@@ -35,21 +45,29 @@ a:visited {
 }
 
 .usa-button {
+  color: $color-green-light;
   background-color: $color-primary;
+  border: 2px solid $color-green-light;
 }
 
-.usa-button--secondary {
-  background-color: $color-secondary;
+.usa-button:hover {
+  color: rgba(0, 207, 200, 0.8);
+  background-color: $color-primary;
+  border: 2px solid $color-green-light;
 }
 
 .usa-button--outline {
-  background-color: #fff;
-  border-radius: $color-primary;
-  color: $color-primary;
+  background-color: $color-white;
+  box-shadow: unset;
+  color: $color-black;
+  border: 2px solid $color-blue;
 }
 
-.usa-button:hover:not(.usa-button--secondary):not(.usa-button--outline) {
-  background-color: $color-primary;
+.usa-button--outline:hover {
+  color: $color-blue;
+  background-color: $color-white;
+  box-shadow: unset;
+  border: 2px solid $color-blue;
 }
 
 .usa-input {
@@ -65,24 +83,27 @@ a:visited {
 }
 
 .chat-content {
-  background-color: #f0f0f0;
+  background-color: transparent;
+  height: 650px;
+  overflow-y: auto;
 }
 
 .chat-content-question {
-  background-color: #fff;
-  border-bottom: 1px solid #dfe1e2;
-  padding: 40px 20px;
+  background-color: $color-white;
+  border: 1px solid $color-blue;
+  color: $color-black;
+  border-radius: 4px;
+  padding: 35px 20px;
+  margin: 10px 60px 10px 10px;
 }
 
 .chat-content-answer {
-  background-color: #fafafa;
-  border-bottom: 1px solid #dfe1e2;
-  padding: 40px 20px;
-}
-
-.chat-content-question:hover,
-.chat-content-answer:hover {
-  background-color: rgba(0, 207, 200, 0.3);
+  background-color: $color-green;
+  border: 1px solid $color-black;
+  color: $color-black;
+  border-radius: 4px;
+  padding: 35px 20px;
+  margin: 10px 10px 10px 60px;
 }
 
 .chat-content-suggestion {
@@ -95,7 +116,6 @@ a:visited {
   width: 100%;
   max-width: 80rem;
   padding: 40px 20px 20px 0;
-  background-color: #fff;
 }
 
 .search-area-home {
@@ -106,12 +126,17 @@ a:visited {
   bottom: 20px;
 }
 
-table.data-table th {
+table.data-table thead th {
   background-color: $color-primary;
-  color: $text-primary;
+  color: $color-green-light;
 }
 
-table.data-table tr:hover {
+table.data-table tbody td {
+  background-color: $color-white;
+  color: $color-black;
+}
+
+table.data-table tbody tr:hover {
   background-color: rgba(0, 207, 200, 0.3);
 }
 
@@ -119,11 +144,11 @@ table.data-table tr:hover {
   .usa-logo a,
   .usa-nav__primary > .usa-nav__primary-item > a,
   .usa-nav__primary > .usa-nav__primary-item > a:hover {
-    color: $text-primary;
+    color: $color-green-light;
   }
   .usa-header--basic .usa-nav__link:hover::after,
   .usa-header--basic .usa-nav__primary-item > .usa-current::after {
-    background-color: $text-primary;
+    background-color: $color-green-light;
   }
   .usa-logo {
     margin-top: 1rem;
