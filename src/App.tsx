@@ -19,6 +19,7 @@ export const App = (): React.ReactElement => (
             <Route path="/" element={<Investigation />} />
             <Route path="/history" element={<History />} />
             <Route path="/collaborate" element={<Collaborate />} />
+            <Route path="/investigations" element={<Investigation />} />
             <Route path="/investigations/:id" element={<Investigation />} />
           </Route>
         </Routes>

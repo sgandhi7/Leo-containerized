@@ -24,6 +24,14 @@ a:visited {
 
 #mainSection {
   min-height: 500px;
+
+  .grid-container {
+    max-width: 80rem;
+  }
+}
+
+.usa-nav-container {
+  max-width: unset;
 }
 
 .usa-button {
@@ -84,22 +92,30 @@ a:visited {
 
 .search-area {
   position: absolute;
-  bottom: 20px;
   width: 100%;
-  max-width: 64rem;
-  padding: 40px 0 20px 0;
+  max-width: 80rem;
+  padding: 40px 20px 20px 0;
   background-color: #fff;
 }
 
+.search-area-home {
+  top: 250px;
+}
+
+.search-area-investigation {
+  bottom: 20px;
+}
+
 table.data-table th {
-  background-color: rgba(0, 207, 200, 0.3);
+  background-color: $color-primary;
+  color: $text-primary;
 }
 
 table.data-table tr:hover {
   background-color: rgba(0, 207, 200, 0.3);
 }
 
-@media (min-width: 64em) {
+@media (min-width: 80em) {
   .usa-logo a,
   .usa-nav__primary > .usa-nav__primary-item > a,
   .usa-nav__primary > .usa-nav__primary-item > a:hover {
@@ -111,5 +127,15 @@ table.data-table tr:hover {
   }
   .usa-logo {
     margin-top: 1rem;
+  }
+
+  .usa-header--basic .usa-navbar {
+    width: 15%;
+  }
+}
+
+@media (max-width: 80em) {
+  .usa-header__logo-img {
+    height: 40px;
   }
 }

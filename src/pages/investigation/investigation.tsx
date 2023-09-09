@@ -5,10 +5,11 @@ import {
   Prompt,
 } from '@src/types/investigation';
 import React, { SyntheticEvent, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const Investigation = (): React.ReactElement => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { getItem, item } = useApi();
   const [query, setQuery] = useState('');
   const [queryCounter, setQueryCounter] = useState(0);
@@ -23,6 +24,10 @@ export const Investigation = (): React.ReactElement => {
   };
 
   const submitSearch = () => {
+    if (location.pathname === '/') {
+      navigate('/investigations');
+    }
+
     const queryCopy = query;
     setQuery('');
 
@@ -44,9 +49,9 @@ export const Investigation = (): React.ReactElement => {
     }));
 
     const completions = [
-      'John Doe is a very common name, can you narrow it down further?',
-      'Fortunately, there is only 1 John Doe from New York. He lives on Fifth Avenue, right next to the park.',
-      'The address is 12345 Fifth Avenue, New York, NY 20000.',
+      'John Doe is a very common name, can you narrow it down further? It might help if you provide a more specific request.',
+      'Fortunately, there is only 1 John Doe from New York. He lives on Fifth Avenue, right next to the Central Park, and very close to the hot dog stand at 15th street. Would you like to know more about the address or the park?',
+      'The address is 12345 Fifth Avenue, New York, NY 20000. This address has been on file for 15 years.',
       'I do not have any more information than that.',
       'I do not have any more information than that.',
     ];
@@ -97,38 +102,53 @@ export const Investigation = (): React.ReactElement => {
   return (
     <>
       <div className="grid-container">
-        <div className="grid-row">
-          <div className="grid-col">
-            <div className="chat-content">
-              {currentInvestigation?.prompts.map((prompt: Prompt) => (
-                <div key={`chat-content-${prompt.id}`}>
-                  <div
-                    key={`chat-content-answer-${prompt.id}`}
-                    className={`chat-content-answer ${
-                      prompt.completion === 'Loading...' ? 'text-bold' : ''
-                    }`}
-                  >
-                    {prompt.completion}
+        {location.pathname === '/' ? (
+          <div
+            className="width-100 padding-top-6"
+            style={{ textAlign: 'center' }}
+          >
+            <h1>What would you like to Investigate?</h1>
+          </div>
+        ) : (
+          <div className="grid-row">
+            <div className="grid-col">
+              <div className="chat-content">
+                {currentInvestigation?.prompts.map((prompt: Prompt) => (
+                  <div key={`chat-content-${prompt.id}`}>
+                    <div
+                      key={`chat-content-answer-${prompt.id}`}
+                      className={`chat-content-answer ${
+                        prompt.completion === 'Loading...' ? 'text-bold' : ''
+                      }`}
+                    >
+                      {prompt.completion}
+                    </div>
+                    <div
+                      key={`chat-content-question-${prompt.id}`}
+                      className="chat-content-question"
+                    >
+                      {prompt.prompt}
+                    </div>
                   </div>
-                  <div
-                    key={`chat-content-question-${prompt.id}`}
-                    className="chat-content-question"
-                  >
-                    {prompt.prompt}
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
       <div className="grid-container">
-        <div className="display-flex flex-justify-center search-area">
+        <div
+          className={`display-flex flex-justify-center search-area ${
+            location.pathname === '/'
+              ? 'search-area-home'
+              : 'search-area-investigation'
+          }`}
+        >
           <TextInput
             id="search-input"
             name="search-input"
             className="width-full padding-top-3 padding-bottom-3 margin-right-3"
-            placeholder="What would you like to investigate?"
+            placeholder="Enter your search here..."
             autoFocus
             value={query}
             onChange={handleOnChange}
