@@ -1,4 +1,5 @@
 import { DataTable } from '@metrostar/comet-extras';
+import { Button } from '@metrostar/comet-uswds';
 import useApi from '@src/hooks/use-api';
 import { Investigation } from '@src/types/investigation';
 import { ColumnDef } from '@tanstack/react-table';
@@ -35,6 +36,11 @@ export const History = (): React.ReactElement => {
         header: 'Status',
         cell: (info) => info.getValue(),
       },
+      {
+        accessorKey: 'actions',
+        header: 'Actions',
+        cell: (info) => info.getValue(),
+      },
     ],
     [],
   );
@@ -56,6 +62,16 @@ export const History = (): React.ReactElement => {
           created: item.created.toLocaleString(),
           createdBy: item.createdBy,
           status: item.status,
+          actions: (
+            <Button
+              id={`share-${item.id}`}
+              onClick={() => {
+                console.log('shared');
+              }}
+            >
+              Share
+            </Button>
+          ),
         });
       });
       setInvestigiations(newData);

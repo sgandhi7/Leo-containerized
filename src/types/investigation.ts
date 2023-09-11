@@ -9,6 +9,7 @@ export interface Investigation {
   modified?: string | Date;
   modifiedBy?: string;
   prompts: Prompt[];
+  actions?: ReactNode;
 }
 
 export interface Prompt {

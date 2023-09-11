@@ -131,13 +131,17 @@ table.data-table thead th {
   color: $color-green-light;
 }
 
-table.data-table tbody td {
+table.data-table tbody tr {
   background-color: $color-white;
   color: $color-black;
 }
 
+table.data-table tbody td {
+  padding: 8px 16px;
+}
+
 table.data-table tbody tr:hover {
-  background-color: rgba(0, 207, 200, 0.3);
+  background-color: $color-green;
 }
 
 @media (min-width: 80em) {
@@ -157,10 +161,20 @@ table.data-table tbody tr:hover {
   .usa-header--basic .usa-navbar {
     width: 15%;
   }
+
+  .usa-header + .usa-section,
+  .usa-header + main {
+    border-top: unset;
+  }
 }
 
 @media (max-width: 80em) {
   .usa-header__logo-img {
     height: 40px;
+  }
+
+  .usa-header + .usa-section,
+  .usa-header + main {
+    border-top: unset;
   }
 }
