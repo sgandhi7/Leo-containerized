@@ -62,6 +62,7 @@ export const History = (): React.ReactElement => {
           created: item.created.toLocaleString(),
           createdBy: item.createdBy,
           status: item.status,
+          prompts: item.prompts,
           actions: (
             <Button
               id={`share-${item.id}`}
