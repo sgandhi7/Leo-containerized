@@ -19,3 +19,9 @@ export interface Prompt {
   score: number;
   suggestion?: string;
 }
+
+export interface Completion {
+  id: string;
+  text: string;
+  score: number;
+}

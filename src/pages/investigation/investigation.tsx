@@ -11,7 +11,7 @@ import { currentInvestigation as defaultInvestigation } from 'src/store';
 
 export const Investigation = (): React.ReactElement => {
   const { id } = useParams();
-  const { getItem, item } = useApi();
+  const { getItem, item, loading } = useApi();
   const [currentInvestigation, setCurrentInvestigation] = useRecoilState<
     InvestigationState | undefined
   >(defaultInvestigation);
@@ -36,14 +36,21 @@ export const Investigation = (): React.ReactElement => {
             <div className="chat-content">
               {currentInvestigation?.prompts.map((prompt: Prompt) => (
                 <div key={`chat-content-${prompt.id}`}>
-                  <div
-                    key={`chat-content-answer-${prompt.id}`}
-                    className={`chat-content-answer ${
-                      prompt.completion === 'Loading...' ? 'text-bold' : ''
-                    }`}
-                  >
-                    {prompt.completion}
-                  </div>
+                  {loading ? (
+                    <div
+                      key={`chat-content-answer-loading`}
+                      className="chat-content-answer text-bold"
+                    >
+                      Loading...
+                    </div>
+                  ) : (
+                    <div
+                      key={`chat-content-answer-${prompt.id}`}
+                      className="chat-content-answer"
+                    >
+                      {prompt.completion}
+                    </div>
+                  )}
                   <div
                     key={`chat-content-question-${prompt.id}`}
                     className="chat-content-question"

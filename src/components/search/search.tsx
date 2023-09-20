@@ -1,5 +1,5 @@
 import { Button, TextInput } from '@metrostar/comet-uswds';
-import { completionData } from '@src/data/investigation';
+import useApi from '@src/hooks/use-api';
 import {
   Investigation as InvestigationState,
   Prompt,
@@ -12,10 +12,8 @@ import { currentInvestigation as defaultInvestigation } from 'src/store';
 export const Search = (): React.ReactElement => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { search } = useApi();
   const [query, setQuery] = useState('');
-  const [queryCounter, setQueryCounter] = useState(
-    location.pathname === '/' ? 0 : 1,
-  );
   const [currentInvestigation, setCurrentInvestigation] = useRecoilState<
     InvestigationState | undefined
   >(defaultInvestigation);
@@ -27,46 +25,51 @@ export const Search = (): React.ReactElement => {
     }
   };
 
-  const submitSearch = () => {
+  const submitSearch = async () => {
     if (location.pathname === '/') {
       navigate('/investigations');
     }
 
     const queryCopy = query;
-    setQuery('');
-
     let newData: Prompt[] = [];
     const currentPrompts = currentInvestigation?.prompts;
     if (currentPrompts) {
       newData = [...currentInvestigation.prompts];
     }
+
     let newPrompt: Prompt = {
       id: Math.random().toString(),
       prompt: queryCopy,
       completion: 'Loading...',
-      score: 0.99,
+      score: 0,
     };
+
     newData.unshift(newPrompt);
+    await search(queryCopy).then((response) => {
+      if (response?.length > 0) {
+        const completion = response[0];
+        newPrompt = {
+          id: completion.id,
+          prompt: queryCopy,
+          completion: completion.text,
+          score: completion.score,
+        };
+
+        newData[0] = newPrompt;
+        updateCurrentInvestigation(newData);
+      }
+    });
+
+    setQuery('');
+    updateFocus();
+  };
+
+  const updateCurrentInvestigation = (newData: Prompt[]) => {
+    // TODO: Fix this typescript error
     setCurrentInvestigation((prev) => ({
       ...prev,
       prompts: [...newData],
     }));
-
-    setTimeout(() => {
-      newPrompt = {
-        ...newPrompt,
-        completion: completionData[queryCounter],
-      };
-
-      newData[0] = newPrompt;
-      setCurrentInvestigation((prev) => ({
-        ...prev,
-        prompts: [...newData],
-      }));
-
-      setQueryCounter((prev) => prev + 1);
-      updateFocus();
-    }, 2000);
   };
 
   const handleOnChange = (event: SyntheticEvent) => {
