@@ -1,0 +1,21 @@
+# Add
+POST http://0.0.0.0:8000/add
+Content-Type: application/json
+
+[
+  { "id": 1, "text": "US tops 5 million confirmed virus cases" },
+  { "id": 2, "text": "Canada's last fully intact ice shelf has suddenly collapsed, forming a Manhattan-sized iceberg" },
+  { "id": 3, "text": "Beijing mobilises invasion craft along coast as Taiwan tensions escalate" }
+]
+
+# Index
+GET http://0.0.0.0:8000/index
+
+# Search
+GET http://0.0.0.0:8000/search?query=virus%20cases
+
+# Delete
+POST http://0.0.0.0:8000/delete
+Content-Type: application/json
+
+[1,2,3]

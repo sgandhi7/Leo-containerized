@@ -17,10 +17,33 @@ The goal of this project is to provide [MAIDEN](https://github.com/MetroStar/mai
 npm install
 ```
 
-2. To start the app, run the following:
+2. Add a file called `.env.local` to the `maiden-ui` directory. Copy and paste the template below and replace the placeholder values with your own:
+
+```.env
+TXTAI_API_URL=http://0.0.0.0:8000
+```
+
+**NOTE:** To run with mocked data, leave out the above env variable.
+
+3. To start the app, run the following:
 
 ```sh
 npm run dev
+```
+
+## Running the txtai API Locally with Docker
+
+1. To build the image, run the following:
+
+```sh
+cd api
+docker build . -t txtai-api
+```
+
+2. To start the api, run the following:
+
+```sh
+docker run -p 8000:8000 --rm -it txtai-api
 ```
 
 ## Running Unit Tests

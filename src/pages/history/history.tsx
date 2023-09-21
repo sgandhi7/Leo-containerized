@@ -59,7 +59,7 @@ export const History = (): React.ReactElement => {
               {item.name}
             </NavLink>
           ),
-          created: item.created.toLocaleString(),
+          created: item.created?.toLocaleString(),
           createdBy: item.createdBy,
           status: item.status,
           prompts: item.prompts,

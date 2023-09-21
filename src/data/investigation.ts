@@ -1,4 +1,4 @@
-import { Investigation, Prompt } from '../types/investigation';
+import { Completion, Investigation, Prompt } from '../types/investigation';
 
 export const promptData: Prompt[] = [
   {
@@ -108,10 +108,30 @@ export const investigationData: Investigation[] = [
   },
 ];
 
-export const completionData = [
-  'John Doe is a very common name, can you narrow it down further? It might help if you provide a more specific request.',
-  'Fortunately, there is only 1 John Doe from New York. He lives on Fifth Avenue, right next to the Central Park, and very close to the hot dog stand at 15th street. Would you like to know more about the address or the park?',
-  'The address is 12345 Fifth Avenue, New York, NY 20000. This address has been on file for 15 years.',
-  'I do not have any more information than that.',
-  'I do not have any more information than that.',
+export const completionData: Completion[] = [
+  {
+    id: '1',
+    text: 'John Doe is a very common name, can you narrow it down further? It might help if you provide a more specific request.',
+    score: 0.99,
+  },
+  {
+    id: '2',
+    text: 'Fortunately, there is only 1 John Doe from New York. He lives on Fifth Avenue, right next to the Central Park, and very close to the hot dog stand at 15th street. Would you like to know more about the address or the park?',
+    score: 0.99,
+  },
+  {
+    id: '3',
+    text: 'The address is 12345 Fifth Avenue, New York, NY 20000. This address has been on file for 15 years.',
+    score: 0.99,
+  },
+  {
+    id: '4',
+    text: 'I do not have any more information than that.',
+    score: 0.99,
+  },
+  {
+    id: '5',
+    text: 'I do not have any more information than that.',
+    score: 0.99,
+  },
 ];
