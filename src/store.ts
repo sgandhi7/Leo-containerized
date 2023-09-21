@@ -12,9 +12,9 @@ const currentUser = atom<User | undefined>({
   default: undefined,
 });
 
-const currentInvestigation = atom<Investigation | undefined>({
+const currentInvestigation = atom<Investigation>({
   key: 'currentInvestigation',
-  default: undefined,
+  default: {},
 });
 
 export { currentInvestigation, currentUser, signedIn };

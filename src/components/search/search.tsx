@@ -7,16 +7,15 @@ import {
 import React, { SyntheticEvent, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { currentInvestigation as defaultInvestigation } from 'src/store';
+import { currentInvestigation as defaultInvestigation } from '../../store';
 
 export const Search = (): React.ReactElement => {
   const navigate = useNavigate();
   const location = useLocation();
   const { search } = useApi();
   const [query, setQuery] = useState('');
-  const [currentInvestigation, setCurrentInvestigation] = useRecoilState<
-    InvestigationState | undefined
-  >(defaultInvestigation);
+  const [currentInvestigation, setCurrentInvestigation] =
+    useRecoilState<InvestigationState>(defaultInvestigation);
 
   const updateFocus = () => {
     const input = document.querySelector('input');
@@ -32,8 +31,7 @@ export const Search = (): React.ReactElement => {
 
     const queryCopy = query;
     let newData: Prompt[] = [];
-    const currentPrompts = currentInvestigation?.prompts;
-    if (currentPrompts) {
+    if (currentInvestigation?.prompts) {
       newData = [...currentInvestigation.prompts];
     }
 
@@ -65,7 +63,6 @@ export const Search = (): React.ReactElement => {
   };
 
   const updateCurrentInvestigation = (newData: Prompt[]) => {
-    // TODO: Fix this typescript error
     setCurrentInvestigation((prev) => ({
       ...prev,
       prompts: [...newData],

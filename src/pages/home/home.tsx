@@ -2,15 +2,14 @@ import { Search } from '@src/components/search/search';
 import { Investigation as InvestigationState } from '@src/types/investigation';
 import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { currentInvestigation as defaultInvestigation } from 'src/store';
+import { currentInvestigation as defaultInvestigation } from '../../store';
 
 export const Home = (): React.ReactElement => {
-  const [, setCurrentInvestigation] = useRecoilState<
-    InvestigationState | undefined
-  >(defaultInvestigation);
+  const [, setCurrentInvestigation] =
+    useRecoilState<InvestigationState>(defaultInvestigation);
 
   useEffect(() => {
-    setCurrentInvestigation(undefined);
+    setCurrentInvestigation({});
   }, [setCurrentInvestigation]);
 
   return (

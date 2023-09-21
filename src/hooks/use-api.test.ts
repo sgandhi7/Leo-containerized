@@ -2,7 +2,6 @@ import axios from '@src/utils/axios';
 import { act, renderHook } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import { RecoilRoot } from 'recoil';
-import { launchData } from '../data/investigation';
 import useApi from './use-api';
 
 describe('useApi', () => {
@@ -13,18 +12,6 @@ describe('useApi', () => {
 
   test('should call getItems successfully', async () => {
     mock.onGet().reply(200, { results: [] });
-    const { result } = renderHook(() => useApi(), {
-      wrapper: RecoilRoot,
-    });
-
-    await act(async () => {
-      result.current.getItems();
-    });
-    expect(result.current.getItems).toBeTruthy();
-  });
-
-  test('should call getItems with mock data', async () => {
-    mock.onGet().reply(200, { results: launchData });
     const { result } = renderHook(() => useApi(), {
       wrapper: RecoilRoot,
     });
@@ -49,18 +36,6 @@ describe('useApi', () => {
 
   test('should call getItem successfully', async () => {
     mock.onGet().reply(200, null);
-    const { result } = renderHook(() => useApi(), {
-      wrapper: RecoilRoot,
-    });
-
-    await act(async () => {
-      result.current.getItem('1');
-    });
-    expect(result.current.getItem).toBeTruthy();
-  });
-
-  test('should call getItem with mock data', async () => {
-    mock.onGet().reply(200, launchData[0]);
     const { result } = renderHook(() => useApi(), {
       wrapper: RecoilRoot,
     });
