@@ -5,9 +5,10 @@ The goal of this project is to provide [MAIDEN](https://github.com/MetroStar/mai
 ## Table of Contents
 
 1. [Running the Project Locally](#running-the-project-locally)
-2. [Running Unit Tests](#running-unit-tests)
-3. [Running Code Quality Checks](#running-code-quality-checks)
-4. [Running End-to-End (E2E) Tests](#running-end-to-end-e2e-tests)
+2. [Running the txtai API Locally with Docker](#running-the-txtai-api-locally-with-docker)
+3. [Running Unit Tests](#running-unit-tests)
+4. [Running Code Quality Checks](#running-code-quality-checks)
+5. [Running End-to-End (E2E) Tests](#running-end-to-end-e2e-tests)
 
 ## Running the Project Locally
 
