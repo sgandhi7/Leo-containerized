@@ -14,12 +14,20 @@ import {
   PASSWORD_RULES,
   REQUIRED_FORM_FIELDS_RULES,
 } from '@src/utils/constants';
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
 
 export const SignIn = (): React.ReactElement => {
+  useEffect(() => {
+    // Applying on mount
+    document.body.style.overflow = 'hidden';
+    // Applying on unmount
+    return () => {
+      document.body.style.overflow = 'visible';
+    };
+  }, []);
   const navigate = useNavigate();
   const { signIn, error } = useAuth();
   const {
@@ -48,9 +56,9 @@ export const SignIn = (): React.ReactElement => {
   };
 
   return (
-    <div className="grid-container">
-      <div className="grid-row">
-        <div className="grid-col-5">
+    <div className="grid-container signin">
+      <div className="grid-row jc-center ai-center">
+        <div className="grid-col-5 signin-form">
           <h1>Sign In</h1>
           {error && (
             <Alert id="loginAlert" type="error" heading="Error">
@@ -66,7 +74,12 @@ export const SignIn = (): React.ReactElement => {
                 rules={REQUIRED_FORM_FIELDS_RULES}
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 render={({ field: { ref: _, ...field } }) => (
-                  <TextInput {...field} id="username" autoFocus />
+                  <TextInput
+                    {...field}
+                    id="username"
+                    placeholder="Username"
+                    autoFocus
+                  />
                 )}
               />
               {errors.username?.message && (
@@ -81,7 +94,12 @@ export const SignIn = (): React.ReactElement => {
                 rules={PASSWORD_RULES}
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 render={({ field: { ref: _, ...field } }) => (
-                  <TextInput {...field} id="password" type="password" />
+                  <TextInput
+                    {...field}
+                    id="password"
+                    placeholder="Password"
+                    type="password"
+                  />
                 )}
               />
               {errors.password?.message && (
