@@ -57,7 +57,7 @@ export const SignIn = (): React.ReactElement => {
 
   return (
     <div className="grid-container signin">
-      <div className="grid-row jc-center ai-center">
+      <div className="grid-row">
         <div className="grid-col-5 signin-form">
           <h1>Sign In</h1>
           {error && (

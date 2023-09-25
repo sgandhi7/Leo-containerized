@@ -6,7 +6,6 @@ $color-gray: #dfe1e2;
 $color-blue: #005ea2;
 $color-green: #00bb9d;
 $color-green-light: #00cfc8;
-
 h1 {
   color: $color-green-light;
 }
@@ -29,14 +28,26 @@ a:visited {
 
 .usa-section {
   padding-top: 0 !important;
+
+  h1 {
+    color: $color-primary;
+    margin-top: 2rem;
+  }
 }
 
 #mainSection {
   min-height: 800px;
-  background-image: url('/img/hero.jpg');
-
   .grid-container {
     max-width: 80rem;
+    &.signin {
+      background-image: url('/img/hero.jpg');
+      background-size: cover;
+      height: 100vh;
+      min-width: 100%;
+      h1 {
+        color: $color-green;
+      }
+    }
   }
 }
 
