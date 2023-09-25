@@ -55,16 +55,6 @@ a:visited {
   }
   .grid-container {
     max-width: 80rem;
-
-    &.signin {
-      background-image: url('/img/hero.jpg');
-      background-size: cover;
-      height: 100vh;
-      min-width: 100%;
-      h1 {
-        color: $color-green;
-      }
-    }
   }
 }
 
