@@ -7,6 +7,9 @@ $color-blue: #005ea2;
 $color-green: #00bb9d;
 $color-green-light: #00cfc8;
 
+body {
+  overflow: hidden !important;
+}
 h1 {
   color: $color-green-light;
 }
@@ -29,12 +32,27 @@ a:visited {
 
 .usa-section {
   padding-top: 0 !important;
+
+  h1 {
+    color: $color-primary;
+    margin-top: 2rem;
+  }
 }
 
 #mainSection {
   min-height: 800px;
-  background-image: url('/img/hero.jpg');
-
+  .signin {
+    background-image: url('/img/hero.jpg');
+    background-size: cover;
+    height: 100vh;
+    min-width: 100%;
+    h1 {
+      color: $color-green;
+    }
+    .usa-label {
+      color: $color-green-light;
+    }
+  }
   .grid-container {
     max-width: 80rem;
   }
@@ -84,8 +102,9 @@ a:visited {
 
 .chat-content {
   background-color: transparent;
-  height: 650px;
+  height: 85vh;
   overflow-y: auto;
+  padding-bottom: 3rem;
 }
 
 .chat-content-question {
@@ -112,10 +131,11 @@ a:visited {
 }
 
 .search-area {
+  background: $color-white;
   position: absolute;
   width: 100%;
   max-width: 80rem;
-  padding: 40px 20px 20px 0;
+  padding: 15px 20px 20px 0;
 }
 
 .search-area-home {

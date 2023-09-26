@@ -35,6 +35,12 @@ export const Investigation = (): React.ReactElement => {
             <div className="chat-content">
               {currentInvestigation?.prompts?.map((prompt: Prompt) => (
                 <div key={`chat-content-${prompt.id}`}>
+                  <div
+                    key={`chat-content-question-${prompt.id}`}
+                    className="chat-content-question"
+                  >
+                    {prompt.prompt}
+                  </div>
                   {loading ? (
                     <div
                       key={`chat-content-answer-loading`}
@@ -50,12 +56,6 @@ export const Investigation = (): React.ReactElement => {
                       {prompt.completion}
                     </div>
                   )}
-                  <div
-                    key={`chat-content-question-${prompt.id}`}
-                    className="chat-content-question"
-                  >
-                    {prompt.prompt}
-                  </div>
                 </div>
               ))}
             </div>
