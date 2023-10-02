@@ -1,6 +1,22 @@
-# config.yml
-writable: true
+# Allow documents to be indexed
+writable: True
 
+# Content is required for extractor pipeline
 embeddings:
-  path: sentence-transformers/nli-mpnet-base-v2
-  content: true
+  content: True
+
+extractor:
+  path: google/flan-t5-base
+
+workflow:
+  search:
+    tasks:
+      - task: extractor
+        template: |
+          Answer the following question using the provided context.
+
+          Question:
+          {text}
+
+          Context:
+        action: extractor
