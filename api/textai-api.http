@@ -1,5 +1,5 @@
 # Add
-POST http://0.0.0.0:8000/add
+POST https://ca-txtai-api.greensand-19f121e4.eastus.azurecontainerapps.io/add
 Content-Type: application/json
 
 [
@@ -9,13 +9,13 @@ Content-Type: application/json
 ]
 
 # Index
-GET http://0.0.0.0:8000/index
+GET https://ca-txtai-api.greensand-19f121e4.eastus.azurecontainerapps.io/index
 
 # Search
-GET http://0.0.0.0:8000/search?query=virus%20cases
+GET https://ca-txtai-api.greensand-19f121e4.eastus.azurecontainerapps.io/search?query=virus%20cases
 
 # Delete
-POST http://0.0.0.0:8000/delete
+POST https://ca-txtai-api.greensand-19f121e4.eastus.azurecontainerapps.io/delete
 Content-Type: application/json
 
 [1,2,3]
