@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 function DatasetCheck() {
   const [checkboxes, setCheckboxes] = useState({
@@ -8,7 +8,7 @@ function DatasetCheck() {
     checkbox4: false,
   });
 
-  const handleCheckboxChange = (event) => {
+  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
     setCheckboxes((prevCheckboxes) => ({
       ...prevCheckboxes,

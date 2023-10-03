@@ -8,7 +8,6 @@ import React, { SyntheticEvent, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { currentInvestigation as defaultInvestigation } from '../../store';
-import DataSelect from './dataset-check';
 
 export const Search = (): React.ReactElement => {
   const navigate = useNavigate();
@@ -111,7 +110,6 @@ export const Search = (): React.ReactElement => {
           Search
         </Button>
       </div>
-      <DataSelect />
     </div>
   );
 };
