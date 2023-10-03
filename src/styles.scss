@@ -1,4 +1,5 @@
 $color-primary: #381f59;
+$color-primary-gray: #edeaee;
 $color-secondary: #d83933;
 $color-white: #ffffff;
 $color-black: #000000;
@@ -7,103 +8,140 @@ $color-blue: #005ea2;
 $color-green: #00bb9d;
 $color-green-light: #00cfc8;
 
-h1 {
-  color: $color-green-light;
-}
+body {
+  overflow: hidden !important;
+  background-color: $color-primary-gray;
+  height: 100%;
 
-a {
-  color: $color-blue;
-}
-a:visited {
-  color: $color-primary;
-}
-
-.usa-header {
-  background-color: $color-primary;
-}
-
-.usa-menu-btn,
-.usa-menu-btn:hover {
-  background-color: $color-primary;
-}
-
-.usa-section {
-  padding-top: 0 !important;
-}
-
-#mainSection {
-  min-height: 800px;
-  background-image: url('/img/hero.jpg');
-
-  .grid-container {
-    max-width: 80rem;
+  h1 {
+    color: $color-green-light;
   }
-}
 
-.usa-nav-container {
-  max-width: unset;
-}
+  a {
+    color: $color-blue;
+  }
+  a:visited {
+    color: $color-primary;
+  }
 
-.usa-button {
-  color: $color-green-light;
-  background-color: $color-primary;
-  border: 2px solid $color-green-light;
-}
+  .usa-header {
+    background-color: $color-primary;
+  }
 
-.usa-button:hover {
-  color: rgba(0, 207, 200, 0.8);
-  background-color: $color-primary;
-  border: 2px solid $color-green-light;
-}
+  .usa-menu-btn,
+  .usa-menu-btn:hover {
+    background-color: $color-primary;
+  }
 
-.usa-button--outline {
-  background-color: $color-white;
-  box-shadow: unset;
-  color: $color-black;
-  border: 2px solid $color-blue;
-}
+  .usa-section {
+    padding-top: 0 !important;
 
-.usa-button--outline:hover {
-  color: $color-blue;
-  background-color: $color-white;
-  box-shadow: unset;
-  border: 2px solid $color-blue;
-}
+    h1 {
+      color: $color-primary;
+      margin-top: 2rem;
+      font-size: 3rem;
+    }
+  }
 
-.usa-input {
-  max-width: unset;
-}
+  #mainSection {
+    min-height: 800px;
+    .signin {
+      background-image: url('/img/hero.jpg');
+      background-size: cover;
+      height: 100vh;
+      min-width: 100%;
+      h1 {
+        color: $color-green;
+      }
+      .usa-label {
+        color: $color-green-light;
+      }
+    }
+    .grid-container {
+      max-width: 80rem;
+    }
+    .usa__logo-mark {
+      height: 40px;
+      background: #381f59;
+      border-radius: 20px;
+    }
+  }
 
-.usa-input:focus {
-  border-color: $color-primary;
-}
+  .usa-nav-container {
+    max-width: unset;
+  }
 
-.loading-text {
-  color: #005ea2;
-}
+  .usa-button {
+    color: $color-green-light;
+    background-color: $color-primary;
+    border: 2px solid $color-green-light;
+  }
 
-.chat-content {
-  background-color: transparent;
-  height: 650px;
-  overflow-y: auto;
-}
+  .usa-button:hover {
+    color: rgba(0, 207, 200, 0.8);
+    background-color: $color-primary;
+    border: 2px solid $color-green-light;
+  }
 
-.chat-content-question {
-  background-color: $color-white;
-  border: 1px solid $color-blue;
-  color: $color-black;
-  border-radius: 4px;
-  padding: 35px 20px;
-  margin: 10px 60px 10px 10px;
-}
+  .usa-button--outline {
+    background-color: $color-white;
+    box-shadow: unset;
+    color: $color-black;
+    border: 2px solid $color-blue;
+  }
 
-.chat-content-answer {
-  background-color: $color-green;
-  border: 1px solid $color-black;
-  color: $color-black;
-  border-radius: 4px;
-  padding: 35px 20px;
-  margin: 10px 10px 10px 60px;
+  .usa-button--outline:hover {
+    color: $color-blue;
+    background-color: $color-white;
+    box-shadow: unset;
+    border: 2px solid $color-blue;
+  }
+
+  .usa-input {
+    max-width: unset;
+  }
+
+  .usa-input:focus {
+    border-color: $color-primary;
+  }
+
+  .loading-text {
+    color: #005ea2;
+  }
+
+  .chat-content {
+    background-color: transparent;
+    height: 82vh;
+    overflow-y: auto;
+    padding-bottom: 3rem;
+    flex-direction: column-reverse;
+    display: flex;
+  }
+
+  .chat-content-question {
+    background-color: #381f59;
+    /* border: 1px solid #005ea2; */
+    border-top-right-radius: 10px;
+    color: #ffffff;
+    border-radius: 4px;
+    /* font-weight: bold; */
+    padding: 0.55rem;
+    margin: 2rem 0;
+    align-self: flex-end;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+  .chat-content-answer {
+    background-color: $color-white;
+    border: 1px solid $color-gray;
+    color: $color-black;
+    border-radius: 4px;
+    padding: 35px 20px;
+    line-height: 1.75rem;
+    white-space: pre-wrap;
+  }
 }
 
 .chat-content-suggestion {
@@ -112,18 +150,38 @@ a:visited {
 }
 
 .search-area {
+  /* background: $color-white; */
   position: absolute;
   width: 100%;
   max-width: 80rem;
-  padding: 40px 20px 20px 0;
+  padding: 15px 20px 20px 0;
 }
 
 .search-area-home {
-  top: 250px;
+  top: 260px;
 }
 
 .search-area-investigation {
-  bottom: 20px;
+  bottom: 42px;
+}
+
+.dataset-select {
+  display: flex;
+  position: relative;
+  top: 75px;
+  justify-content: center;
+
+  label {
+    font-size: 1rem;
+    padding: 1rem;
+
+    input[type='checkbox'] {
+      margin: 0 0.5rem;
+      line-height: normal;
+      width: 20px;
+      height: 20px;
+    }
+  }
 }
 
 table.data-table thead th {
