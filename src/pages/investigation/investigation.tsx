@@ -8,10 +8,11 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { currentInvestigation as defaultInvestigation } from '../../store';
-
+import logomark from '/img/logo-mark.svg';
 export const Investigation = (): React.ReactElement => {
   const { id } = useParams();
   const { getItem, item, loading } = useApi();
+
   const [currentInvestigation, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
 
@@ -34,12 +35,14 @@ export const Investigation = (): React.ReactElement => {
           <div className="grid-col">
             <div className="chat-content">
               {currentInvestigation?.prompts?.map((prompt: Prompt) => (
-                <div key={`chat-content-${prompt.id}`}>
-                  <div
-                    key={`chat-content-question-${prompt.id}`}
-                    className="chat-content-question"
-                  >
-                    {prompt.prompt}
+                <div key={`chat-content-${prompt.id + Math.random()}`}>
+                  <div className="grid-row flex-column">
+                    <div
+                      key={`chat-content-question-${prompt.id}`}
+                      className="chat-content-question grid-col-3"
+                    >
+                      {prompt.prompt}
+                    </div>
                   </div>
                   {loading ? (
                     <div
@@ -51,9 +54,18 @@ export const Investigation = (): React.ReactElement => {
                   ) : (
                     <div
                       key={`chat-content-answer-${prompt.id}`}
-                      className="chat-content-answer"
+                      className="chat-content-answer grid-col-9"
                     >
-                      {prompt.completion}
+                      <div className="grid-row">
+                        <div className="grid-col-1">
+                          <img
+                            className="usa__logo-mark"
+                            src={logomark}
+                            alt="Horizon Hunt Logo"
+                          />
+                        </div>
+                        <div className="grid-col-10">{prompt.completion}</div>
+                      </div>
                     </div>
                   )}
                 </div>
