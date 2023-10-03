@@ -21,7 +21,12 @@ export const Home = (): React.ReactElement => {
               className="width-100 padding-top-6"
               style={{ textAlign: 'center' }}
             >
-              <h1>What would you like to Investigate?</h1>
+              <h1 className="margin-bottom-1">
+                What would you like to Investigate?
+              </h1>
+              <p className="margin-top-1">
+                Perform a search on one dataset or multiple datasets.
+              </p>
             </div>
           </div>
         </div>
