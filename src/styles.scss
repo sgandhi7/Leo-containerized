@@ -203,32 +203,71 @@ table.data-table tbody tr:hover {
 }
 
 @media (min-width: 80em) {
-  .usa-logo a,
-  .usa-nav__primary > .usa-nav__primary-item > a,
-  .usa-nav__primary > .usa-nav__primary-item > a:hover {
-    color: $color-green-light;
-  }
-  .usa-header--basic .usa-nav__link:hover::after,
-  .usa-header--basic .usa-nav__primary-item > .usa-current::after {
-    background-color: $color-green-light;
-  }
-  .usa-logo {
-    margin-top: 1rem;
+  .usa-header {
+    .usa-logo {
+      margin-top: 1rem;
+    }
+    .usa-logo a,
+    .usa-nav__primary > .usa-nav__primary-item > a,
+    .usa-nav__primary > .usa-nav__primary-item > a:hover {
+      color: $color-green-light;
+    }
+
+    .usa-header__logo-img {
+      height: 60px;
+    }
   }
 
-  .usa-header--basic .usa-navbar {
+  #headerSection.usa-header--basic .usa-nav__link:hover::after,
+  #headerSection.usa-header--basic
+    .usa-nav__primary-item
+    > .usa-current::after {
+    background-color: $color-green-light;
+  }
+
+  #headerSection.usa-header--basic .usa-navbar {
     width: 15%;
   }
 
-  .usa-header + .usa-section,
-  .usa-header + main {
+  #headerSection.usa-header + .usa-section,
+  #headerSection.usa-header + main {
     border-top: unset;
   }
 }
 
+@media (min-width: 60em) {
+  .usa-header {
+    .usa-logo {
+      margin-top: 1rem;
+    }
+    .usa-logo a,
+    .usa-nav__primary > .usa-nav__primary-item > a,
+    .usa-nav__primary > .usa-nav__primary-item > a:hover {
+      color: $color-green-light;
+    }
+
+    .usa-header__logo-img {
+      height: 60px;
+    }
+
+    .usa-header__logo-img {
+      height: 60px;
+    }
+  }
+
+  #headerSection.usa-header--basic .usa-nav__link:hover::after,
+  #headerSection.usa-header--basic
+    .usa-nav__primary-item
+    > .usa-current::after {
+    background-color: $color-green-light;
+  }
+}
+
 @media (max-width: 80em) {
-  .usa-header__logo-img {
-    height: 40px;
+  .usa-header {
+    .usa-header__logo-img {
+      height: 30px;
+    }
   }
 
   .usa-header + .usa-section,
