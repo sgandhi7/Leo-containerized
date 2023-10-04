@@ -53,7 +53,7 @@ export const Header = (): React.ReactElement => {
         Skip to main content
       </a>
       <div className="usa-overlay"></div>
-      <header className="usa-header usa-header--basic">
+      <header id="headerSection" className="usa-header usa-header--basic">
         <div className="usa-nav-container">
           <div className="usa-navbar">
             <div className="usa-logo" id="-logo">
