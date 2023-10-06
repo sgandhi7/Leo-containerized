@@ -113,7 +113,7 @@ export const Search = (): React.ReactElement => {
           Search
         </Button>
       </div>
-      <DatasetCheck />
+      {home ? <DatasetCheck /> : null}
       {home ? <SuggestData /> : null}
     </div>
   );
