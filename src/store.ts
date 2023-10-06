@@ -17,4 +17,9 @@ const currentInvestigation = atom<Investigation>({
   default: {},
 });
 
-export { currentInvestigation, currentUser, signedIn };
+const searching = atom({
+  key: 'searching',
+  default: false,
+});
+
+export { currentInvestigation, currentUser, searching, signedIn };

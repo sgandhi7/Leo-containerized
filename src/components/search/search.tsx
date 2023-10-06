@@ -9,7 +9,10 @@ import {
 import React, { SyntheticEvent, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { currentInvestigation as defaultInvestigation } from '../../store';
+import {
+  currentInvestigation as defaultInvestigation,
+  searching,
+} from '../../store';
 
 export const Search = (): React.ReactElement => {
   const navigate = useNavigate();
@@ -18,6 +21,7 @@ export const Search = (): React.ReactElement => {
   const [query, setQuery] = useState('');
   const [currentInvestigation, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
+  const [isSearching, setIsSearching] = useRecoilState<boolean>(searching);
   const home = location.pathname === '/';
   const updateFocus = () => {
     const input = document.querySelector('input');
@@ -27,6 +31,7 @@ export const Search = (): React.ReactElement => {
   };
 
   const submitSearch = async () => {
+    setIsSearching(true);
     if (location.pathname === '/') {
       navigate('/investigations');
     }
@@ -57,6 +62,7 @@ export const Search = (): React.ReactElement => {
 
         newData[0] = newPrompt;
         updateCurrentInvestigation(newData);
+        setIsSearching(false);
       }
     });
 
@@ -108,7 +114,7 @@ export const Search = (): React.ReactElement => {
           id="search-btn"
           onClick={handleSearch}
           style={{ marginTop: '7px' }}
-          disabled={loading}
+          disabled={loading || isSearching}
         >
           Search
         </Button>
