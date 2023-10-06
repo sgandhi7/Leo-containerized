@@ -88,7 +88,7 @@ export const Search = (): React.ReactElement => {
   };
 
   return (
-    <div className="grid-container position-relative bottom-1">
+    <div className="grid-container position-relative bottom-2">
       <div
         className={`display-flex flex-justify-center search-area ${
           location.pathname === '/'
@@ -119,7 +119,7 @@ export const Search = (): React.ReactElement => {
           Search
         </Button>
       </div>
-      <DatasetCheck />
+      {home ? <DatasetCheck /> : null}
       {home ? <SuggestData /> : null}
     </div>
   );
