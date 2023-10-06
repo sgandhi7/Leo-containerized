@@ -1,6 +1,6 @@
 import { Button, TextInput } from '@metrostar/comet-uswds';
-import DatasetCheck from '@src/components/search/DatasetCheck';
-import SuggestData from '@src/components/search/SuggestData';
+import DatasetCheck from '@src/components/search/dataset-check';
+import SuggestData from '@src/components/search/suggest-data';
 import useApi from '@src/hooks/use-api';
 import {
   Investigation as InvestigationState,
@@ -14,7 +14,7 @@ import { currentInvestigation as defaultInvestigation } from '../../store';
 export const Search = (): React.ReactElement => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { search } = useApi();
+  const { search, loading } = useApi();
   const [query, setQuery] = useState('');
   const [currentInvestigation, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
@@ -108,6 +108,7 @@ export const Search = (): React.ReactElement => {
           id="search-btn"
           onClick={handleSearch}
           style={{ marginTop: '7px' }}
+          disabled={loading}
         >
           Search
         </Button>
