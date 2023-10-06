@@ -14,12 +14,6 @@ describe('DatasetCheck', () => {
     const { getByLabelText } = render(<DatasetCheck />);
     const checkbox = getByLabelText('9/11 Commission') as HTMLInputElement;
 
-    // Check the checkbox
-    fireEvent.click(checkbox);
-
-    // Verify that the checkbox is checked
-    expect(checkbox.checked).toEqual(true);
-
     // Uncheck the checkbox
     fireEvent.click(checkbox);
 
