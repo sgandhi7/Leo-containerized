@@ -39,7 +39,7 @@ body {
     h1 {
       color: $color-primary;
       margin-top: 2rem;
-      font-size: 3rem;
+      font-size: 3.5rem;
     }
   }
 
@@ -57,6 +57,21 @@ body {
         color: $color-green-light;
       }
     }
+
+    h2 {
+      font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Roboto, Arial,
+        sans-serif;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+    p {
+      font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Roboto, Arial,
+        sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.2;
+    }
     .grid-container {
       max-width: 80rem;
     }
@@ -64,6 +79,9 @@ body {
       height: 40px;
       background: #381f59;
       border-radius: 20px;
+    }
+    .bottom-1 {
+      bottom: 1rem;
     }
   }
 
@@ -120,12 +138,10 @@ body {
 
   .chat-content-question {
     background-color: #381f59;
-    /* border: 1px solid #005ea2; */
     border-top-right-radius: 10px;
     color: #ffffff;
     border-radius: 4px;
-    /* font-weight: bold; */
-    padding: 0.55rem;
+    padding: 0.55rem 0.55rem 0.55rem 1rem;
     margin: 2rem 0;
     align-self: flex-end;
     border-top-left-radius: 20px;
@@ -142,27 +158,30 @@ body {
     line-height: 1.75rem;
     white-space: pre-wrap;
   }
+
+  .datasets {
+    p {
+      margin-top: 0.813rem; /* 13px */
+    }
+  }
+  .usa-checkbox {
+    background-color: transparent;
+  }
+  .flex-direction-column {
+    flex-direction: column;
+  }
+  .align-items-center {
+    align-items: center;
+  }
+  .hr-suggest {
+    width: 60%;
+    margin: 3rem 0;
+  }
 }
 
 .chat-content-suggestion {
   padding-top: 10px;
   font-weight: 600;
-}
-
-.search-area {
-  /* background: $color-white; */
-  position: absolute;
-  width: 100%;
-  max-width: 80rem;
-  padding: 15px 20px 20px 0;
-}
-
-.search-area-home {
-  top: 260px;
-}
-
-.search-area-investigation {
-  bottom: 42px;
 }
 
 .dataset-select {
@@ -182,6 +201,21 @@ body {
       height: 20px;
     }
   }
+}
+
+.usa-checkbox__input:checked + [class*='__label']::before {
+  background-color: #381f59;
+  box-shadow: 0 0 0 2px #381f59;
+}
+
+.usa-checkbox__input:checked + [class*='__label']::before,
+.usa-checkbox__input:checked:disabled + [class*='__label']::before,
+.usa-checkbox__input:checked[aria-disabled='true']
+  + [class*='__label']::before {
+  background-image: url(../public/img/usa-icons/correct8.eac85396.svg),
+    linear-gradient(transparent, transparent);
+  background-repeat: no-repeat;
+  filter: brightness(0.5) sepia(1) hue-rotate(140deg) saturate(6);
 }
 
 table.data-table thead th {

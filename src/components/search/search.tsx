@@ -1,4 +1,6 @@
 import { Button, TextInput } from '@metrostar/comet-uswds';
+import DatasetCheck from '@src/components/search/DatasetCheck';
+import SuggestData from '@src/components/search/SuggestData';
 import useApi from '@src/hooks/use-api';
 import {
   Investigation as InvestigationState,
@@ -16,7 +18,7 @@ export const Search = (): React.ReactElement => {
   const [query, setQuery] = useState('');
   const [currentInvestigation, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
-
+  const home = location.pathname === '/';
   const updateFocus = () => {
     const input = document.querySelector('input');
     if (input) {
@@ -80,7 +82,7 @@ export const Search = (): React.ReactElement => {
   };
 
   return (
-    <div className="grid-container">
+    <div className="grid-container position-relative bottom-1">
       <div
         className={`display-flex flex-justify-center search-area ${
           location.pathname === '/'
@@ -110,6 +112,8 @@ export const Search = (): React.ReactElement => {
           Search
         </Button>
       </div>
+      <DatasetCheck />
+      {home ? <SuggestData /> : null}
     </div>
   );
 };
