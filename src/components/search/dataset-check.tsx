@@ -5,7 +5,6 @@ export default function DatasetCheck() {
     checkbox1: true,
     checkbox2: false,
   });
-  console.log('checkbox', checkbox);
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
     setCheckboxes((prevCheckboxes) => ({

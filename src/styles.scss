@@ -80,8 +80,11 @@ body {
       background: #381f59;
       border-radius: 20px;
     }
-    .bottom-1 {
-      bottom: 1rem;
+    #search {
+      .bottom-space {
+        position: relative;
+        bottom: 1.5rem;
+      }
     }
   }
 
