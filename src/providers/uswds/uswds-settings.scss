@@ -1,6 +1,9 @@
-// node_modules\@uswds\uswds\packages\uswds-core
+/*
+  Additional design token settings can be found here: https://designsystem.digital.gov/documentation/settings/.
+*/
 @use 'uswds-core' with (
   $theme-show-notifications: false,
-  $theme-font-path: 'node_modules/@uswds/uswds/dist/fonts/',
-  $theme-image-path: 'node_modules/@uswds/uswds/dist/img/'
+  $theme-font-path: '~uswds/dist/fonts',
+  $theme-image-path: '~uswds/dist/img',
+  $theme-focus-color: 'violet-80v'
 );
