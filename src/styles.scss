@@ -1,3 +1,5 @@
+@forward 'providers/uswds/uswds.scss';
+
 $color-primary: #381f59;
 $color-primary-gray: #edeaee;
 $color-secondary: #d83933;
@@ -209,7 +211,7 @@ body {
 .usa-checkbox__input:checked:disabled + [class*='__label']::before,
 .usa-checkbox__input:checked[aria-disabled='true']
   + [class*='__label']::before {
-  background-image: url(../public/img/usa-icons/correct8.eac85396.svg),
+  background-image: url(/img/usa-icons/correct8.eac85396.svg),
     linear-gradient(transparent, transparent);
   background-repeat: no-repeat;
   filter: brightness(0.5) sepia(1) hue-rotate(140deg) saturate(6);
