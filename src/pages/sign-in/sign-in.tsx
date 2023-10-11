@@ -51,7 +51,7 @@ export const SignIn = (): React.ReactElement => {
     <div className="signin">
       <div className="grid-container">
         <div className="grid-row">
-          <div className="grid-col-5 signin-form">
+          <div className="tablet:grid-col-5 signin-form">
             <h1>Sign In</h1>
             {error && (
               <Alert id="loginAlert" type="error" heading="Error">
