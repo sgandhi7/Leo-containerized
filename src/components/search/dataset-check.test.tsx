@@ -1,5 +1,4 @@
 // Checkbox.test.js
-import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render } from '@testing-library/react';
 import DatasetCheck from './dataset-check';
 
@@ -7,7 +6,7 @@ describe('DatasetCheck', () => {
   test('renders without crashing', () => {
     const { getByLabelText } = render(<DatasetCheck />);
     const checkbox = getByLabelText('9/11 Commission');
-    expect(checkbox).toBeInTheDocument();
+    expect(checkbox).toBeTruthy();
   });
 
   test('handles checkbox change correctly', () => {
