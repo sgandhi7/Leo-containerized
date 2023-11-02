@@ -3,11 +3,13 @@ import navigation from '@uswds/uswds/js/usa-header';
 import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
+import ProfileAvatar from '../profile-avatar/profile-avatar';
 import logo from '/img/logo.svg';
 
 export const Header = (): React.ReactElement => {
   const [showMenu, setShowMenu] = useState(false);
-
+  const [showDropdown, setShowDropdown] = useState(false);
+  const size: string = '59';
   const navigate = useNavigate();
   const location = useLocation();
   const { isSignedIn, signOut } = useAuth();
@@ -15,6 +17,11 @@ export const Header = (): React.ReactElement => {
   const handleMenuClick = (): void => {
     window.scrollTo({ top: 0 });
     setShowMenu(!showMenu);
+  };
+
+  // Togle dropdown menu
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
   };
 
   // Ensure navigation JS is loaded
@@ -41,6 +48,7 @@ export const Header = (): React.ReactElement => {
     event.preventDefault();
     if (isSignedIn) {
       signOut();
+      toggleDropdown();
       navigate('/');
     } else {
       navigate('/signin');
@@ -102,17 +110,68 @@ export const Header = (): React.ReactElement => {
                   History
                 </NavLink>
               </li>
-              <li className="usa-nav__primary-item">
-                <Link
-                  id="auth-link"
-                  to="/signin"
-                  className={`usa-nav__link ${
-                    location.pathname === '/signin' ? 'usa-current' : ''
-                  }`}
-                  onClick={handleAuth}
-                >
-                  {isSignedIn ? 'Sign Out' : 'Sign In'}
-                </Link>
+              <li className="usa-nav__primary-item min-w">
+                {isSignedIn ? (
+                  <div
+                    onMouseEnter={toggleDropdown}
+                    onMouseLeave={toggleDropdown}
+                  >
+                    <ProfileAvatar
+                      src="../../../public/img/avatar_mercury.png"
+                      round="50%"
+                      style={{
+                        paddingBottom: '10px',
+                      }}
+                      size={size}
+                    />
+                    {showDropdown && (
+                      <div className="dropdown">
+                        <ul
+                          id="extended-nav-section-two"
+                          className="usa-nav__submenu"
+                        >
+                          <li className="usa-nav__submenu-item">
+                            <NavLink
+                              to="/account"
+                              onClick={toggleDropdown}
+                              className={`usa-nav__link ${
+                                location.pathname === '/account'
+                                  ? 'usa-current'
+                                  : ''
+                              }`}
+                            >
+                              <span>Account</span>
+                            </NavLink>
+                          </li>
+                          <li className="usa-nav__submenu-item">
+                            <a
+                              href="javascript:void(0);"
+                              className={`usa-nav__link ${
+                                location.pathname === '/signin'
+                                  ? 'usa-current'
+                                  : ''
+                              }`}
+                              onClick={handleAuth}
+                            >
+                              <span>Sign out</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    id="auth-link"
+                    to="/signin"
+                    className={`usa-nav__link ${
+                      location.pathname === '/signin' ? 'usa-current' : ''
+                    }`}
+                    onClick={handleAuth}
+                  >
+                    Sign In
+                  </Link>
+                )}
               </li>
             </ul>
           </nav>
