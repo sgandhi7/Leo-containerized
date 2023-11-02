@@ -5,17 +5,12 @@ interface ProfileAvatarProps {
   size: string;
   style: React.CSSProperties;
 }
-function ProfileAvatar(props: ProfileAvatarProps) {
-  console.log('PROPS:, ', props);
-  const image = props.src;
-  return (
-    <Avatar
-      src={image}
-      round={props.round}
-      size={props.size}
-      style={props.style}
-    />
-  );
-}
-
-export default ProfileAvatar;
+export const ProfileAvatar = ({
+  src,
+  round,
+  size,
+  style,
+}: ProfileAvatarProps) => {
+  const image = src;
+  return <Avatar src={image} round={round} size={size} style={style} />;
+};

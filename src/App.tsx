@@ -20,7 +20,7 @@ export const App = (): React.ReactElement => (
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Home />} />
             <Route path="/history" element={<History />} />
-            <Route path="/Account" element={<Account />} />
+            <Route path="/account" element={<Account />} />
             <Route path="/collaborate" element={<Collaborate />} />
             <Route path="/investigations" element={<Investigation />} />
             <Route path="/investigations/:id" element={<Investigation />} />
