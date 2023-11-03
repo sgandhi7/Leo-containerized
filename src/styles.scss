@@ -33,6 +33,7 @@ body {
   .usa-menu-btn,
   .usa-menu-btn:hover {
     background-color: $color-primary;
+    height: 2.95rem;
   }
 
   .usa-section {
@@ -87,7 +88,7 @@ body {
   /* Custom styles */
   .sb-avatar.sb-avatar--src {
     position: absolute;
-    top: -11px;
+    top: -4px;
     left: 1%;
   }
 
@@ -106,6 +107,15 @@ body {
       .usa-nav__primary-item
       > .usa-current::after {
       background-color: none !important;
+    }
+    .usa-nav__submenu {
+      background: #381f59;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+    ul#extended-nav-section-two li.usa-nav__submenu-item a.usa-nav__link {
+      padding: 1rem;
+      padding-left: 1.5rem;
     }
   }
 
@@ -300,7 +310,7 @@ table.data-table tbody tr:hover {
   }
 }
 
-@media (min-width: 60em) {
+@media (min-width: 64em) {
   .usa-header {
     .usa-logo {
       margin-top: 1rem;
@@ -335,13 +345,60 @@ table.data-table tbody tr:hover {
   }
 }
 
-@media (max-width: 80em) {
+/* Mobile */
+@media (max-width: 63.9375em) {
   .usa-header {
     .usa-header__logo-img {
       height: 30px;
     }
   }
+  .usa-nav__primary a:not(.usa-button):not(.usa-current) {
+    color: $color-primary;
+  }
 
+  body .sb-avatar.sb-avatar--src {
+    position: absolute;
+    top: 176px;
+    left: 11%;
+  }
+  body .dropdown {
+    position: absolute;
+    top: 229px;
+    left: 20px;
+    display: block;
+    width: 200px;
+
+    .usa-nav__submenu {
+      background: transparent;
+      li.usa-nav__submenu-item {
+        border-top: 1px solid $color-gray;
+        border-bottom: 1px solid $color-gray;
+      }
+      li.usa-nav__submenu-item:nth-child(2) {
+        border-top: none;
+        border-bottom: 1px solid $color-gray;
+      }
+
+      .usa-nav__primary a:not(.usa-button):not(.usa-current) {
+        color: $color-primary;
+      }
+      .usa-nav__primary .usa-current {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .usa-nav__primary .usa-current {
+    position: relative;
+    color: $color-primary;
+    font-weight: 700;
+  }
+
+  .usa-nav__primary .usa-current {
+    position: relative;
+    color: $color-primary;
+    font-weight: 700;
+  }
   .usa-header + .usa-section,
   .usa-header + main {
     border-top: unset;

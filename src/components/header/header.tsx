@@ -3,13 +3,13 @@ import navigation from '@uswds/uswds/js/usa-header';
 import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
-import ProfileAvatar from '../profile-avatar/profile-avatar';
+import { ProfileAvatar } from '../profile-avatar/profile-avatar';
 import logo from '/img/logo.svg';
 
 export const Header = (): React.ReactElement => {
   const [showMenu, setShowMenu] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const size: string = '59';
+  const size: string = '50';
   const navigate = useNavigate();
   const location = useLocation();
   const { isSignedIn, signOut } = useAuth();
@@ -17,13 +17,24 @@ export const Header = (): React.ReactElement => {
   const handleMenuClick = (): void => {
     window.scrollTo({ top: 0 });
     setShowMenu(!showMenu);
-  };
-
-  // Togle dropdown menu
-  const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
 
+  // Togle dropdown menu
+  const handleDropdownClick = () => {
+    setShowDropdown(!showDropdown);
+  };
+  useEffect(() => {
+    const handleClickAway = (event: MouseEvent) => {
+      if (!(event.target as HTMLInputElement).closest('.dropdown')) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickAway);
+    return () => {
+      document.removeEventListener('mousedown', handleClickAway);
+    };
+  }, []);
   // Ensure navigation JS is loaded
   useEffect(() => {
     const bodyElement = document.body;
@@ -38,17 +49,19 @@ export const Header = (): React.ReactElement => {
   useEffect(() => {
     const ref = document.body.style;
     showMenu ? (ref.overflow = 'hidden') : (ref.overflow = 'visible');
-  }, [showMenu]);
+    showDropdown ? (ref.overflow = 'hidden') : (ref.overflow = 'visible');
+  }, [showMenu, showDropdown]);
 
   useEffect(() => {
     setShowMenu(false);
+    setShowDropdown(false);
   }, [location]);
 
   const handleAuth = (event: SyntheticEvent): void => {
     event.preventDefault();
     if (isSignedIn) {
       signOut();
-      toggleDropdown();
+      handleDropdownClick();
       navigate('/');
     } else {
       navigate('/signin');
@@ -112,12 +125,9 @@ export const Header = (): React.ReactElement => {
               </li>
               <li className="usa-nav__primary-item min-w">
                 {isSignedIn ? (
-                  <div
-                    onMouseEnter={toggleDropdown}
-                    onMouseLeave={toggleDropdown}
-                  >
+                  <div onClick={handleDropdownClick}>
                     <ProfileAvatar
-                      src="../../../public/img/avatar_mercury.png"
+                      src="/img/avatar_mercury.png"
                       round="50%"
                       style={{
                         paddingBottom: '10px',
@@ -133,7 +143,7 @@ export const Header = (): React.ReactElement => {
                           <li className="usa-nav__submenu-item">
                             <NavLink
                               to="/account"
-                              onClick={toggleDropdown}
+                              onClick={handleDropdownClick}
                               className={`usa-nav__link ${
                                 location.pathname === '/account'
                                   ? 'usa-current'
