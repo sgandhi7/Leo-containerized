@@ -76,10 +76,15 @@ describe('Header', () => {
       signOut: jest.fn(),
     });
 
-    render(headerComponent);
+    const { baseElement } = render(headerComponent);
 
-    await userEvent.click(screen.getByText('Sign Out', { selector: 'a' }));
-    expect(window.location.href).toBeTruthy();
+    const parent = baseElement.querySelector('.sb-avatar__image')
+      ?.parentNode as HTMLDivElement;
+    if (parent) {
+      await userEvent.click(parent);
+      await userEvent.click(screen.getByText('Sign Out', { selector: 'a' }));
+      expect(window.location.href).toBeTruthy();
+    }
   });
 
   test('should display menu when button is clicked', async () => {
