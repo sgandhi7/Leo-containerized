@@ -11,9 +11,9 @@ describe('ProfileAvatar', () => {
       style: { color: 'red' },
     };
 
-    render(<ProfileAvatar {...props} />);
+    render(<ProfileAvatar role={''} {...props} />);
 
-    const avatar = screen.getByRole('img', { name: 'Profile Avatar' });
+    const avatar = screen.getByAltText('Profile avatar');
     expect(avatar).toHaveAttribute('src', props.src);
     expect(avatar).toHaveAttribute('round', props.round);
     expect(avatar).toHaveAttribute('size', props.size);

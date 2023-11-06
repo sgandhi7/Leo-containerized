@@ -4,6 +4,7 @@ interface ProfileAvatarProps {
   round: string;
   size: string;
   style: React.CSSProperties;
+  role: string;
 }
 export const ProfileAvatar = ({
   src,
@@ -18,7 +19,7 @@ export const ProfileAvatar = ({
       round={round}
       size={size}
       style={style}
-      aira-label="An avatar image"
+      alt="Profile avatar"
     />
   );
 };
