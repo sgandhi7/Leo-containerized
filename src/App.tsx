@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router';
 import { RecoilRoot } from 'recoil';
 import { Header } from './components/header/header';
 import { ProtectedRoute } from './components/protected-route/protected-route';
+import { Account } from './pages/account/account';
 import { Collaborate } from './pages/collaborate/collaborate';
 import { History } from './pages/history/history';
 import { Home } from './pages/home/home';
@@ -19,6 +20,7 @@ export const App = (): React.ReactElement => (
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Home />} />
             <Route path="/history" element={<History />} />
+            <Route path="/account" element={<Account />} />
             <Route path="/collaborate" element={<Collaborate />} />
             <Route path="/investigations" element={<Investigation />} />
             <Route path="/investigations/:id" element={<Investigation />} />
