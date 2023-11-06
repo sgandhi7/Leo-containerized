@@ -18,7 +18,7 @@ const useApi = () => {
         resolve(completionData);
         setLoading(false);
       } else {
-        const url = `/search-and-extract`;
+        const url = `/wiki-search`;
         const queryParams = {
           query,
         };
