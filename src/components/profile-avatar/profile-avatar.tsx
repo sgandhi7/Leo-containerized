@@ -12,5 +12,13 @@ export const ProfileAvatar = ({
   style,
 }: ProfileAvatarProps) => {
   const image = src;
-  return <Avatar src={image} round={round} size={size} style={style} />;
+  return (
+    <Avatar
+      src={image}
+      round={round}
+      size={size}
+      style={style}
+      aira-label="An avatar image"
+    />
+  );
 };
