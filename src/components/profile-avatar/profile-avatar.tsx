@@ -4,7 +4,6 @@ interface ProfileAvatarProps {
   round: string;
   size: string;
   style: React.CSSProperties;
-  role: string;
 }
 export const ProfileAvatar = ({
   src,
