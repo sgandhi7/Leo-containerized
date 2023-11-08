@@ -105,7 +105,7 @@ export const Search = (): React.ReactElement => {
           value={query}
           onChange={handleOnChange}
           onKeyUp={(event) => {
-            if (event.key === 'Enter') {
+            if (event.key === 'Enter' && query.trim() !== '') {
               submitSearch();
             }
           }}
