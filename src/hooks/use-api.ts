@@ -11,7 +11,10 @@ const useApi = () => {
   const [completions, setCompletions] = useState<Completion[]>();
   const [error, setError] = useState<string | null>(null);
 
-  const search = async (query: string): Promise<Completion[]> => {
+  const search = async (
+    query: string,
+    dataSet: string,
+  ): Promise<Completion[]> => {
     return await new Promise((resolve, reject) => {
       setLoading(true);
       if (isMocked()) {
@@ -21,6 +24,7 @@ const useApi = () => {
         const url = `/wiki-search`;
         const queryParams = {
           query,
+          search_database: dataSet,
         };
         axios
           .get(url, {

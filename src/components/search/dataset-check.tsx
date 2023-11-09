@@ -1,10 +1,14 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { currentDataset as defaultDataset } from '../../store';
 
 export default function DatasetCheck() {
   const [checkbox, setCheckboxes] = useState({
     checkbox1: true,
     checkbox2: false,
   });
+  const [, setCurrentDataset] = useRecoilState<string>(defaultDataset);
+
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
     setCheckboxes((prevCheckboxes) => ({
@@ -12,6 +16,17 @@ export default function DatasetCheck() {
       [name]: checked,
     }));
   };
+
+  useEffect(() => {
+    const datasets = new Set<string>();
+    if (checkbox.checkbox1) {
+      datasets.add('document');
+    }
+    if (checkbox.checkbox2) {
+      datasets.add('gdelt');
+    }
+    setCurrentDataset(datasets.size > 0 ? [...datasets].join(',') : '');
+  }, [checkbox, setCurrentDataset]);
 
   return (
     <div

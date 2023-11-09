@@ -10,6 +10,7 @@ import React, { SyntheticEvent, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import {
+  currentDataset as defaultDataset,
   currentInvestigation as defaultInvestigation,
   searching,
 } from '../../store';
@@ -22,6 +23,7 @@ export const Search = (): React.ReactElement => {
   const [currentInvestigation, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [isSearching, setIsSearching] = useRecoilState<boolean>(searching);
+  const [currentDataset] = useRecoilState<string>(defaultDataset);
   const home = location.pathname === '/';
   const updateFocus = () => {
     const input = document.querySelector('input');
@@ -50,7 +52,7 @@ export const Search = (): React.ReactElement => {
     };
 
     newData.unshift(newPrompt);
-    await search(queryCopy).then((response) => {
+    await search(queryCopy, currentDataset).then((response) => {
       if (response?.length > 0) {
         const completion = response[0];
         newPrompt = {
