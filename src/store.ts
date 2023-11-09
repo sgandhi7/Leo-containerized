@@ -22,4 +22,15 @@ const searching = atom({
   default: false,
 });
 
-export { currentInvestigation, currentUser, searching, signedIn };
+const currentDataset = atom({
+  key: 'currentDataset',
+  default: 'document',
+});
+
+export {
+  currentDataset,
+  currentInvestigation,
+  currentUser,
+  searching,
+  signedIn,
+};
