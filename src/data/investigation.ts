@@ -110,28 +110,26 @@ export const investigationData: Investigation[] = [
 
 export const completionData: Completion[] = [
   {
-    id: '1',
-    text: 'John Doe is a very common name, can you narrow it down further? It might help if you provide a more specific request.',
-    score: 0.99,
+    completion:
+      'John Doe is a very common name, can you narrow it down further? It might help if you provide a more specific request.',
+    sources: [],
   },
   {
-    id: '2',
-    text: 'Fortunately, there is only 1 John Doe from New York. He lives on Fifth Avenue, right next to the Central Park, and very close to the hot dog stand at 15th street. Would you like to know more about the address or the park?',
-    score: 0.99,
+    completion:
+      'Fortunately, there is only 1 John Doe from New York. He lives on Fifth Avenue, right next to the Central Park, and very close to the hot dog stand at 15th street. Would you like to know more about the address or the park?',
+    sources: [],
   },
   {
-    id: '3',
-    text: 'The address is 12345 Fifth Avenue, New York, NY 20000. This address has been on file for 15 years.',
-    score: 0.99,
+    completion:
+      'The address is 12345 Fifth Avenue, New York, NY 20000. This address has been on file for 15 years.',
+    sources: [],
   },
   {
-    id: '4',
-    text: 'I do not have any more information than that.',
-    score: 0.99,
+    completion: 'I do not have any more information than that.',
+    sources: [],
   },
   {
-    id: '5',
-    text: 'I do not have any more information than that.',
-    score: 0.99,
+    completion: 'I do not have any more information than that.',
+    sources: [],
   },
 ];
