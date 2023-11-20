@@ -6,6 +6,7 @@ import {
   Investigation as InvestigationState,
   Prompt,
 } from '@src/types/investigation';
+import { generateGUID } from '@src/utils/api';
 import React, { SyntheticEvent, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
@@ -56,10 +57,10 @@ export const Search = (): React.ReactElement => {
       if (response?.length > 0) {
         const completion = response[0];
         newPrompt = {
-          id: completion.id,
+          id: generateGUID(),
           prompt: queryCopy,
-          completion: completion.text,
-          score: completion.score,
+          completion: completion.completion,
+          score: 0,
         };
 
         newData[0] = newPrompt;

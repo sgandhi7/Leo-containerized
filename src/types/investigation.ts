@@ -20,8 +20,13 @@ export interface Prompt {
   suggestion?: string;
 }
 
-export interface Completion {
-  id: string;
-  text: string;
+export interface CompletionSource {
+  reference: string | null;
+  document: string;
   score: number;
+}
+
+export interface Completion {
+  completion: string;
+  sources: CompletionSource[];
 }

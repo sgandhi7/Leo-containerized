@@ -1,5 +1,6 @@
 import { userData } from '@src/data/user';
 import { User } from '@src/types/user';
+import { generateGUID } from './api';
 import { getDisplayName, getSignInRedirectUrl, hasSsoConfig } from './auth';
 
 describe('Auth Helpers', () => {
@@ -67,5 +68,13 @@ describe('Auth Helpers', () => {
 
     const hasConfig = hasSsoConfig();
     expect(hasConfig).toBeTruthy();
+  });
+
+  test('generateGUID', () => {
+    const guid = generateGUID();
+    expect(guid).toHaveLength(36);
+    expect(guid).toMatch(
+      /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,
+    );
   });
 });
