@@ -86,6 +86,11 @@ body {
   }
 
   /* Custom styles */
+  #investigations {
+    .bottom-2 {
+      bottom: 2rem;
+    }
+  }
   .sb-avatar.sb-avatar--src {
     cursor: pointer;
     position: absolute;
