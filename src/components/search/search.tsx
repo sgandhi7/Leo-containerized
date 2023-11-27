@@ -15,6 +15,7 @@ import {
   currentInvestigation as defaultInvestigation,
   searching,
 } from '../../store';
+import infinteLoop from '/img/infinteLoop.svg';
 
 export const Search = (): React.ReactElement => {
   const navigate = useNavigate();
@@ -113,14 +114,19 @@ export const Search = (): React.ReactElement => {
             }
           }}
         />
-        <Button
-          id="search-btn"
-          onClick={handleSearch}
-          style={{ marginTop: '7px' }}
-          disabled={loading || isSearching}
-        >
-          Search
-        </Button>
+
+        {loading || isSearching ? (
+          <img src={infinteLoop} alt="loading" className="searching" />
+        ) : (
+          <Button
+            id="search-btn"
+            onClick={handleSearch}
+            style={{ marginTop: '7px' }}
+            disabled={loading || isSearching}
+          >
+            Search
+          </Button>
+        )}
       </div>
       {home ? <DatasetCheck /> : null}
       {home ? <SuggestData /> : null}
