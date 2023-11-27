@@ -1,5 +1,5 @@
 export default function Contact() {
-  const emailAddress = 'datasets@horizonhunt.com';
+  const emailAddress = 'datasets@horizon-hunt.com';
 
   return (
     <div className="display-flex justify-content-center flex-direction-column align-items-center">

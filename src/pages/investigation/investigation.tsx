@@ -74,7 +74,9 @@ export const Investigation = (): React.ReactElement => {
           </div>
         </div>
       </div>
-      <Search />
+      <div id="investigations">
+        <Search />
+      </div>
     </>
   );
 };
