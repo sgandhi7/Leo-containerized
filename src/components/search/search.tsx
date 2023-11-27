@@ -116,7 +116,7 @@ export const Search = (): React.ReactElement => {
 
         {loading || isSearching ? (
           <img
-            src="src/components/search/infinteLoop.svg"
+            src="../../../public/img/infinteLoop.svg"
             alt="loading"
             className="searching"
           />
