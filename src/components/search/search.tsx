@@ -113,14 +113,23 @@ export const Search = (): React.ReactElement => {
             }
           }}
         />
-        <Button
-          id="search-btn"
-          onClick={handleSearch}
-          style={{ marginTop: '7px' }}
-          disabled={loading || isSearching}
-        >
-          Search
-        </Button>
+
+        {loading || isSearching ? (
+          <img
+            src="src/components/search/infinteLoop.svg"
+            alt="loading"
+            className="searching"
+          />
+        ) : (
+          <Button
+            id="search-btn"
+            onClick={handleSearch}
+            style={{ marginTop: '7px' }}
+            disabled={loading || isSearching}
+          >
+            Search
+          </Button>
+        )}
       </div>
       {home ? <DatasetCheck /> : null}
       {home ? <SuggestData /> : null}
