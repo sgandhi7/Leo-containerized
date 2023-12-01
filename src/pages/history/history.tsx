@@ -44,38 +44,54 @@ export const History = (): React.ReactElement => {
     ],
     [],
   );
+  // const handleClick = () => {
+  //   console.log('clicked');
+  // };
 
+  function convertToReadableFormat(
+    dateString: string | number | Date | undefined,
+  ) {
+    if (dateString === undefined) {
+      return '';
+    }
+    const date = new Date(dateString);
+    return date.toLocaleString();
+  }
   useEffect(() => {
     if (items) {
+      console.log('ITEMS', typeof items, items);
       const newData: Investigation[] = [];
-      items.forEach((item: Investigation) => {
-        newData.push({
-          id: item.id,
-          name: (
-            <NavLink
-              id={`investigation-link-${item.id}`}
-              to={`/investigations/${item.id}`}
-            >
-              {item.name}
-            </NavLink>
-          ),
-          created: item.created?.toLocaleString(),
-          createdBy: item.createdBy,
-          status: item.status,
-          prompts: item.prompts,
-          actions: (
-            <Button
-              id={`share-${item.id}`}
-              onClick={() => {
-                console.log('shared');
-              }}
-            >
-              Share
-            </Button>
-          ),
-        });
+      items.items.forEach((item: Investigation) => {
+        console.log('I T EM S:', items.items),
+          newData.push({
+            id: item.id,
+            name: (
+              <NavLink
+                id={`investigation-link-${item.id}`}
+                to={`/investigations/${item.id}`}
+              >
+                {item.name}
+              </NavLink>
+            ),
+            created: convertToReadableFormat(item.created)?.toLocaleString(),
+            createdBy: item.createdBy,
+
+            status: item.status,
+            prompts: item.prompts,
+            actions: (
+              <Button
+                id={`share-${item.id}`}
+                onClick={() => {
+                  console.log('////////////////////////shared');
+                }}
+              >
+                Share
+              </Button>
+            ),
+          });
       });
       setInvestigiations(newData);
+      console.log('newData', newData);
     }
   }, [items]);
 

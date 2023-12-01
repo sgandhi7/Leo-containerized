@@ -18,15 +18,33 @@ export const Investigation = (): React.ReactElement => {
 
   useEffect(() => {
     if (item) {
+      console.log('////item', item);
       setCurrentInvestigation(item);
+
+      console.log('////currentInvestigation', currentInvestigation);
+      console.log(
+        '////currentInvestigation.prompts',
+        currentInvestigation?.prompts,
+      );
+      console.log(
+        '////Type of currentInvestigation.prompts',
+        typeof currentInvestigation?.prompts,
+      );
     }
   }, [item, setCurrentInvestigation]);
 
   useEffect(() => {
     if (id) {
+      console.log('////id', id);
       getItem(id);
     }
   }, [id, getItem, setCurrentInvestigation]);
+
+  useEffect(() => {
+    if (currentInvestigation) {
+      console.log('========currentInvestigation', currentInvestigation);
+    }
+  }, [currentInvestigation]);
 
   return (
     <>
