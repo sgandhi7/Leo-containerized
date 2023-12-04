@@ -159,12 +159,27 @@ body {
     border: 2px solid $color-blue;
   }
 
+  .usa-button.usa-button--unstyled {
+    background-color: transparent;
+    border: none;
+    color: $color-black;
+  }
+
+  .usa-icon--size-3 {
+    height: 1.25rem;
+    width: 1.25rem;
+  }
+
   .usa-input {
     max-width: unset;
   }
 
   .usa-input:focus {
     border-color: $color-primary;
+  }
+
+  .usa-list li {
+    max-width: unset;
   }
 
   .loading-text {

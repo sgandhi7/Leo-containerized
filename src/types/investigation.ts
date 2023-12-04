@@ -16,13 +16,14 @@ export interface Prompt {
   id: string;
   prompt: string;
   completion: string;
-  score: number;
   suggestion?: string;
+  sources?: CompletionSource[];
 }
 
 export interface CompletionSource {
   reference: string | null;
   document: string;
+  gdelt?: string;
   score: number;
 }
 
