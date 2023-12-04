@@ -63,7 +63,7 @@ const useApi = () => {
     async (id: string): Promise<void> => {
       try {
         setLoading(true);
-        const response = await axios.get(`investigations/${id}`);
+        const response = await axios.get(`/investigations/${id}`);
         setItem(response.data);
       } catch (error) {
         console.log(error);
