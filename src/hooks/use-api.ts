@@ -54,9 +54,7 @@ const useApi = () => {
     try {
       setLoading(true);
       const response = await axios.get(`${horizonHuntApi}investigations`);
-      console.log('///getItems:response.data', response.data);
       setItems(response.data);
-      console.log('///getItems:items', items);
     } catch (error) {
       console.log(error);
     } finally {
@@ -71,10 +69,7 @@ const useApi = () => {
         const response = await axios.get(
           `${horizonHuntApi}investigations/${id}`,
         );
-        console.log('///response', response);
-        console.log('///response.data', response.data);
         setItem(response.data);
-        console.log('///setItem', item);
       } catch (error) {
         console.log(error);
       } finally {
@@ -83,16 +78,6 @@ const useApi = () => {
     },
     [setLoading, setItem],
   );
-  // const getItem = useCallback((id: string): void => {
-  //   setLoading(true);
-  //   const investigationItems = investigationData.filter(
-  //     (item) => item.id === id,
-  //   );
-  //   if (investigationItems) {
-  //     setItem(investigationItems[0]);
-  //   }
-  //   setLoading(false);
-  // }, []);
 
   return {
     loading,
