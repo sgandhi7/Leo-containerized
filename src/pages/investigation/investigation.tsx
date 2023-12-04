@@ -1,18 +1,16 @@
 import { Search } from '@src/components/search/search';
 import useApi from '@src/hooks/use-api';
-import {
-  Investigation as InvestigationState,
-  Prompt,
-} from '@src/types/investigation';
-import React, { useEffect } from 'react';
+import { Investigation as InvestigationState } from '@src/types/investigation';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { currentInvestigation as defaultInvestigation } from '../../store';
+import infinteLoop from '/img/infinteLoop.svg';
 import logomark from '/img/logo-mark.svg';
 export const Investigation = (): React.ReactElement => {
   const { id } = useParams();
   const { getItem, item, loading } = useApi();
-
+  const [prompts, setPrompts] = useState(null);
   const [currentInvestigation, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
 
@@ -28,13 +26,31 @@ export const Investigation = (): React.ReactElement => {
     }
   }, [id, getItem, setCurrentInvestigation]);
 
+  useEffect(() => {
+    if (currentInvestigation) {
+      const responsePrompts = currentInvestigation.prompts;
+
+      if (responsePrompts) {
+        setPrompts(responsePrompts);
+      }
+      if (typeof responsePrompts === 'string') {
+        try {
+          setPrompts(responsePrompts);
+        } catch (error) {
+          console.error('Error parsing JSON:', responsePrompts);
+          console.error(error);
+        }
+      }
+    }
+  }, [currentInvestigation]);
+
   return (
     <>
       <div className="grid-container">
         <div className="grid-row">
           <div className="grid-col">
             <div className="chat-content">
-              {currentInvestigation?.prompts?.map((prompt: Prompt) => (
+              {prompts?.map((prompt: Prompt) => (
                 <div key={`chat-content-${prompt.id + Math.random()}`}>
                   <div className="grid-row flex-column">
                     <div
@@ -49,7 +65,11 @@ export const Investigation = (): React.ReactElement => {
                       key={`chat-content-answer-loading`}
                       className="chat-content-answer text-bold"
                     >
-                      Loading...
+                      <img
+                        src={infinteLoop}
+                        alt="loading"
+                        className="searching"
+                      />
                     </div>
                   ) : (
                     <div

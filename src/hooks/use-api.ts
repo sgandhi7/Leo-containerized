@@ -1,4 +1,4 @@
-import { completionData, investigationData } from '@src/data/investigation';
+import { completionData } from '@src/data/investigation';
 import { isMocked } from '@src/utils/api';
 import axios from '@src/utils/axios';
 import { useCallback, useState } from 'react';
@@ -10,7 +10,6 @@ const useApi = () => {
   const [item, setItem] = useState<Investigation>();
   const [completions, setCompletions] = useState<Completion[]>();
   const [error, setError] = useState<string | null>(null);
-
   const search = async (
     query: string,
     dataSet: string,
@@ -48,22 +47,32 @@ const useApi = () => {
     });
   };
 
-  const getItems = useCallback((): void => {
-    setLoading(true);
-    setItems(investigationData);
-    setLoading(false);
-  }, []);
-
-  const getItem = useCallback((id: string): void => {
-    setLoading(true);
-    const investigationItems = investigationData.filter(
-      (item) => item.id === id,
-    );
-    if (investigationItems) {
-      setItem(investigationItems[0]);
+  const getItems = useCallback(async (): Promise<void> => {
+    try {
+      setLoading(true);
+      const response = await axios.get('/investigations');
+      setItems(response.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-  }, []);
+  }, [setLoading, setItems]);
+
+  const getItem = useCallback(
+    async (id: string): Promise<void> => {
+      try {
+        setLoading(true);
+        const response = await axios.get(`/investigations/${id}`);
+        setItem(response.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [setLoading, setItem],
+  );
 
   return {
     loading,

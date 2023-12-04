@@ -101,6 +101,10 @@ body {
   .min-w {
     min-width: 80px;
   }
+  .searching {
+    max-width: 51px;
+    max-height: 128px;
+  }
   .dropdown {
     position: absolute;
     top: 105%;
@@ -170,6 +174,14 @@ body {
   .searching {
     height: 51px;
     width: 128px;
+
+    &.history {
+      max-width: none;
+      max-height: none;
+      width: 100%;
+      height: 79px;
+      margin: 0 auto;
+    }
   }
 
   .chat-content {

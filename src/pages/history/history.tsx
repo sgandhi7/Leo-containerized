@@ -5,8 +5,10 @@ import { Investigation } from '@src/types/investigation';
 import { ColumnDef } from '@tanstack/react-table';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-
+import { convertToReadableFormat } from '../../utils/utils';
+import infinteLoop from '/img/infinteLoop.svg';
 export const History = (): React.ReactElement => {
+  const [loading, setLoading] = useState(true);
   const { getItems, items } = useApi();
   const [investigations, setInvestigiations] = useState<Investigation[]>();
   const cols = React.useMemo<ColumnDef<Investigation>[]>(
@@ -44,11 +46,10 @@ export const History = (): React.ReactElement => {
     ],
     [],
   );
-
   useEffect(() => {
     if (items) {
       const newData: Investigation[] = [];
-      items.forEach((item: Investigation) => {
+      items.items.forEach((item: Investigation) => {
         newData.push({
           id: item.id,
           name: (
@@ -59,17 +60,13 @@ export const History = (): React.ReactElement => {
               {item.name}
             </NavLink>
           ),
-          created: item.created?.toLocaleString(),
+          created: convertToReadableFormat(item.created)?.toLocaleString(),
           createdBy: item.createdBy,
+
           status: item.status,
           prompts: item.prompts,
           actions: (
-            <Button
-              id={`share-${item.id}`}
-              onClick={() => {
-                console.log('shared');
-              }}
-            >
+            <Button id={`share-${item.id}`} onClick={() => {}}>
               Share
             </Button>
           ),
@@ -83,6 +80,11 @@ export const History = (): React.ReactElement => {
     getItems();
   }, [getItems]);
 
+  useEffect(() => {
+    if (investigations) {
+      setLoading(false);
+    }
+  }, [loading, investigations]);
   return (
     <div className="grid-container padding-top-1">
       <div className="grid-row">
@@ -92,7 +94,13 @@ export const History = (): React.ReactElement => {
       </div>
       <div className="grid-row">
         <div className="grid-col">
-          {investigations ? (
+          {loading ? (
+            <img
+              src={infinteLoop}
+              alt="loading"
+              className="searching history"
+            />
+          ) : investigations ? (
             <DataTable
               id="investigation-table"
               className="width-full"
