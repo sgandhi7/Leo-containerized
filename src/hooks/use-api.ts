@@ -10,9 +10,6 @@ const useApi = () => {
   const [item, setItem] = useState<Investigation>();
   const [completions, setCompletions] = useState<Completion[]>();
   const [error, setError] = useState<string | null>(null);
-  const horizonHuntApi =
-    'https://ca-horizon-hunt-api.greensand-19f121e4.eastus.azurecontainerapps.io/api/';
-
   const search = async (
     query: string,
     dataSet: string,
@@ -53,7 +50,7 @@ const useApi = () => {
   const getItems = useCallback(async (): Promise<void> => {
     try {
       setLoading(true);
-      const response = await axios.get(`${horizonHuntApi}investigations`);
+      const response = await axios.get('/investigations');
       setItems(response.data);
     } catch (error) {
       console.log(error);
@@ -66,9 +63,7 @@ const useApi = () => {
     async (id: string): Promise<void> => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          `${horizonHuntApi}investigations/${id}`,
-        );
+        const response = await axios.get(`investigations/${id}`);
         setItem(response.data);
       } catch (error) {
         console.log(error);

@@ -28,17 +28,16 @@ export const Investigation = (): React.ReactElement => {
 
   useEffect(() => {
     if (currentInvestigation) {
-      const prompts = currentInvestigation.prompts;
+      const responsePrompts = currentInvestigation.prompts;
 
-      if (prompts) {
-        // prompts = JSON.parse(prompts);
-        setPrompts(prompts);
+      if (responsePrompts) {
+        setPrompts(responsePrompts);
       }
-      if (typeof prompts === 'string') {
+      if (typeof responsePrompts === 'string') {
         try {
-          setPrompts(prompts);
+          setPrompts(responsePrompts);
         } catch (error) {
-          console.error('Error parsing JSON:', prompts);
+          console.error('Error parsing JSON:', responsePrompts);
           console.error(error);
         }
       }

@@ -5,8 +5,8 @@ import { Investigation } from '@src/types/investigation';
 import { ColumnDef } from '@tanstack/react-table';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { convertToReadableFormat } from '../../utils/utils';
 import infinteLoop from '/img/infinteLoop.svg';
-
 export const History = (): React.ReactElement => {
   const [loading, setLoading] = useState(true);
   const { getItems, items } = useApi();
@@ -46,16 +46,6 @@ export const History = (): React.ReactElement => {
     ],
     [],
   );
-
-  function convertToReadableFormat(
-    dateString: string | number | Date | undefined,
-  ) {
-    if (dateString === undefined) {
-      return '';
-    }
-    const date = new Date(dateString);
-    return date.toLocaleString();
-  }
   useEffect(() => {
     if (items) {
       const newData: Investigation[] = [];
