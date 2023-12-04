@@ -6,7 +6,7 @@ import {
   Investigation as InvestigationState,
   Prompt,
 } from '@src/types/investigation';
-import { getScore, getSource } from '@src/utils/api';
+import { getReference, getScore, getSource } from '@src/utils/api';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
@@ -134,7 +134,7 @@ export const Investigation = (): React.ReactElement => {
                                           key={`chat-content-sources-item-${index}`}
                                           style={{ listStyle: 'square' }}
                                         >
-                                          {`${getSource(
+                                          {`${getSource(source)}${getReference(
                                             source,
                                           )} (Confidence Score: ${getScore(
                                             source,

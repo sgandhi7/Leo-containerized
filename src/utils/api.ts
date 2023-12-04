@@ -25,6 +25,11 @@ export const getSource = (source: CompletionSource): string => {
   else return '';
 };
 
+export const getReference = (source: CompletionSource): string => {
+  if (source.reference) return ` - ${source.reference}`;
+  else return '';
+};
+
 export const getScore = (source: CompletionSource): number => {
   if (source.score) {
     const num = source.score * 100;
