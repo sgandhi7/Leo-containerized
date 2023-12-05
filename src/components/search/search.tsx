@@ -50,7 +50,6 @@ export const Search = (): React.ReactElement => {
       id: Math.random().toString(),
       prompt: queryCopy,
       completion: 'Loading...',
-      score: 0,
     };
 
     newData.unshift(newPrompt);
@@ -60,8 +59,8 @@ export const Search = (): React.ReactElement => {
         newPrompt = {
           id: generateGUID(),
           prompt: queryCopy,
-          completion: completion.completion,
-          score: 0,
+          completion: completion.completion.trim(),
+          sources: completion.sources,
         };
 
         newData[0] = newPrompt;
