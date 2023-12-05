@@ -1,6 +1,6 @@
 import { fireEvent, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import TextAreaInput from './text-area-input'; // Path to your component
+import { TextAreaInput } from './textarea-input'; // Path to your component
 
 describe('TextAreaInput', () => {
   test('calls onChange handler when typing', () => {

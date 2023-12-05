@@ -113,7 +113,7 @@ body {
 
     .search-area-input {
       flex: 1;
-      width: 95%;
+      width: 97%;
       padding: 1rem;
       margin: 1rem 0;
       box-sizing: border-box;
@@ -121,6 +121,9 @@ body {
       border-radius: 10px;
       resize: none;
       overflow: hidden;
+    }
+    button.search-input {
+      padding: 1rem;
     }
     .search-button {
       height: 40px; /* Set your desired height for the button */
@@ -136,10 +139,24 @@ body {
     }
   }
 
+  .text-area-label {
+    display: none;
+  }
   .text-container {
     width: 100%;
     label {
       display: none;
+    }
+    .usa-textarea {
+      height: 3rem;
+    }
+    .usa-textarea,
+    .usa-range,
+    .usa-input-group,
+    .usa-combo-box__input,
+    .usa-select,
+    .usa-input {
+      max-width: 100%;
     }
   }
 

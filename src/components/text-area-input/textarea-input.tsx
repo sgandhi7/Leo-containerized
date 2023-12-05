@@ -1,5 +1,5 @@
+import { Label, TextArea } from '@metrostar/comet-uswds';
 import React, { ChangeEvent, KeyboardEvent } from 'react';
-
 interface TextAreaProps {
   id: string;
   label?: string;
@@ -14,7 +14,7 @@ interface TextAreaProps {
   autoFocus?: boolean;
 }
 
-const TextAreaInput: React.FC<TextAreaProps> = ({
+export const TextAreaInput: React.FC<TextAreaProps> = ({
   id,
   label,
   name,
@@ -37,8 +37,8 @@ const TextAreaInput: React.FC<TextAreaProps> = ({
   return (
     <>
       <div className="text-container">
-        <label htmlFor={id}>{label}</label>
-        <textarea
+        <Label htmlFor={id}>{label}</Label>
+        <TextArea
           id={id}
           className={className}
           name={name}
@@ -49,8 +49,8 @@ const TextAreaInput: React.FC<TextAreaProps> = ({
           rows={rows}
           cols={cols}
           style={{
-            minHeight: `${rows * 1.5}em`,
-            maxHeight: `${rows * 20}em`,
+            minHeight: `${rows * 3.5}rem`,
+            maxHeight: `${rows * 20}rem`,
             borderRadius: '10px',
             margin: '1rem',
             padding: '1rem',
@@ -60,5 +60,3 @@ const TextAreaInput: React.FC<TextAreaProps> = ({
     </>
   );
 };
-
-export default TextAreaInput;

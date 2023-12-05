@@ -15,7 +15,7 @@ import {
   currentInvestigation as defaultInvestigation,
   searching,
 } from '../../store';
-import TextAreaInput from '../text-area-input/text-area-input';
+import { TextAreaInput } from '../text-area-input/textarea-input.tsx';
 import infinteLoop from '/img/infinteLoop.svg';
 export const Search = (): React.ReactElement => {
   const navigate = useNavigate();
