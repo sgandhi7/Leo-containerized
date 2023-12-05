@@ -29,7 +29,7 @@ export const History = (): React.ReactElement => {
         cell: (info) => info.getValue(),
       },
       {
-        accessorKey: 'createdBy',
+        accessorKey: 'created_by',
         header: 'Created By',
         cell: (info) => info.getValue(),
       },
@@ -49,7 +49,7 @@ export const History = (): React.ReactElement => {
   useEffect(() => {
     if (items) {
       const newData: Investigation[] = [];
-      items.items.forEach((item: Investigation) => {
+      items.forEach((item: Investigation) => {
         newData.push({
           id: item.id,
           name: (
@@ -61,10 +61,9 @@ export const History = (): React.ReactElement => {
             </NavLink>
           ),
           created: convertToReadableFormat(item.created)?.toLocaleString(),
-          createdBy: item.createdBy,
+          created_by: item.created_by,
 
           status: item.status,
-          prompts: item.prompts,
           actions: (
             <Button id={`share-${item.id}`} onClick={() => {}}>
               Share

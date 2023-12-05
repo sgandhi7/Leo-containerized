@@ -38,15 +38,13 @@ export const Investigation = (): React.ReactElement => {
       const responsePrompts = currentInvestigation.prompts;
 
       if (responsePrompts) {
-        setPrompts(responsePrompts);
-      }
-      if (typeof responsePrompts === 'string') {
-        try {
-          setPrompts(responsePrompts);
-        } catch (error) {
-          console.error('Error parsing JSON:', responsePrompts);
-          console.error(error);
-        }
+        const newPrompts = [...responsePrompts];
+        setPrompts(
+          // Reverse the prompts so that the most recent is at the top
+          newPrompts?.sort((a, b) => {
+            return a.id < b.id ? 1 : -1;
+          }),
+        );
       }
     }
   }, [currentInvestigation]);
@@ -58,7 +56,7 @@ export const Investigation = (): React.ReactElement => {
           <div className="grid-col">
             <div className="chat-content">
               {prompts?.map((prompt: Prompt) => (
-                <div key={`chat-content-${prompt.id + Math.random()}`}>
+                <div key={`chat-content-${prompt.id}`}>
                   <div className="grid-row flex-column">
                     <div
                       key={`chat-content-question-${prompt.id}`}
