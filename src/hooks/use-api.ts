@@ -51,7 +51,7 @@ const useApi = () => {
     try {
       setLoading(true);
       const response = await axios.get('/investigations');
-      setItems(response.data);
+      setItems(response.data.items);
     } catch (error) {
       console.log(error);
     } finally {

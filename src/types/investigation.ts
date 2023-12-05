@@ -5,9 +5,9 @@ export interface Investigation {
   name?: string | ReactNode;
   status?: 'In Progress' | 'Complete' | 'Cancelled';
   created?: string | Date;
-  createdBy?: string;
+  created_by?: string;
   modified?: string | Date;
-  modifiedBy?: string;
+  modified_by?: string;
   prompts?: Prompt[];
   actions?: ReactNode;
 }
