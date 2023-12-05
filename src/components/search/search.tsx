@@ -1,4 +1,4 @@
-import { Button, TextInput } from '@metrostar/comet-uswds';
+import { Button } from '@metrostar/comet-uswds';
 import DatasetCheck from '@src/components/search/dataset-check';
 import SuggestData from '@src/components/search/suggest-data';
 import useApi from '@src/hooks/use-api';
@@ -15,8 +15,8 @@ import {
   currentInvestigation as defaultInvestigation,
   searching,
 } from '../../store';
+import { TextAreaInput } from '../text-area-input/textarea-input.tsx';
 import infinteLoop from '/img/infinteLoop.svg';
-
 export const Search = (): React.ReactElement => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -99,12 +99,13 @@ export const Search = (): React.ReactElement => {
             : 'search-area-investigation'
         }`}
       >
-        <TextInput
+        <TextAreaInput
           id="search-input"
           name="search-input"
-          className="width-full padding-top-3 padding-bottom-3 margin-right-3"
-          placeholder="Enter your search here..."
+          label="Enter your search here..."
+          className="search-area-input"
           autoFocus
+          placeholder="Enter your search here..."
           value={query}
           onChange={handleOnChange}
           onKeyUp={(event) => {
@@ -113,14 +114,13 @@ export const Search = (): React.ReactElement => {
             }
           }}
         />
-
         {loading || isSearching ? (
           <img src={infinteLoop} alt="loading" className="searching" />
         ) : (
           <Button
             id="search-btn"
+            className="search-input"
             onClick={handleSearch}
-            style={{ marginTop: '7px' }}
             disabled={loading || isSearching}
           >
             Search
