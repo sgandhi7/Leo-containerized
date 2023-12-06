@@ -6,6 +6,7 @@ export default function DatasetCheck() {
   const [checkbox, setCheckboxes] = useState({
     checkbox1: true,
     checkbox2: false,
+    checkbox3: false,
   });
   const [, setCurrentDataset] = useRecoilState<string>(defaultDataset);
 
@@ -24,6 +25,9 @@ export default function DatasetCheck() {
     }
     if (checkbox.checkbox2) {
       datasets.add('gdelt');
+    }
+    if (checkbox.checkbox3) {
+      datasets.add('audio');
     }
     setCurrentDataset(datasets.size > 0 ? [...datasets].join(',') : '');
   }, [checkbox, setCurrentDataset]);
@@ -54,7 +58,7 @@ export default function DatasetCheck() {
           9/11 Commission
         </label>
       </div>
-      <div id="checkbox1" className="usa-checkbox">
+      <div id="checkbox2" className="usa-checkbox margin-x-1">
         <input
           className="usa-checkbox__input"
           id="checkbox2__usa-checkbox__input"
@@ -69,6 +73,23 @@ export default function DatasetCheck() {
           htmlFor="checkbox2__usa-checkbox__input"
         >
           GDELT
+        </label>
+      </div>
+      <div id="checkbox3" className="usa-checkbox">
+        <input
+          className="usa-checkbox__input"
+          id="checkbox3__usa-checkbox__input"
+          type="checkbox"
+          name="checkbox3"
+          value="audio"
+          checked={checkbox.checkbox3}
+          onChange={handleCheckboxChange}
+        />
+        <label
+          className="usa-checkbox__label"
+          htmlFor="checkbox3__usa-checkbox__input"
+        >
+          Audio
         </label>
       </div>
     </div>

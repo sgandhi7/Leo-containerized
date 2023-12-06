@@ -21,6 +21,7 @@ export const generateGUID = () => {
 
 export const getSource = (source: CompletionSource): string => {
   if (source.gdelt) return source.gdelt;
+  else if (source.audio) return source.audio;
   else if (source.document) return source.document;
   else return '';
 };
