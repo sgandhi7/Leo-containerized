@@ -5,6 +5,7 @@ import { Header } from './components/header/header';
 import { ProtectedRoute } from './components/protected-route/protected-route';
 import { Account } from './pages/account/account';
 import { Collaborate } from './pages/collaborate/collaborate';
+import { FAQs } from './pages/faqs/faqs';
 import { History } from './pages/history/history';
 import { Home } from './pages/home/home';
 import { Investigation } from './pages/investigation/investigation';
@@ -24,6 +25,7 @@ export const App = (): React.ReactElement => (
             <Route path="/collaborate" element={<Collaborate />} />
             <Route path="/investigations" element={<Investigation />} />
             <Route path="/investigations/:id" element={<Investigation />} />
+            <Route path="/faqs" element={<FAQs />} />
           </Route>
         </Routes>
       </main>
