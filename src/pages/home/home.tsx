@@ -21,7 +21,7 @@ export const Home = (): React.ReactElement => {
               className="width-100 padding-top-6"
               style={{ textAlign: 'center' }}
             >
-              <h1 className="margin-bottom-1">
+              <h1 className="margin-bottom-4">
                 What would you like to Investigate?
               </h1>
               <p className="margin-top-1">
