@@ -74,7 +74,10 @@ export const Header = (): React.ReactElement => {
         Skip to main content
       </a>
       <div className="usa-overlay"></div>
-      <header id="headerSection" className="usa-header usa-header--basic">
+      <header
+        id="headerSection"
+        className="usa-header usa-header--basic sticky"
+      >
         <div className="usa-nav-container">
           <div className="usa-navbar">
             <div className="usa-logo" id="-logo">
@@ -121,6 +124,17 @@ export const Header = (): React.ReactElement => {
                   }`}
                 >
                   History
+                </NavLink>
+              </li>
+              <li className="usa-nav__primary-item">
+                <NavLink
+                  id="faq-link"
+                  to="/faqs"
+                  className={`usa-nav__link ${
+                    location.pathname === '/faqs' ? 'usa-current' : ''
+                  }`}
+                >
+                  FAQs
                 </NavLink>
               </li>
               <li className="usa-nav__primary-item min-w">
