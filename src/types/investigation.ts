@@ -24,6 +24,7 @@ export interface CompletionSource {
   reference: string | null;
   document: string;
   gdelt?: string;
+  audio?: string;
   score: number;
 }
 
