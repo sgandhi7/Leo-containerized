@@ -35,7 +35,7 @@ export default function DatasetCheck() {
       className="grid-row flex-justify-center datasets"
     >
       <div>
-        <p className="text-uppercase">Datasets: </p>
+        <p>Datasets: </p>
       </div>
       <div id="checkbox1" className="usa-checkbox margin-x-1">
         <input
