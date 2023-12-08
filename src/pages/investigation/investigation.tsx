@@ -23,7 +23,17 @@ export const Investigation = (): React.ReactElement => {
 
   useEffect(() => {
     if (item) {
-      setCurrentInvestigation(item);
+      const prompts = item.prompts;
+      let newPrompts: Prompt[] = [];
+      if (prompts) {
+        newPrompts = [...prompts];
+        // Reverse the prompts so that the most recent is at the top
+        newPrompts?.sort((a, b) => {
+          return a.id < b.id ? 1 : -1;
+        });
+      }
+
+      setCurrentInvestigation({ ...item, prompts: newPrompts });
     }
   }, [item, setCurrentInvestigation]);
 
@@ -36,15 +46,8 @@ export const Investigation = (): React.ReactElement => {
   useEffect(() => {
     if (currentInvestigation) {
       const responsePrompts = currentInvestigation.prompts;
-
       if (responsePrompts) {
-        const newPrompts = [...responsePrompts];
-        setPrompts(
-          // Reverse the prompts so that the most recent is at the top
-          newPrompts?.sort((a, b) => {
-            return a.id < b.id ? 1 : -1;
-          }),
-        );
+        setPrompts(responsePrompts);
       }
     }
   }, [currentInvestigation]);
