@@ -162,7 +162,7 @@ export const Investigation = (): React.ReactElement => {
           </div>
         </div>
       </div>
-      <div id="investigations">
+      <div id="investigations" className="prompt">
         <Search />
       </div>
     </>

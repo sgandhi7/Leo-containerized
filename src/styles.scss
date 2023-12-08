@@ -112,10 +112,10 @@ body {
   }
 
   /* Custom styles */
-  #investigations {
-    .bottom-2 {
-      bottom: 2rem;
-    }
+  #investigations.prompt {
+    position: fixed;
+    width: 100%;
+    bottom: -1rem;
   }
 
   .m-b-1 {
