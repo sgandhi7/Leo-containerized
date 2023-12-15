@@ -6,7 +6,7 @@ import {
   Investigation as InvestigationState,
   Prompt,
 } from '@src/types/investigation';
-import { generateGUID } from '@src/utils/api';
+import { generateGUID, getChatHistory } from '@src/utils/api';
 import React, { SyntheticEvent, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
@@ -51,9 +51,11 @@ export const Search = (): React.ReactElement => {
       prompt: queryCopy,
       completion: 'Loading...',
     };
-
     newData.unshift(newPrompt);
-    await search(queryCopy, currentDataset).then((response) => {
+
+    // Get current chat history
+    const chatHistory = getChatHistory(newData);
+    await search(queryCopy, currentDataset, chatHistory).then((response) => {
       if (response?.length > 0) {
         const completion = response[0];
         newPrompt = {

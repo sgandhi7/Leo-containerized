@@ -2,7 +2,7 @@ import { completionData } from '@src/data/investigation';
 import { isMocked } from '@src/utils/api';
 import axios from '@src/utils/axios';
 import { useCallback, useState } from 'react';
-import { Completion, Investigation } from '../types/investigation';
+import { ChatHistory, Completion, Investigation } from '../types/investigation';
 
 const useApi = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -13,6 +13,7 @@ const useApi = () => {
   const search = async (
     query: string,
     dataSet: string,
+    chatHistory: ChatHistory[],
   ): Promise<Completion[]> => {
     return await new Promise((resolve, reject) => {
       setLoading(true);
@@ -26,9 +27,7 @@ const useApi = () => {
           search_database: dataSet,
         };
         axios
-          .get(url, {
-            params: queryParams,
-          })
+          .post(url, chatHistory, { params: { ...queryParams } })
           .then((response) => {
             return response.data;
           })

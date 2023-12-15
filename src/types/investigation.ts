@@ -32,3 +32,8 @@ export interface Completion {
   completion: string;
   sources: CompletionSource[];
 }
+
+export interface ChatHistory {
+  prompt: string;
+  completion: string;
+}
