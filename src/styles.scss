@@ -118,6 +118,14 @@ body {
     bottom: -1rem;
   }
 
+  button.button-suggest {
+    padding: 2rem;
+    border: 1px solid #007bff;
+    border-radius: 10px;
+    margin: 2rem;
+    cursor: pointer;
+  }
+
   .m-b-1 {
     margin-bottom: 1rem;
   }

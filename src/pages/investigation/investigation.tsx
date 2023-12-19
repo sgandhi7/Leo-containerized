@@ -23,6 +23,7 @@ export const Investigation = (): React.ReactElement => {
 
   useEffect(() => {
     if (item) {
+      console.log('item', item);
       const prompts = item.prompts;
       let newPrompts: Prompt[] = [];
       if (prompts) {
