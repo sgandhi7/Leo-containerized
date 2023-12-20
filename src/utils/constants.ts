@@ -11,3 +11,9 @@ export const PASSWORD_RULES = {
   ...REQUIRED_FORM_FIELDS_RULES,
   minLength: { value: MIN_PASSWORD_LENGTH, message: PASSWORD_LENGTH_MESSAGE },
 };
+
+export const SUGGESTIONS = [
+  'What intel lapses occurred, and how can they be prevented?',
+  'Assess emergency response; suggest improvements for future catastrophic events',
+  'Examine global collaboration post-9/11; propose measures for enhanced cooperation.',
+];

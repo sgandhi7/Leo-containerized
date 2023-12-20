@@ -20,6 +20,7 @@ export const Investigation = (): React.ReactElement => {
   const [currentInvestigation, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [showSources, setShowSources] = useState<boolean>(false);
+  const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
     if (item) {
@@ -163,7 +164,7 @@ export const Investigation = (): React.ReactElement => {
         </div>
       </div>
       <div id="investigations" className="prompt">
-        <Search />
+        <Search searchInput={searchInput} setSearchInput={setSearchInput} />
       </div>
     </>
   );

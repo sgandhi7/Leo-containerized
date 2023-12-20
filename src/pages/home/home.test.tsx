@@ -37,4 +37,37 @@ describe('Home', () => {
       expect(baseElement).toBeTruthy();
     });
   });
+
+  // test('should trigger button clicks', async () => {
+  //   const { getAllByText } = render(componentWrapper);
+
+  //   const button1 = getAllByText(
+  //     'What intel lapses occurred, and how can they be prevented?',
+  //   );
+  //   const button2 = getAllByText(
+  //     'Assess emergency response; suggest improvements for future catastrophic events',
+  //   );
+  //   const button3 = getAllByText(
+  //     'Examine global collaboration post-9/11; propose measures for enhanced cooperation.',
+  //   );
+
+  //   fireEvent.click(button1[0]);
+  //   expect(
+  //     getAllByText(
+  //       'What intel lapses occurred, and how can they be prevented?',
+  //     ),
+  //   ).toBeInTheDocument();
+  //   fireEvent.click(button2[1]);
+  //   expect(
+  //     getAllByText(
+  //       'Assess emergency response; suggest improvements for future catastrophic events',
+  //     ),
+  //   ).toBeInTheDocument();
+  //   fireEvent.click(button3[2]);
+  //   expect(
+  //     getAllByText(
+  //       'Examine global collaboration post-9/11; propose measures for enhanced cooperation.',
+  //     ),
+  //   ).toBeInTheDocument();
+  // });
 });

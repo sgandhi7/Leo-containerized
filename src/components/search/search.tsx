@@ -17,11 +17,17 @@ import {
 } from '../../store';
 import { TextAreaInput } from '../text-area-input/textarea-input.tsx';
 import infinteLoop from '/img/infinteLoop.svg';
-export const Search = (): React.ReactElement => {
+export const Search = ({
+  searchInput,
+  setSearchInput,
+}: {
+  searchInput: string;
+  setSearchInput: React.Dispatch<React.SetStateAction<string>>;
+}): React.ReactElement => {
   const navigate = useNavigate();
   const location = useLocation();
   const { search, loading } = useApi();
-  const [query, setQuery] = useState('');
+  const [, setQuery] = useState('');
   const [currentInvestigation, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [isSearching, setIsSearching] = useRecoilState<boolean>(searching);
@@ -40,7 +46,7 @@ export const Search = (): React.ReactElement => {
       navigate('/investigations');
     }
 
-    const queryCopy = query;
+    const queryCopy = searchInput;
     let newData: Prompt[] = [];
     if (currentInvestigation?.prompts) {
       newData = [...currentInvestigation.prompts];
@@ -69,6 +75,7 @@ export const Search = (): React.ReactElement => {
         updateCurrentInvestigation(newData);
         setIsSearching(false);
       }
+      setSearchInput('');
     });
 
     setQuery('');
@@ -86,6 +93,7 @@ export const Search = (): React.ReactElement => {
     const target = event.target as HTMLInputElement;
     const value = target.value;
     setQuery(value);
+    setSearchInput(value);
   };
 
   const handleSearch = () => {
@@ -108,10 +116,10 @@ export const Search = (): React.ReactElement => {
           className="search-area-input"
           autoFocus
           placeholder="Enter your search here..."
-          value={query}
+          value={searchInput}
           onChange={handleOnChange}
           onKeyUp={(event) => {
-            if (event.key === 'Enter' && query.trim() !== '') {
+            if (event.key === 'Enter' && searchInput.trim() !== '') {
               submitSearch();
             }
           }}
