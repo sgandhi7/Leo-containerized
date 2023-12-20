@@ -27,7 +27,7 @@ export const Search = ({
   const navigate = useNavigate();
   const location = useLocation();
   const { search, loading } = useApi();
-  const [query, setQuery] = useState('');
+  const [, setQuery] = useState('');
   const [currentInvestigation, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [isSearching, setIsSearching] = useRecoilState<boolean>(searching);
@@ -119,7 +119,7 @@ export const Search = ({
           value={searchInput}
           onChange={handleOnChange}
           onKeyUp={(event) => {
-            if (event.key === 'Enter' && query.trim() !== '') {
+            if (event.key === 'Enter' && searchInput.trim() !== '') {
               submitSearch();
             }
           }}

@@ -1,9 +1,9 @@
 import { Search } from '@src/components/search/search';
 import { Investigation as InvestigationState } from '@src/types/investigation';
+import { SUGGESTIONS } from '@src/utils/constants';
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { currentInvestigation as defaultInvestigation } from '../../store';
-
 export const Home = (): React.ReactElement => {
   const [, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
@@ -36,38 +36,16 @@ export const Home = (): React.ReactElement => {
                 <p className="helper-text">
                   Don't know where to start? Try a helper prompt.
                 </p>
-                <button
-                  className="helper-button"
-                  onClick={() =>
-                    handleButtonClick(
-                      'What intel lapses occurred, and how can they be prevented?',
-                    )
-                  }
-                >
-                  What intel lapses occurred, and how can they be prevented?
-                </button>
-                <button
-                  className="helper-button"
-                  onClick={() =>
-                    handleButtonClick(
-                      'Assess emergency response; suggest improvements for future catastrophic events',
-                    )
-                  }
-                >
-                  Assess emergency response; suggest improvements for future
-                  catastrophic events
-                </button>
-                <button
-                  className="helper-button"
-                  onClick={() =>
-                    handleButtonClick(
-                      'Examine global collaboration post-9/11; propose measures for enhanced cooperation.',
-                    )
-                  }
-                >
-                  Examine global collaboration post-9/11; propose measures for
-                  enhanced cooperation.
-                </button>
+
+                {SUGGESTIONS.map((suggestion: string, index: number) => (
+                  <button
+                    key={index}
+                    className="helper-button"
+                    onClick={() => handleButtonClick(suggestion)}
+                  >
+                    {suggestion}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
