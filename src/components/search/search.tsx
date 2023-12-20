@@ -7,7 +7,7 @@ import {
   Prompt,
 } from '@src/types/investigation';
 import { generateGUID, getChatHistory } from '@src/utils/api';
-import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import {
@@ -18,9 +18,11 @@ import {
 import { TextAreaInput } from '../text-area-input/textarea-input.tsx';
 import infinteLoop from '/img/infinteLoop.svg';
 export const Search = ({
-  buttonSearchQuery,
+  searchInput,
+  setSearchInput,
 }: {
-  buttonSearchQuery: string;
+  searchInput: string;
+  setSearchInput: React.Dispatch<React.SetStateAction<string>>;
 }): React.ReactElement => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,61 +33,20 @@ export const Search = ({
   const [isSearching, setIsSearching] = useRecoilState<boolean>(searching);
   const [currentDataset] = useRecoilState<string>(defaultDataset);
   const home = location.pathname === '/';
-
-  const updateFocus = useCallback(() => {
+  const updateFocus = () => {
     const input = document.querySelector('input');
     if (input) {
       input.focus();
     }
-  }, []);
-
-  const generateUniqueId = () => {
-    // Get the current timestamp
-    const timestamp = new Date().getTime();
-
-    // Generate a random number (between 0 and 9999) to add uniqueness
-    const randomNum = Math.floor(Math.random() * 10000);
-
-    // Concatenate the timestamp and random number to create the unique ID
-    const uniqueId = `${timestamp}${randomNum}`;
-
-    return uniqueId;
   };
 
-  const submitSearch = useCallback(async () => {
+  const submitSearch = async () => {
     setIsSearching(true);
     if (location.pathname === '/') {
       navigate('/investigations');
     }
 
-    const updateCurrentInvestigation = (newData: Prompt[]) => {
-      if (buttonSearchQuery) {
-        console.log('/// 2  setQuery buttonSearchQuery', buttonSearchQuery);
-        // Create a new Prompt object for buttonSearchQuery
-        const searchQueryPrompt: Prompt = {
-          id: generateUniqueId(), // You need to implement a function to generate unique IDs
-          prompt: buttonSearchQuery,
-          completion: 'Loading...',
-          // Add other properties as needed
-        };
-        // Update currentInvestigation with the new data, including the searchQueryPrompt
-        setCurrentInvestigation((prev) => ({
-          ...prev,
-          prompts: [...newData, searchQueryPrompt],
-        }));
-      } else {
-        console.log('updateCurrentInvestigation', currentInvestigation);
-        console.log('newData', newData);
-        setCurrentInvestigation((prev) => ({
-          ...prev,
-          prompts: [...newData],
-        }));
-      }
-    };
-
-    console.log('query before queryCopy', query);
-    const queryCopy = query;
-    console.log('queryCopy', query);
+    const queryCopy = searchInput;
     let newData: Prompt[] = [];
     if (currentInvestigation?.prompts) {
       newData = [...currentInvestigation.prompts];
@@ -114,38 +75,25 @@ export const Search = ({
         updateCurrentInvestigation(newData);
         setIsSearching(false);
       }
+      setSearchInput('');
     });
 
     setQuery('');
     updateFocus();
-  }, [
-    location.pathname,
-    navigate,
-    query,
-    currentInvestigation,
-    currentDataset,
-    search,
-    setCurrentInvestigation,
-    setIsSearching,
-    setQuery,
-    updateFocus,
-    buttonSearchQuery,
-    // updateCurrentInvestigation,
-  ]);
+  };
 
-  useEffect(() => {
-    if (buttonSearchQuery) {
-      console.log('buttonSearchQuery', buttonSearchQuery);
-      setQuery(buttonSearchQuery);
-      submitSearch();
-    }
-  }, [buttonSearchQuery, submitSearch]);
+  const updateCurrentInvestigation = (newData: Prompt[]) => {
+    setCurrentInvestigation((prev) => ({
+      ...prev,
+      prompts: [...newData],
+    }));
+  };
 
   const handleOnChange = (event: SyntheticEvent) => {
     const target = event.target as HTMLInputElement;
     const value = target.value;
-    console.log('value', value);
     setQuery(value);
+    setSearchInput(value);
   };
 
   const handleSearch = () => {
@@ -168,7 +116,7 @@ export const Search = ({
           className="search-area-input"
           autoFocus
           placeholder="Enter your search here..."
-          value={query}
+          value={searchInput}
           onChange={handleOnChange}
           onKeyUp={(event) => {
             if (event.key === 'Enter' && query.trim() !== '') {

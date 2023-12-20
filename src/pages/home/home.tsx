@@ -7,21 +7,19 @@ import { currentInvestigation as defaultInvestigation } from '../../store';
 export const Home = (): React.ReactElement => {
   const [, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
-  const [buttonSearchQuery, setButtonSearchQuery] = useState('');
+  const [searchInput, setSearchInput] = useState<string>('');
 
   useEffect(() => {
     setCurrentInvestigation({});
-    console.log('setCurrentInvestigation', setCurrentInvestigation);
   }, [setCurrentInvestigation]);
 
-  const handleButtonClick = (text: string) => {
-    console.log('//////handleButtonClicked', text);
-    setButtonSearchQuery(text);
+  const handleButtonClick = (buttonText: string) => {
+    setSearchInput(buttonText);
   };
 
   return (
     <>
-      <div className="grid-container padding-top-1">
+      <div className="grid-container">
         <div className="grid-row">
           <div className="grid-col">
             <div
@@ -34,36 +32,48 @@ export const Home = (): React.ReactElement => {
               <p className="margin-top-1">
                 Perform a search on one dataset or multiple datasets.
               </p>
-              <button
-                className="button-suggest"
-                onClick={() =>
-                  handleButtonClick(
-                    'What lead up to the 9/11 attacks and what was known?',
-                  )
-                }
-              >
-                Try seaching: What lead up to the 9/11 attacks and what was
-                known?
-              </button>
-              <button
-                className="button-suggest"
-                onClick={() =>
-                  handleButtonClick('Who was involved in the 9/11 commission?')
-                }
-              >
-                Text 2
-              </button>
-              <button
-                className="button-suggest"
-                onClick={() => handleButtonClick('Text 3')}
-              >
-                Text 3
-              </button>
+              <div className="button-container">
+                <p className="helper-text">
+                  Don't know where to start? Try a helper prompt.
+                </p>
+                <button
+                  className="helper-button"
+                  onClick={() =>
+                    handleButtonClick(
+                      'What intel lapses occurred, and how can they be prevented?',
+                    )
+                  }
+                >
+                  What intel lapses occurred, and how can they be prevented?
+                </button>
+                <button
+                  className="helper-button"
+                  onClick={() =>
+                    handleButtonClick(
+                      'Assess emergency response; suggest improvements for future catastrophic events',
+                    )
+                  }
+                >
+                  Assess emergency response; suggest improvements for future
+                  catastrophic events
+                </button>
+                <button
+                  className="helper-button"
+                  onClick={() =>
+                    handleButtonClick(
+                      'Examine global collaboration post-9/11; propose measures for enhanced cooperation.',
+                    )
+                  }
+                >
+                  Examine global collaboration post-9/11; propose measures for
+                  enhanced cooperation.
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <Search buttonSearchQuery={buttonSearchQuery} />
+      <Search searchInput={searchInput} setSearchInput={setSearchInput} />
     </>
   );
 };

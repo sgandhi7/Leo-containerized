@@ -118,14 +118,26 @@ body {
     bottom: -1rem;
   }
 
-  button.button-suggest {
-    padding: 2rem;
-    border: 1px solid #007bff;
-    border-radius: 10px;
-    margin: 2rem;
-    cursor: pointer;
+  .button-container {
+    margin-bottom: 1rem;
+    .helper-button {
+      margin: 1rem;
+      padding: 1rem;
+      border: 1px solid rgba(56, 31, 89, 0.2);
+      cursor: pointer;
+      border-radius: 10px;
+      width: 30%;
+      &:hover {
+        border: 1px solid rgba(56, 31, 89, 0.7);
+      }
+    }
+    p.helper-text {
+      font-size: 13px !important;
+      margin: 0;
+      text-align: left;
+      margin-left: 2rem;
+    }
   }
-
   .m-b-1 {
     margin-bottom: 1rem;
   }
