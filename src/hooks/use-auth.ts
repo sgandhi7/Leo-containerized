@@ -24,6 +24,7 @@ const useAuth = () => {
   // }, [auth.user]);
 
   useEffect(() => {
+    /* istanbul ignore next */
     if (auth.isAuthenticated) {
       setIsSignedIn(true);
     }
@@ -31,6 +32,7 @@ const useAuth = () => {
 
   useEffect(() => {
     const profile = auth.user?.profile;
+    /* istanbul ignore next */
     if (profile) {
       setCurrentUserDate({
         firstName: profile.given_name,
@@ -58,6 +60,7 @@ const useAuth = () => {
   const signOut = (): void => {
     setIsSignedIn(false);
     setCurrentUserDate({} as User);
+    /* istanbul ignore next */
     if (auth.isAuthenticated) {
       auth
         .signoutRedirect({

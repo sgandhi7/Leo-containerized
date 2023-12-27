@@ -1,5 +1,3 @@
-import { completionData } from '@src/data/investigation';
-import { isMocked } from '@src/utils/api';
 import axios from '@src/utils/axios';
 import { useCallback, useState } from 'react';
 import { ChatHistory, Completion, Investigation } from '../types/investigation';
@@ -17,32 +15,27 @@ const useApi = () => {
   ): Promise<Completion[]> => {
     return await new Promise((resolve, reject) => {
       setLoading(true);
-      if (isMocked()) {
-        resolve(completionData);
-        setLoading(false);
-      } else {
-        const url = `/wiki-search`;
-        const queryParams = {
-          query,
-          search_database: dataSet,
-        };
-        axios
-          .post(url, chatHistory, { params: { ...queryParams } })
-          .then((response) => {
-            return response.data;
-          })
-          .then((data) => {
-            setCompletions(data);
-            resolve(data);
-          })
-          .catch((error) => {
-            setError(error.message);
-            reject(error);
-          })
-          .finally(() => {
-            setLoading(false);
-          });
-      }
+      const url = `/wiki-search`;
+      const queryParams = {
+        query,
+        search_database: dataSet,
+      };
+      axios
+        .post(url, chatHistory, { params: { ...queryParams } })
+        .then((response) => {
+          return response.data;
+        })
+        .then((data) => {
+          setCompletions(data);
+          resolve(data);
+        })
+        .catch((error) => {
+          setError(error.message);
+          reject(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     });
   };
 
