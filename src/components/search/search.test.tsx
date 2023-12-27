@@ -24,10 +24,8 @@ describe('Search', () => {
     });
   });
 
-  test('renders Search component and checks input change', () => {
+  test('renders Search component and checks input change', async () => {
     const setSearchInput = jest.fn();
-    // const history = createMemoryHistory();
-
     const { getByRole } = render(
       <AuthProvider>
         <RecoilRoot>
@@ -39,7 +37,9 @@ describe('Search', () => {
     );
 
     const searchInput = getByRole('textbox');
-    fireEvent.change(searchInput, { target: { value: 'test' } });
+    await act(async () => {
+      fireEvent.change(searchInput, { target: { value: 'test' } });
+    });
 
     expect(setSearchInput).toHaveBeenCalledWith('test');
   });
