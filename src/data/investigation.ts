@@ -6,6 +6,13 @@ export const promptData: Prompt[] = [
     prompt: 'Did the Jedi have any enemies?',
     completion:
       'The Jedi have many enemies in the Star Wars universe, including the Sith and Dark Jedi.',
+    sources: [
+      {
+        reference: 'Wookiepedia',
+        document: 'https://starwars.fandom.com/wiki/Jedi',
+        score: 0.9,
+      },
+    ],
   },
   {
     id: '2',
