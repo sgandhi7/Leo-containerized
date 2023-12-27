@@ -1,7 +1,8 @@
-import { act, render } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import * as useApi from '../../hooks/use-api';
 import * as useAuthMock from '../../hooks/use-auth';
 import { User } from '../../types/user';
 import { Home } from './home';
@@ -38,36 +39,31 @@ describe('Home', () => {
     });
   });
 
-  // test('should trigger button clicks', async () => {
-  //   const { getAllByText } = render(componentWrapper);
+  test('submits a search with helper button', async () => {
+    jest.spyOn(useApi, 'default').mockReturnValue({
+      item: undefined,
+      items: undefined,
+      loading: false,
+      completions: [],
+      error: '',
+      search: jest.fn().mockResolvedValue({ data: { results: [] } }),
+      getItem: jest.fn(),
+      getItems: jest.fn(),
+    });
+    const { baseElement } = render(componentWrapper);
 
-  //   const button1 = getAllByText(
-  //     'What intel lapses occurred, and how can they be prevented?',
-  //   );
-  //   const button2 = getAllByText(
-  //     'Assess emergency response; suggest improvements for future catastrophic events',
-  //   );
-  //   const button3 = getAllByText(
-  //     'Examine global collaboration post-9/11; propose measures for enhanced cooperation.',
-  //   );
+    const helperButton = baseElement.querySelector(
+      'button.helper-button',
+    ) as HTMLButtonElement;
+    await act(async () => {
+      fireEvent.click(helperButton);
+    });
 
-  //   fireEvent.click(button1[0]);
-  //   expect(
-  //     getAllByText(
-  //       'What intel lapses occurred, and how can they be prevented?',
-  //     ),
-  //   ).toBeInTheDocument();
-  //   fireEvent.click(button2[1]);
-  //   expect(
-  //     getAllByText(
-  //       'Assess emergency response; suggest improvements for future catastrophic events',
-  //     ),
-  //   ).toBeInTheDocument();
-  //   fireEvent.click(button3[2]);
-  //   expect(
-  //     getAllByText(
-  //       'Examine global collaboration post-9/11; propose measures for enhanced cooperation.',
-  //     ),
-  //   ).toBeInTheDocument();
-  // });
+    const searchButton = baseElement.querySelector(
+      'button.search-input',
+    ) as HTMLButtonElement;
+    await act(async () => {
+      fireEvent.click(searchButton);
+    });
+  });
 });

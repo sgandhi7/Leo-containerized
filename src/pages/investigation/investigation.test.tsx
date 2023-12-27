@@ -1,8 +1,17 @@
+import { investigationData } from '@src/data/investigation';
 import { act, render } from '@testing-library/react';
 import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import * as useApi from '../../hooks/use-api';
 import { Investigation } from './investigation';
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: () => ({
+    id: '1',
+  }),
+}));
 
 describe('Investigation', () => {
   const componentWrapper = (
@@ -15,48 +24,111 @@ describe('Investigation', () => {
     </AuthProvider>
   );
 
-  // // ... rest of your tests
-
-  // test('renders without crashing', () => {
-  //   render(
-  //     <RecoilRoot>
-  //       <Investigation />
-  //     </RecoilRoot>,
-  //   );
-  // });
-
-  // test('calls getItem when id is present', async () => {
-  //   const getItem = jest.fn();
-  //   useApi.mockReturnValue({
-  //     getItem,
-  //     item: null,
-  //     loading: false,
-  //   });
-
-  //   act(() => {
-  //     render(
-  //       <RecoilRoot>
-  //         <Investigation />
-  //       </RecoilRoot>,
-  //     );
-  //   });
-
-  //   await waitFor(() => expect(getItem).toHaveBeenCalledWith('testId'));
-  // });
-
-  // test('sets current investigation when item is present', async () => {
-  //   useApi.mockReturnValue({
-  //     getItem: jest.fn(),
-  //     items: null,
-  //     loading: false,
-  //     completions: undefined,
-  //   });
-  // });
-
   test('should render successfully', async () => {
     const { baseElement } = render(componentWrapper);
     await act(async () => {
       expect(baseElement).toBeTruthy();
+    });
+  });
+
+  test('renders with no data', async () => {
+    jest.spyOn(useApi, 'default').mockReturnValue({
+      item: undefined,
+      items: undefined,
+      loading: true,
+      completions: [],
+      error: '',
+      search: jest.fn(),
+      getItem: jest.fn(),
+      getItems: jest.fn(),
+    });
+    const { baseElement } = render(componentWrapper);
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+    });
+  });
+
+  test('renders with mocked data and no prompts', async () => {
+    jest.spyOn(useApi, 'default').mockReturnValue({
+      item: investigationData[0],
+      items: undefined,
+      loading: false,
+      completions: [],
+      error: '',
+      search: jest.fn(),
+      getItem: jest.fn(),
+      getItems: jest.fn(),
+    });
+    const { baseElement } = render(componentWrapper);
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+      expect(baseElement.querySelector('.chat-content')).toBeTruthy();
+    });
+  });
+
+  test('renders with mocked data and prompts', async () => {
+    jest.spyOn(useApi, 'default').mockReturnValue({
+      item: investigationData[2],
+      items: undefined,
+      loading: false,
+      completions: [],
+      error: '',
+      search: jest.fn(),
+      getItem: jest.fn(),
+      getItems: jest.fn(),
+    });
+    const { baseElement } = render(componentWrapper);
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+      expect(baseElement.querySelectorAll('.chat-content-answer')).toHaveLength(
+        3,
+      );
+    });
+  });
+
+  test('renders with mocked data while loading', async () => {
+    jest.spyOn(useApi, 'default').mockReturnValue({
+      item: investigationData[2],
+      items: undefined,
+      loading: true,
+      completions: [],
+      error: '',
+      search: jest.fn(),
+      getItem: jest.fn(),
+      getItems: jest.fn(),
+    });
+    const { baseElement } = render(componentWrapper);
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+      expect(baseElement.querySelectorAll('.chat-content-answer')).toHaveLength(
+        3,
+      );
+    });
+  });
+
+  test('renders with mocked data and prompts and sources', async () => {
+    jest.spyOn(useApi, 'default').mockReturnValue({
+      item: investigationData[2],
+      items: undefined,
+      loading: false,
+      completions: [],
+      error: '',
+      search: jest.fn(),
+      getItem: jest.fn(),
+      getItems: jest.fn(),
+    });
+    const { baseElement } = render(componentWrapper);
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+      expect(baseElement.querySelectorAll('.chat-content-answer')).toHaveLength(
+        3,
+      );
+    });
+    const button = baseElement.querySelectorAll(
+      '.usa-button--unstyled',
+    )[0] as HTMLButtonElement;
+    await act(async () => {
+      button.click();
     });
   });
 });

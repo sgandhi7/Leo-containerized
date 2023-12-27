@@ -1,27 +1,11 @@
+import { investigationData } from '@src/data/investigation';
 import '@testing-library/jest-dom';
 import { act, render } from '@testing-library/react';
 import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import * as useApi from '../../hooks/use-api';
 import { History } from './history';
-// // Mock the useApi hook
-// jest.mock('@src/hooks/use-api', () => ({
-//   useApi: () => ({
-//     getItems: jest.fn(),
-//     items: {
-//       items: [
-//         {
-//           id: 1,
-//           name: 'Test Investigation',
-//           created: new Date().toISOString(),
-//           createdBy: 'John Doe',
-//           status: 'Active',
-//           prompts: [],
-//         },
-//       ],
-//     },
-//   }),
-// }));
 
 describe('History', () => {
   const componentWrapper = (
@@ -41,17 +25,39 @@ describe('History', () => {
     });
   });
 
-  // test('displays investigation data in the table', () => {
-  //   render(<History />);
+  test('renders with no data', async () => {
+    jest.spyOn(useApi, 'default').mockReturnValue({
+      item: undefined,
+      items: undefined,
+      loading: false,
+      completions: [],
+      error: '',
+      search: jest.fn(),
+      getItem: jest.fn(),
+      getItems: jest.fn(),
+    });
+    const { baseElement } = render(componentWrapper);
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+      expect(baseElement.querySelector('#investigation-table')).toBeFalsy();
+    });
+  });
 
-  //   test('displays the Share button', () => {
-  //     render(<History />);
-  //     expect(screen.getByText('Share')).toBeInTheDocument();
-  //   });
-  // });
-
-  // test('displays the Share button', () => {
-  //   render(<History />);
-  //   expect(screen.getByText('Share')).toBeInTheDocument();
-  // });
+  test('renders with mocked data', async () => {
+    jest.spyOn(useApi, 'default').mockReturnValue({
+      item: undefined,
+      items: investigationData,
+      loading: false,
+      completions: [],
+      error: '',
+      search: jest.fn(),
+      getItem: jest.fn(),
+      getItems: jest.fn(),
+    });
+    const { baseElement } = render(componentWrapper);
+    await act(async () => {
+      expect(baseElement).toBeTruthy();
+      expect(baseElement.querySelector('#investigation-table')).toBeTruthy();
+    });
+  });
 });
