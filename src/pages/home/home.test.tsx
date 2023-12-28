@@ -1,9 +1,11 @@
+import { suggestions } from '@src/data/suggestion';
 import { act, fireEvent, render } from '@testing-library/react';
 import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import * as useApi from '../../hooks/use-api';
 import * as useAuthMock from '../../hooks/use-auth';
+import * as useSuggestionsApi from '../../hooks/use-suggestions-api';
 import { User } from '../../types/user';
 import { Home } from './home';
 
@@ -50,6 +52,15 @@ describe('Home', () => {
       getItem: jest.fn(),
       getItems: jest.fn(),
     });
+
+    jest.spyOn(useSuggestionsApi, 'default').mockReturnValue({
+      item: undefined,
+      items: suggestions,
+      loading: false,
+      getItem: jest.fn(),
+      getItems: jest.fn(),
+    });
+
     const { baseElement } = render(componentWrapper);
 
     const helperButton = baseElement.querySelector(
