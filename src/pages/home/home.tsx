@@ -1,21 +1,27 @@
 import { Search } from '@src/components/search/search';
+import useSuggestionsApi from '@src/hooks/use-suggestions-api';
 import { Investigation as InvestigationState } from '@src/types/investigation';
-import { SUGGESTIONS } from '@src/utils/constants';
+import { Suggestion } from '@src/types/suggestion';
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { currentInvestigation as defaultInvestigation } from '../../store';
 export const Home = (): React.ReactElement => {
+  const { getItems, items } = useSuggestionsApi();
   const [, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [searchInput, setSearchInput] = useState<string>('');
+
+  const handleButtonClick = (buttonText: string) => {
+    setSearchInput(buttonText);
+  };
 
   useEffect(() => {
     setCurrentInvestigation({});
   }, [setCurrentInvestigation]);
 
-  const handleButtonClick = (buttonText: string) => {
-    setSearchInput(buttonText);
-  };
+  useEffect(() => {
+    getItems();
+  }, [getItems]);
 
   return (
     <>
@@ -37,15 +43,19 @@ export const Home = (): React.ReactElement => {
                   Don't know where to start? Try a helper prompt.
                 </p>
 
-                {SUGGESTIONS.map((suggestion: string, index: number) => (
-                  <button
-                    key={index}
-                    className="helper-button"
-                    onClick={() => handleButtonClick(suggestion)}
-                  >
-                    {suggestion}
-                  </button>
-                ))}
+                {items ? (
+                  items.map((suggestion: Suggestion) => (
+                    <button
+                      key={suggestion.id}
+                      className="helper-button"
+                      onClick={() => handleButtonClick(suggestion.value)}
+                    >
+                      {suggestion.value}
+                    </button>
+                  ))
+                ) : (
+                  <></>
+                )}
               </div>
             </div>
           </div>

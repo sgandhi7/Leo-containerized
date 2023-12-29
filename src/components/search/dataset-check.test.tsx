@@ -1,10 +1,20 @@
 // Checkbox.test.js
+import { datasets } from '@src/data/dataset';
 import { fireEvent, render } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
+import * as useDatasetApi from '../../hooks/use-dataset-api';
 import DatasetCheck from './dataset-check';
 
 describe('DatasetCheck', () => {
   test('renders without crashing', () => {
+    jest.spyOn(useDatasetApi, 'default').mockReturnValue({
+      item: undefined,
+      items: datasets,
+      loading: false,
+      getItem: jest.fn(),
+      getItems: jest.fn(),
+    });
+
     const { getByLabelText } = render(
       <RecoilRoot>
         <DatasetCheck />
@@ -14,7 +24,15 @@ describe('DatasetCheck', () => {
     expect(checkbox).toBeTruthy();
   });
 
-  test('handles checkbox1 change correctly', () => {
+  test('handles uncheck change correctly', () => {
+    jest.spyOn(useDatasetApi, 'default').mockReturnValue({
+      item: undefined,
+      items: datasets,
+      loading: false,
+      getItem: jest.fn(),
+      getItems: jest.fn(),
+    });
+
     const { getByLabelText } = render(
       <RecoilRoot>
         <DatasetCheck />
@@ -29,7 +47,15 @@ describe('DatasetCheck', () => {
     expect(checkbox.checked).toEqual(false);
   });
 
-  test('handles checkbox2 change correctly', () => {
+  test('handles check change correctly', () => {
+    jest.spyOn(useDatasetApi, 'default').mockReturnValue({
+      item: undefined,
+      items: datasets,
+      loading: false,
+      getItem: jest.fn(),
+      getItems: jest.fn(),
+    });
+
     const { getByLabelText } = render(
       <RecoilRoot>
         <DatasetCheck />
@@ -40,22 +66,7 @@ describe('DatasetCheck', () => {
     // Uncheck the checkbox
     fireEvent.click(checkbox);
 
-    // Verify that the checkbox is unchecked
-    expect(checkbox.checked).toEqual(true);
-  });
-
-  test('handles checkbox3 change correctly', () => {
-    const { getByLabelText } = render(
-      <RecoilRoot>
-        <DatasetCheck />
-      </RecoilRoot>,
-    );
-    const checkbox = getByLabelText('Audio') as HTMLInputElement;
-
-    // Uncheck the checkbox
-    fireEvent.click(checkbox);
-
-    // Verify that the checkbox is unchecked
+    // Verify that the checkbox is checked
     expect(checkbox.checked).toEqual(true);
   });
 });
