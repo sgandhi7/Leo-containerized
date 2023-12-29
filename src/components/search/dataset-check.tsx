@@ -20,7 +20,7 @@ export default function DatasetCheck() {
         newValues.splice(index, 1);
       }
     }
-    setDatasets([...newValues]);
+    setDatasets(newValues);
   };
 
   useEffect(() => {
