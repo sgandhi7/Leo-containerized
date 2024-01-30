@@ -57,6 +57,7 @@ describe('Search', () => {
       search: jest.fn().mockResolvedValue({ data: { results: [] } }),
       getItem: jest.fn(),
       getItems: jest.fn(),
+      deleteItem: jest.fn(),
     });
     const { getByRole } = render(componentWrapper);
 
@@ -80,6 +81,7 @@ describe('Search', () => {
       search: jest.fn().mockResolvedValue({ data: { results: [] } }),
       getItem: jest.fn(),
       getItems: jest.fn(),
+      deleteItem: jest.fn(),
     });
     const { getByRole } = render(
       <AuthProvider>
@@ -111,6 +113,7 @@ describe('Search', () => {
         .mockResolvedValue({ data: { results: completionData } }),
       getItem: jest.fn(),
       getItems: jest.fn(),
+      deleteItem: jest.fn(),
     });
     const { getByRole } = render(
       <AuthProvider>

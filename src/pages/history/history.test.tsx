@@ -35,6 +35,7 @@ describe('History', () => {
       search: jest.fn(),
       getItem: jest.fn(),
       getItems: jest.fn(),
+      deleteItem: jest.fn(),
     });
     const { baseElement } = render(componentWrapper);
     await act(async () => {
@@ -53,6 +54,7 @@ describe('History', () => {
       search: jest.fn(),
       getItem: jest.fn(),
       getItems: jest.fn(),
+      deleteItem: jest.fn(),
     });
     const { baseElement } = render(componentWrapper);
     await act(async () => {

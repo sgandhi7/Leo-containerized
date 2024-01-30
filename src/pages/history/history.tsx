@@ -1,5 +1,5 @@
 import { DataTable } from '@metrostar/comet-extras';
-import { Button } from '@metrostar/comet-uswds';
+import { Button, ButtonGroup } from '@metrostar/comet-uswds';
 import useApi from '@src/hooks/use-api';
 import { Investigation } from '@src/types/investigation';
 import { ColumnDef } from '@tanstack/react-table';
@@ -9,7 +9,7 @@ import { convertToReadableFormat } from '../../utils/utils';
 import infinteLoop from '/img/infinteLoop.svg';
 export const History = (): React.ReactElement => {
   const [loading, setLoading] = useState(true);
-  const { getItems, items } = useApi();
+  const { getItems, deleteItem, items } = useApi();
   const [investigations, setInvestigiations] = useState<Investigation[]>();
   const cols = React.useMemo<ColumnDef<Investigation>[]>(
     () => [
@@ -46,6 +46,7 @@ export const History = (): React.ReactElement => {
     ],
     [],
   );
+
   useEffect(() => {
     if (items) {
       const newData: Investigation[] = [];
@@ -65,15 +66,34 @@ export const History = (): React.ReactElement => {
 
           status: item.status,
           actions: (
-            <Button id={`share-${item.id}`} onClick={() => {}}>
-              Share
-            </Button>
+            <ButtonGroup>
+              <Button id={`share-${item.id}`} onClick={() => {}}>
+                Share
+              </Button>
+              <Button
+                id={`delete-${item.id}`}
+                onClick={() => {
+                  const confirm = window.confirm(
+                    'Are you sure you would like to delete this investigation?',
+                  );
+                  if (confirm && item.id) {
+                    deleteItem(item.id).then(() => {
+                      getItems();
+                    });
+                  } else {
+                    return;
+                  }
+                }}
+              >
+                Delete
+              </Button>
+            </ButtonGroup>
           ),
         });
       });
       setInvestigiations(newData);
     }
-  }, [items]);
+  }, [items, deleteItem, getItems]);
 
   useEffect(() => {
     getItems();
