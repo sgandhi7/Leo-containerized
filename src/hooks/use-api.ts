@@ -66,6 +66,20 @@ const useApi = () => {
     [setLoading, setItem],
   );
 
+  const deleteItem = useCallback(
+    async (id: string): Promise<void> => {
+      try {
+        setLoading(true);
+        await axios.delete(`/investigations/${id}`);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [setLoading],
+  );
+
   return {
     loading,
     items,
@@ -75,6 +89,7 @@ const useApi = () => {
     search,
     getItems,
     getItem,
+    deleteItem,
   };
 };
 

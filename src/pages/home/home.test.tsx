@@ -51,6 +51,7 @@ describe('Home', () => {
       search: jest.fn().mockResolvedValue({ data: { results: [] } }),
       getItem: jest.fn(),
       getItems: jest.fn(),
+      deleteItem: jest.fn(),
     });
 
     jest.spyOn(useSuggestionsApi, 'default').mockReturnValue({

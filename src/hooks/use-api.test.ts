@@ -102,4 +102,32 @@ describe('useApi', () => {
     });
     expect(result.current.getItem).toBeTruthy();
   });
+
+  test('should call deleteItem successfully with data', async () => {
+    mock
+      .onDelete(new RegExp('/investigations/1'))
+      .reply(200, investigationData[0]);
+    const { result } = renderHook(() => useApi(), {
+      wrapper: RecoilRoot,
+    });
+
+    await act(async () => {
+      result.current.deleteItem('1');
+    });
+    expect(result.current.deleteItem).toBeTruthy();
+  });
+
+  test('should call deleteItem with error', async () => {
+    mock
+      .onDelete(new RegExp('/investigations/1'))
+      .reply(500, { error: 'error' });
+    const { result } = renderHook(() => useApi(), {
+      wrapper: RecoilRoot,
+    });
+
+    await act(async () => {
+      result.current.deleteItem('1');
+    });
+    expect(result.current.deleteItem).toBeTruthy();
+  });
 });
