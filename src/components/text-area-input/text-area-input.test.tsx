@@ -6,6 +6,7 @@ describe('TextAreaInput', () => {
   test('calls onChange handler when typing', () => {
     const handleChange = jest.fn();
     const handleKeyUp = jest.fn();
+    const handleKeyDown = jest.fn();
     const { getByLabelText } = render(
       <TextAreaInput
         id="test"
@@ -13,6 +14,7 @@ describe('TextAreaInput', () => {
         value=""
         onChange={handleChange}
         onKeyUp={handleKeyUp}
+        onKeyDown={handleKeyDown}
       />,
     );
 
@@ -25,6 +27,7 @@ describe('TextAreaInput', () => {
   test('calls onKeyUp handler when key is released', () => {
     const handleChange = jest.fn();
     const handleKeyUp = jest.fn();
+    const handleKeyDown = jest.fn();
     const { getByLabelText } = render(
       <TextAreaInput
         id="test"
@@ -32,6 +35,7 @@ describe('TextAreaInput', () => {
         value=""
         onChange={handleChange}
         onKeyUp={handleKeyUp}
+        onKeyDown={handleKeyDown}
       />,
     );
 

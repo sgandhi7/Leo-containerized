@@ -8,6 +8,7 @@ interface TextAreaProps {
   placeholder?: string;
   className?: string;
   onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  onKeyDown: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
   onKeyUp: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
   rows?: number;
   cols?: number;
@@ -23,9 +24,11 @@ export const TextAreaInput: React.FC<TextAreaProps> = ({
   className,
   placeholder,
   onChange,
+  onKeyDown,
   onKeyUp,
   rows = 1,
   cols = 1,
+  autoFocus = true,
   disabled = false,
 }) => {
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -46,11 +49,13 @@ export const TextAreaInput: React.FC<TextAreaProps> = ({
           name={name}
           value={value}
           onChange={handleInputChange}
+          onKeyDown={onKeyDown}
           onKeyUp={onKeyUp}
           placeholder={placeholder}
           rows={rows}
           cols={cols}
           disabled={disabled}
+          autoFocus={autoFocus}
           style={{
             minHeight: `${rows * 3.5}rem`,
             maxHeight: `${rows * 20}rem`,
