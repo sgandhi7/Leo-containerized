@@ -116,6 +116,7 @@ export const Search = ({
           className="search-area-input"
           autoFocus
           placeholder="Enter your search here..."
+          disabled={loading || isSearching}
           value={searchInput}
           onChange={handleOnChange}
           onKeyUp={(event) => {

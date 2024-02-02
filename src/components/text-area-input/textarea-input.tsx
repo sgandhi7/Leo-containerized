@@ -12,6 +12,7 @@ interface TextAreaProps {
   rows?: number;
   cols?: number;
   autoFocus?: boolean;
+  disabled?: boolean;
 }
 
 export const TextAreaInput: React.FC<TextAreaProps> = ({
@@ -25,6 +26,7 @@ export const TextAreaInput: React.FC<TextAreaProps> = ({
   onKeyUp,
   rows = 1,
   cols = 1,
+  disabled = false,
 }) => {
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     onChange(event);
@@ -48,6 +50,7 @@ export const TextAreaInput: React.FC<TextAreaProps> = ({
           placeholder={placeholder}
           rows={rows}
           cols={cols}
+          disabled={disabled}
           style={{
             minHeight: `${rows * 3.5}rem`,
             maxHeight: `${rows * 20}rem`,
