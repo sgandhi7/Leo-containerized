@@ -181,6 +181,9 @@ body {
     button.search-input {
       padding: 1rem;
     }
+    textarea.search-area-input:disabled {
+      background-color: #eaeced;
+    }
     .search-button {
       height: 40px; /* Set your desired height for the button */
       margin-left: 8px; /* Adjust the spacing between input and button */

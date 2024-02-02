@@ -7,7 +7,7 @@ import {
   Prompt,
 } from '@src/types/investigation';
 import { generateGUID, getChatHistory } from '@src/utils/api';
-import React, { SyntheticEvent, useState } from 'react';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import {
@@ -34,7 +34,7 @@ export const Search = ({
   const [currentDataset] = useRecoilState<string>(defaultDataset);
   const home = location.pathname === '/';
   const updateFocus = () => {
-    const input = document.querySelector('input');
+    const input = document.querySelector('textarea');
     if (input) {
       input.focus();
     }
@@ -77,9 +77,7 @@ export const Search = ({
       }
       setSearchInput('');
     });
-
     setQuery('');
-    updateFocus();
   };
 
   const updateCurrentInvestigation = (newData: Prompt[]) => {
@@ -100,6 +98,12 @@ export const Search = ({
     submitSearch();
   };
 
+  useEffect(() => {
+    if (!isSearching && !loading) {
+      updateFocus();
+    }
+  }, [isSearching, loading]);
+
   return (
     <div className="grid-container position-relative bottom-2">
       <div
@@ -116,10 +120,20 @@ export const Search = ({
           className="search-area-input"
           autoFocus
           placeholder="Enter your search here..."
+          disabled={loading || isSearching}
           value={searchInput}
           onChange={handleOnChange}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+              event.preventDefault();
+            }
+          }}
           onKeyUp={(event) => {
-            if (event.key === 'Enter' && searchInput.trim() !== '') {
+            if (
+              event.key === 'Enter' &&
+              !event.shiftKey &&
+              searchInput.trim() !== ''
+            ) {
               submitSearch();
             }
           }}
