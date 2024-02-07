@@ -26,39 +26,37 @@ export const Home = (): React.ReactElement => {
   return (
     <>
       <div className="grid-container">
-        <div className="grid-row padding-top-10">
-          <div className="grid-col">
-            <div
-              className="width-100 padding-top-1 flex flex-row"
-              style={{ textAlign: 'center' }}
-            >
-              <h1 className="margin-bottom-2">
-                What would you like to Investigate?
-              </h1>
-              <p className="margin-bottom-3">
-                Try a sample prompt, or start your own search below.
-              </p>
-              <div className="button-container flex flex-align">
-                {items ? (
-                  items.map((suggestion: Suggestion) => (
-                    <button
-                      key={suggestion.id}
-                      className="helper-button"
-                      onClick={() => handleButtonClick(suggestion.value)}
-                    >
-                      {suggestion.value}
-                    </button>
-                  ))
-                ) : (
-                  <></>
-                )}
-              </div>
+        <div className="grid-row display-flex height-viewport">
+          <div
+            className="flex-align-self-start width-100 padding-top-15 margin-x-auto margin-y-auto"
+            style={{ textAlign: 'center' }}
+          >
+            <h1 className="margin-bottom-2">
+              What would you like to Investigate?
+            </h1>
+            <p className="margin-bottom-3">
+              Try a sample prompt, or start your own search below.
+            </p>
+            <div className="button-container">
+              {items ? (
+                items.map((suggestion: Suggestion) => (
+                  <button
+                    key={suggestion.id}
+                    className="helper-button"
+                    onClick={() => handleButtonClick(suggestion.value)}
+                  >
+                    {suggestion.value}
+                  </button>
+                ))
+              ) : (
+                <></>
+              )}
             </div>
           </div>
+          <div className="flex-align-self-end width-full margin-bottom-5">
+            <Search searchInput={searchInput} setSearchInput={setSearchInput} />
+          </div>
         </div>
-      </div>
-      <div id="investigations" className="prompt">
-        <Search searchInput={searchInput} setSearchInput={setSearchInput} />
       </div>
     </>
   );

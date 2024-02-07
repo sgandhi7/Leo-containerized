@@ -30,6 +30,7 @@ export const Search = ({
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [isSearching, setIsSearching] = useRecoilState<boolean>(searching);
   const [currentDataset] = useRecoilState<string>(defaultDataset);
+
   const updateFocus = () => {
     const input = document.querySelector('textarea');
     if (input) {
@@ -37,7 +38,7 @@ export const Search = ({
     }
   };
 
-  const submitSearch = async () => {
+  const handleSearch = async () => {
     setIsSearching(true);
     if (location.pathname === '/') {
       navigate('/investigations');
@@ -91,10 +92,6 @@ export const Search = ({
     setSearchInput(value);
   };
 
-  const handleSearch = () => {
-    submitSearch();
-  };
-
   useEffect(() => {
     if (!isSearching && !loading) {
       updateFocus();
@@ -113,10 +110,10 @@ export const Search = ({
         <TextAreaInput
           id="search-input"
           name="search-input"
-          label="Enter your search here..."
+          label="Message Horizon Hunt..."
           className="search-area-input"
           autoFocus
-          placeholder="Enter your search here..."
+          placeholder="Message Horizon Hunt..."
           disabled={loading || isSearching}
           value={searchInput}
           onChange={handleOnChange}
@@ -131,22 +128,22 @@ export const Search = ({
               !event.shiftKey &&
               searchInput.trim() !== ''
             ) {
-              submitSearch();
+              handleSearch();
             }
           }}
         />
-        {loading || isSearching ? (
-          <img src={infinteLoop} alt="loading" className="searching" />
-        ) : (
-          <Button
-            id="search-btn"
-            className="search-input"
-            onClick={handleSearch}
-            disabled={loading || isSearching}
-          >
-            Search
-          </Button>
-        )}
+        <Button
+          id="search-btn"
+          className="search-input"
+          onClick={handleSearch}
+          disabled={loading || isSearching || searchInput.trim() === ''}
+        >
+          {loading || isSearching ? (
+            <img src={infinteLoop} alt="loading" className="searching" />
+          ) : (
+            <>Search</>
+          )}
+        </Button>
       </div>
     </div>
   );

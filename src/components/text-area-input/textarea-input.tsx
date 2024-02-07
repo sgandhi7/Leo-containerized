@@ -57,11 +57,12 @@ export const TextAreaInput: React.FC<TextAreaProps> = ({
           disabled={disabled}
           autoFocus={autoFocus}
           style={{
-            minHeight: `${rows * 3.5}rem`,
+            minHeight: `3rem`,
             maxHeight: `${rows * 20}rem`,
             borderRadius: '10px',
             margin: '1rem',
-            padding: '1rem',
+            marginRight: 0,
+            padding: '12px',
           }}
         />
       </div>
