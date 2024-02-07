@@ -26,23 +26,19 @@ export const Home = (): React.ReactElement => {
   return (
     <>
       <div className="grid-container">
-        <div className="grid-row">
+        <div className="grid-row padding-top-10">
           <div className="grid-col">
             <div
-              className="width-100 padding-top-6"
+              className="width-100 padding-top-1 flex flex-row"
               style={{ textAlign: 'center' }}
             >
-              <h1 className="margin-bottom-4">
+              <h1 className="margin-bottom-2">
                 What would you like to Investigate?
               </h1>
-              <p className="margin-top-1">
-                Perform a search on one dataset or multiple datasets.
+              <p className="margin-bottom-3">
+                Try a sample prompt, or start your own search below.
               </p>
-              <div className="button-container">
-                <p className="helper-text">
-                  Don't know where to start? Try a helper prompt.
-                </p>
-
+              <div className="button-container flex flex-align">
                 {items ? (
                   items.map((suggestion: Suggestion) => (
                     <button
@@ -61,7 +57,9 @@ export const Home = (): React.ReactElement => {
           </div>
         </div>
       </div>
-      <Search searchInput={searchInput} setSearchInput={setSearchInput} />
+      <div id="investigations" className="prompt">
+        <Search searchInput={searchInput} setSearchInput={setSearchInput} />
+      </div>
     </>
   );
 };

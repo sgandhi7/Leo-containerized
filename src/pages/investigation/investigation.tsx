@@ -138,7 +138,7 @@ export const Investigation = (): React.ReactElement => {
                                         >
                                           {`${getSource(source)}${getReference(
                                             source,
-                                          )} (Confidence Score: ${getScore(
+                                          )} (Text Similarity Score: ${getScore(
                                             source,
                                           )}%)`}
                                         </li>

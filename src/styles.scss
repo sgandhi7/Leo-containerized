@@ -1,14 +1,18 @@
 @forward 'providers/uswds/uswds.scss';
 
-$color-primary: #381f59;
-$color-primary-gray: #edeaee;
+// Colors
+$color-primary: #031626;
+$color-primary-gray: #f3f5f7;
 $color-secondary: #d83933;
 $color-white: #ffffff;
 $color-black: #000000;
 $color-gray: #dfe1e2;
 $color-blue: #005ea2;
 $color-green: #00bb9d;
-$color-green-light: #00cfc8;
+$color-green-light: #69f9c3;
+
+// Font
+$font-family: 'Public Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 body {
   background-color: $color-primary-gray;
@@ -44,9 +48,9 @@ body {
     padding-top: 0 !important;
 
     h1 {
-      color: $color-primary;
+      color: $color-black;
       margin-top: 2rem;
-      font-size: 3.5rem;
+      font-size: 2rem;
     }
   }
 
@@ -66,32 +70,34 @@ body {
       height: 100vh;
       min-width: 100%;
       h1 {
-        color: $color-green;
+        color: $color-green-light;
       }
       .usa-label {
         color: $color-green-light;
       }
     }
 
+    h1 {
+      font-family: $font-family;
+    }
+
     h2 {
-      font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Roboto, Arial,
-        sans-serif;
+      font-family: $font-family;
       font-size: 24px;
       font-weight: 400;
       line-height: 1.2;
     }
     p {
-      font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Roboto, Arial,
-        sans-serif;
-      font-size: 18px;
+      font-family: $font-family;
+      font-size: 1rem;
       font-weight: 400;
       line-height: 1.2;
+      color: #71767a;
     }
 
     #faqs {
       p {
-        font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Roboto,
-          Arial, sans-serif;
+        font-family: $font-family;
         font-size: 1rem;
         font-weight: 400;
         line-height: 1.4;
@@ -115,18 +121,22 @@ body {
   #investigations.prompt {
     position: fixed;
     width: 100%;
-    bottom: -1rem;
+    bottom: 2rem;
   }
 
   .button-container {
     margin-bottom: 1rem;
     .helper-button {
       margin: 1rem;
-      padding: 1rem;
+      padding: 24px 12px;
+      background-color: $color-primary;
+      color: $color-white;
       border: 2px solid rgba(56, 31, 89, 0.2);
       cursor: pointer;
       border-radius: 10px;
-      width: 30%;
+      width: 350px;
+      text-align: left;
+      font-size: 0.9rem;
       &:hover {
         border: 2px solid rgba(56, 31, 89, 0.7);
       }
@@ -256,7 +266,7 @@ body {
   }
 
   .usa-button:hover {
-    color: rgba(0, 207, 200, 0.8);
+    color: $color-green;
     background-color: $color-primary;
     border: 2px solid $color-green-light;
   }
@@ -265,7 +275,7 @@ body {
     background-color: $color-white;
     box-shadow: unset;
     color: $color-black;
-    border: 2px solid $color-blue;
+    border: 2px solid $color-primary;
   }
 
   .usa-button--outline:hover {
@@ -406,6 +416,10 @@ body {
   filter: brightness(0.5) sepia(1) hue-rotate(140deg) saturate(6);
 }
 
+table.data-table {
+  font-family: $font-family;
+}
+
 table.data-table thead th {
   background-color: $color-primary;
   color: $color-green-light;
@@ -421,7 +435,7 @@ table.data-table tbody td {
 }
 
 table.data-table tbody tr:hover {
-  background-color: $color-green;
+  background-color: $color-green-light;
 }
 
 @media (min-width: 80em) {

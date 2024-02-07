@@ -1,6 +1,4 @@
 import { Button } from '@metrostar/comet-uswds';
-import DatasetCheck from '@src/components/search/dataset-check';
-import SuggestData from '@src/components/search/suggest-data';
 import useApi from '@src/hooks/use-api';
 import {
   Investigation as InvestigationState,
@@ -32,7 +30,6 @@ export const Search = ({
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [isSearching, setIsSearching] = useRecoilState<boolean>(searching);
   const [currentDataset] = useRecoilState<string>(defaultDataset);
-  const home = location.pathname === '/';
   const updateFocus = () => {
     const input = document.querySelector('textarea');
     if (input) {
@@ -151,8 +148,6 @@ export const Search = ({
           </Button>
         )}
       </div>
-      {home ? <DatasetCheck /> : null}
-      {home ? <SuggestData /> : null}
     </div>
   );
 };
