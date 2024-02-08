@@ -483,6 +483,53 @@ table.data-table tbody tr:hover {
   background-color: $color-green-light;
 }
 
+.sidebar {
+  width: 250px;
+  height: 100%;
+  position: fixed;
+  display: block;
+  top: 0;
+  left: -190px;
+  background-color: $color-primary;
+  transition: left 0.3s ease;
+  z-index: 10001;
+
+  .sidebar-text {
+    position: relative;
+    left: 10px;
+    bottom: 4px;
+  }
+
+  .usa__logo {
+    position: relative;
+    left: 3px;
+  }
+
+  button {
+    margin: 16px 20px 12px 20px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+
+  li {
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+  }
+
+  li:hover {
+    background-color: #555;
+  }
+}
+
+.sidebar.open {
+  left: 0;
+}
+
 @media (min-width: 80em) {
   .usa-header {
     .usa-logo {

@@ -18,6 +18,7 @@ import {
 } from '../../store';
 import infinteLoop from '/img/infinteLoop.svg';
 import logomark from '/img/logo-mark.svg';
+
 export const Investigation = (): React.ReactElement => {
   const { id } = useParams();
   const { getItem, item, loading } = useApi();
