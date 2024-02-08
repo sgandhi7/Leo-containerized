@@ -1,4 +1,4 @@
-import { Button } from '@metrostar/comet-uswds';
+import { Button, TextArea } from '@metrostar/comet-uswds';
 import useApi from '@src/hooks/use-api';
 import {
   Investigation as InvestigationState,
@@ -14,8 +14,8 @@ import {
   initialSearch as defaultSearch,
   searching,
 } from '../../store';
-import { TextAreaInput } from '../text-area-input/textarea-input.tsx';
 import infinteLoop from '/img/infinteLoop.svg';
+
 export const Search = ({
   searchInput,
   setSearchInput,
@@ -111,31 +111,43 @@ export const Search = ({
             : 'search-area-investigation'
         }`}
       >
-        <TextAreaInput
-          id="search-input"
-          name="search-input"
-          label="Message Horizon Hunt..."
-          className="search-area-input"
-          autoFocus
-          placeholder="Message Horizon Hunt..."
-          disabled={loading || isSearching}
-          value={searchInput}
-          onChange={handleOnChange}
-          onKeyDown={(event) => {
-            if (event.key === 'Enter' && !event.shiftKey) {
-              event.preventDefault();
-            }
-          }}
-          onKeyUp={(event) => {
-            if (
-              event.key === 'Enter' &&
-              !event.shiftKey &&
-              searchInput.trim() !== ''
-            ) {
-              handleSearch();
-            }
-          }}
-        />
+        <div className="text-container">
+          <TextArea
+            id="search-input"
+            name="search-input"
+            aria-label="Search Horizon Hunt"
+            className="search-area-input"
+            value={searchInput}
+            onChange={handleOnChange}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+              }
+            }}
+            onKeyUp={(event) => {
+              if (
+                event.key === 'Enter' &&
+                !event.shiftKey &&
+                searchInput.trim() !== ''
+              ) {
+                handleSearch();
+              }
+            }}
+            placeholder="Message Horizon Hunt..."
+            rows={1}
+            cols={1}
+            disabled={loading || isSearching}
+            autoFocus
+            style={{
+              minHeight: `3rem`,
+              maxHeight: `${1 * 20}rem`,
+              borderRadius: '10px',
+              margin: '1rem',
+              marginRight: 0,
+              padding: '12px',
+            }}
+          />
+        </div>
         <Button
           id="search-btn"
           className="search-input"
