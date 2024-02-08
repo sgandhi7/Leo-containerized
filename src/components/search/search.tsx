@@ -101,7 +101,7 @@ export const Search = ({
   return (
     <div className="grid-container position-relative bottom-2">
       <div
-        className={`display-flex flex-justify-center search-area ${
+        className={`display-flex flex-justify-center search-area margin-x-auto margin-y-auto ${
           location.pathname === '/'
             ? 'search-area-home'
             : 'search-area-investigation'

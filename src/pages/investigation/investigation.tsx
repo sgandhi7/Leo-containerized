@@ -1,12 +1,14 @@
 import { Button, Icon } from '@metrostar/comet-uswds';
 import { Search } from '@src/components/search/search';
 import useApi from '@src/hooks/use-api';
+import useAuth from '@src/hooks/use-auth';
 import {
   CompletionSource,
   Investigation as InvestigationState,
   Prompt,
 } from '@src/types/investigation';
 import { getReference, getScore, getSource } from '@src/utils/api';
+import { getAvatarInitials } from '@src/utils/auth';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
@@ -16,6 +18,7 @@ import logomark from '/img/logo-mark.svg';
 export const Investigation = (): React.ReactElement => {
   const { id } = useParams();
   const { getItem, item, loading } = useApi();
+  const { currentUserData } = useAuth();
   const [prompts, setPrompts] = useState<Prompt[] | null>(null);
   const [currentInvestigation, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
@@ -56,23 +59,31 @@ export const Investigation = (): React.ReactElement => {
   return (
     <>
       <div className="grid-container">
-        <div className="grid-row">
-          <div className="grid-col">
+        <div className="grid-row display-flex height-viewport">
+          <div
+            className="flex-align-self-start width-full margin-x-auto margin-y-auto"
+            style={{ overflowY: 'auto', height: '80%' }}
+          >
             <div className="chat-content">
               {prompts?.map((prompt: Prompt) => (
                 <div key={`chat-content-${prompt.id}`}>
-                  <div className="grid-row flex-column">
-                    <div
-                      key={`chat-content-question-${prompt.id}`}
-                      className="chat-content-question grid-col-3"
-                    >
-                      {prompt.prompt}
+                  <div
+                    key={`chat-content-question-${prompt.id}`}
+                    className="chat-content-question margin-bottom-2"
+                  >
+                    <div className="grid-row">
+                      <div className="grid-col-1">
+                        <div className="chat-question-avatar">
+                          <span>{getAvatarInitials(currentUserData)}</span>
+                        </div>
+                      </div>
+                      <div className="grid-col-11">{prompt.prompt}</div>
                     </div>
                   </div>
                   {loading ? (
                     <div
                       key={`chat-content-answer-loading`}
-                      className="chat-content-answer text-bold"
+                      className="grid-row chat-content-answer text-bold"
                     >
                       <img
                         src={infinteLoop}
@@ -83,7 +94,7 @@ export const Investigation = (): React.ReactElement => {
                   ) : (
                     <div
                       key={`chat-content-answer-${prompt.id}`}
-                      className="chat-content-answer grid-col-9"
+                      className="chat-content-answer margin-bottom-2 "
                     >
                       <div className="grid-row">
                         <div className="grid-col-1">
@@ -93,7 +104,7 @@ export const Investigation = (): React.ReactElement => {
                             alt="Horizon Hunt Logo"
                           />
                         </div>
-                        <div className="grid-col-10">
+                        <div className="grid-col-11">
                           {prompt.completion}
                           {prompt.sources && prompt.sources.length > 0 ? (
                             <div
@@ -161,10 +172,10 @@ export const Investigation = (): React.ReactElement => {
               ))}
             </div>
           </div>
+          <div className="flex-align-self-end width-full margin-bottom-5">
+            <Search searchInput={searchInput} setSearchInput={setSearchInput} />
+          </div>
         </div>
-      </div>
-      <div id="investigations" className="prompt">
-        <Search searchInput={searchInput} setSearchInput={setSearchInput} />
       </div>
     </>
   );
