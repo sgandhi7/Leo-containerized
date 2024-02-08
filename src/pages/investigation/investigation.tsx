@@ -12,7 +12,10 @@ import { getAvatarInitials } from '@src/utils/auth';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { currentInvestigation as defaultInvestigation } from '../../store';
+import {
+  currentInvestigation as defaultInvestigation,
+  initialSearch as defaultSearch,
+} from '../../store';
 import infinteLoop from '/img/infinteLoop.svg';
 import logomark from '/img/logo-mark.svg';
 export const Investigation = (): React.ReactElement => {
@@ -24,6 +27,7 @@ export const Investigation = (): React.ReactElement => {
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [showSources, setShowSources] = useState<boolean>(false);
   const [searchInput, setSearchInput] = useState('');
+  const [initialSearch] = useRecoilState<string>(defaultSearch);
 
   useEffect(() => {
     if (item) {
@@ -55,6 +59,10 @@ export const Investigation = (): React.ReactElement => {
       }
     }
   }, [currentInvestigation]);
+
+  useEffect(() => {
+    setSearchInput(initialSearch);
+  }, [initialSearch]);
 
   return (
     <>

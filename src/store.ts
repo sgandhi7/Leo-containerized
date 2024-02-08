@@ -27,10 +27,16 @@ const currentDataset = atom({
   default: 'document',
 });
 
+const initialSearch = atom({
+  key: 'initialSearch',
+  default: '',
+});
+
 export {
   currentDataset,
   currentInvestigation,
   currentUser,
+  initialSearch,
   searching,
   signedIn,
 };

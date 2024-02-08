@@ -11,6 +11,7 @@ import { useRecoilState } from 'recoil';
 import {
   currentDataset as defaultDataset,
   currentInvestigation as defaultInvestigation,
+  initialSearch as defaultSearch,
   searching,
 } from '../../store';
 import { TextAreaInput } from '../text-area-input/textarea-input.tsx';
@@ -30,6 +31,7 @@ export const Search = ({
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [isSearching, setIsSearching] = useRecoilState<boolean>(searching);
   const [currentDataset] = useRecoilState<string>(defaultDataset);
+  const [, setInitialSearch] = useRecoilState<string>(defaultSearch);
 
   const updateFocus = () => {
     const input = document.querySelector('textarea');
@@ -41,6 +43,7 @@ export const Search = ({
   const handleSearch = async () => {
     setIsSearching(true);
     if (location.pathname === '/') {
+      setInitialSearch(searchInput);
       navigate('/investigations');
     }
 
@@ -94,9 +97,10 @@ export const Search = ({
 
   useEffect(() => {
     if (!isSearching && !loading) {
+      setSearchInput('');
       updateFocus();
     }
-  }, [isSearching, loading]);
+  }, [isSearching, loading, setSearchInput]);
 
   return (
     <div className="grid-container position-relative bottom-2">
