@@ -13,7 +13,7 @@ import { SignIn } from './pages/sign-in/sign-in';
 
 export const App = (): React.ReactElement => (
   <RecoilRoot>
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
       <Sidebar />
       <main id="mainSection" className="usa-section">
         <Routes>

@@ -8,7 +8,7 @@ import logo from '/img/logo.svg';
 export const Sidebar = (): React.ReactElement => {
   const navigate = useNavigate();
   const { isSignedIn } = useAuth();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -31,14 +31,14 @@ export const Sidebar = (): React.ReactElement => {
                   className="usa__logo"
                   src={logo}
                   alt="Horizon Hunt Logo"
-                  width={200}
+                  width={176}
                 />
               ) : (
                 <img
                   className="usa__logo"
                   src={logomark}
                   alt="Horizon Hunt Logo"
-                  width={32}
+                  width={36}
                 />
               )}
             </Button>

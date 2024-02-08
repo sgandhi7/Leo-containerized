@@ -105,7 +105,7 @@ export const History = (): React.ReactElement => {
     }
   }, [loading, investigations]);
   return (
-    <div className="grid-container padding-top-1">
+    <div className="grid-container">
       <div className="grid-row">
         <div className="grid-col">
           <h1>History</h1>
