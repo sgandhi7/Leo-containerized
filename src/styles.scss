@@ -136,7 +136,7 @@ body {
       border-radius: 10px;
       width: 350px;
       text-align: left;
-      font-size: 0.9rem;
+      font-size: 14px;
       &:hover {
         background-color: $color-white;
         color: $color-primary;
@@ -199,13 +199,20 @@ body {
       border-bottom-left-radius: 0 !important;
 
       &:disabled {
-        color: $color-white;
-        background-color: #adadad;
-        border-color: #adadad;
+        color: $color-black;
+        background-color: $color-green-light;
+        border-color: $color-green-light;
       }
 
       > .searching {
         height: 18px;
+      }
+
+      /* Disabled state only for when searching */
+      &.disabled {
+        color: $color-white;
+        background-color: #adadad;
+        border-color: #adadad;
       }
     }
     textarea.search-area-input:disabled {
@@ -497,16 +504,11 @@ table.data-table tbody tr:hover {
   .sidebar-text {
     position: relative;
     left: 10px;
-    bottom: 4px;
-  }
-
-  .usa__logo {
-    position: relative;
-    left: 3px;
+    bottom: 10px;
   }
 
   button {
-    margin: 16px 20px 12px 20px;
+    margin: 16px 16px 12px 16px;
   }
 
   ul {

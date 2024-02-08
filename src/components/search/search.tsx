@@ -150,7 +150,7 @@ export const Search = ({
         </div>
         <Button
           id="search-btn"
-          className="search-input"
+          className={`search-input ${loading || isSearching ? 'disabled' : ''}`}
           onClick={handleSearch}
           disabled={loading || isSearching || searchInput.trim() === ''}
         >

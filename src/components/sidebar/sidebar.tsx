@@ -31,14 +31,14 @@ export const Sidebar = (): React.ReactElement => {
                   className="usa__logo"
                   src={logo}
                   alt="Horizon Hunt Logo"
-                  width={180}
+                  width={200}
                 />
               ) : (
                 <img
                   className="usa__logo"
                   src={logomark}
                   alt="Horizon Hunt Logo"
-                  width={28}
+                  width={32}
                 />
               )}
             </Button>
@@ -52,6 +52,7 @@ export const Sidebar = (): React.ReactElement => {
                   id="expand-collapse-icon"
                   type={isOpen ? 'navigate_far_before' : 'navigate_far_next'}
                   className="text-white"
+                  size="size-4"
                 />
                 {isOpen ? (
                   <span className="sidebar-text text-white">Collapse</span>
@@ -67,7 +68,12 @@ export const Sidebar = (): React.ReactElement => {
                 variant="unstyled"
                 onClick={() => navigate('/history')}
               >
-                <Icon id="history-icon" type="history" className="text-white" />
+                <Icon
+                  id="history-icon"
+                  type="history"
+                  className="text-white"
+                  size="size-4"
+                />
                 {isOpen ? (
                   <span className="sidebar-text text-white">History</span>
                 ) : (
@@ -85,6 +91,7 @@ export const Sidebar = (): React.ReactElement => {
                   id="faqs-icon"
                   type="help_outline"
                   className="text-white"
+                  size="size-4"
                 />
                 {isOpen ? (
                   <span className="sidebar-text text-white">FAQs</span>
