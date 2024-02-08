@@ -501,6 +501,37 @@ table.data-table tbody tr:hover {
     text-decoration: underline;
   }
 
+  .sidebar-profile {
+    position: fixed;
+    left: 15px;
+    bottom: 20px;
+  }
+
+  .sidebar-profile-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid $color-white;
+    background-color: $color-primary;
+    font-weight: 700;
+  }
+
+  .sidebar-profile-initials {
+    color: $color-white;
+    position: relative;
+    top: 3px;
+    left: 9px;
+  }
+
+  .sidebar-profile-name {
+    width: 200px;
+    position: relative;
+    top: 3px;
+    left: 35px;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
   button {
     margin: 16px 16px 12px 16px;
   }

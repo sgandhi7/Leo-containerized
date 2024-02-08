@@ -1,5 +1,6 @@
 import { Button, Icon } from '@metrostar/comet-uswds';
 import useAuth from '@src/hooks/use-auth';
+import { getAvatarInitials } from '@src/utils/auth';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logomark from '/img/logo-mark.svg';
@@ -7,7 +8,7 @@ import logo from '/img/logo.svg';
 
 export const Sidebar = (): React.ReactElement => {
   const navigate = useNavigate();
-  const { isSignedIn } = useAuth();
+  const { isSignedIn, currentUserData } = useAuth();
   const [isOpen, setIsOpen] = useState(true);
 
   const toggleSidebar = () => {
@@ -101,6 +102,24 @@ export const Sidebar = (): React.ReactElement => {
               </Button>
             </div>
           </div>
+          {currentUserData ? (
+            <div className="sidebar-profile">
+              <div className="sidebar-profile-avatar">
+                <span className="sidebar-profile-initials">
+                  {getAvatarInitials(currentUserData)}
+                </span>
+                {isOpen ? (
+                  <span className="sidebar-profile-name text-white">
+                    {currentUserData.firstName}
+                  </span>
+                ) : (
+                  <></>
+                )}
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       ) : (
         <></>
