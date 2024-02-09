@@ -24,6 +24,10 @@ describe('Investigation', () => {
     </AuthProvider>
   );
 
+  beforeAll(() => {
+    window.HTMLElement.prototype.scrollIntoView = () => {};
+  });
+
   test('should render successfully', async () => {
     const { baseElement } = render(componentWrapper);
     await act(async () => {

@@ -9,7 +9,7 @@ import {
 } from '@src/types/investigation';
 import { getReference, getScore, getSource } from '@src/utils/api';
 import { getAvatarInitials } from '@src/utils/auth';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import {
@@ -29,6 +29,15 @@ export const Investigation = (): React.ReactElement => {
   const [showSources, setShowSources] = useState<boolean>(false);
   const [searchInput, setSearchInput] = useState('');
   const [initialSearch] = useRecoilState<string>(defaultSearch);
+  const chatContentRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    const answers = document.querySelectorAll('.chat-content-answer');
+    if (answers.length > 0) {
+      const lastAnswer = answers[0] as HTMLElement;
+      lastAnswer.scrollIntoView();
+    }
+  };
 
   useEffect(() => {
     if (item) {
@@ -65,6 +74,29 @@ export const Investigation = (): React.ReactElement => {
     setSearchInput(initialSearch);
   }, [initialSearch]);
 
+  useEffect(() => {
+    // Observe chat content for changes and scroll to the bottom when changes occur
+    const observer = new MutationObserver((mutationsList) => {
+      mutationsList.forEach(() => {
+        scrollToBottom();
+      });
+    });
+
+    // Start observing the target element
+    if (chatContentRef.current) {
+      observer.observe(chatContentRef.current, {
+        attributes: true,
+        childList: true,
+        subtree: true,
+      });
+    }
+
+    // Clean up by disconnecting the observer when the component unmounts
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <>
       <div className="grid-container">
@@ -73,7 +105,7 @@ export const Investigation = (): React.ReactElement => {
             className="flex-align-self-start width-full margin-x-auto margin-y-auto"
             style={{ overflowY: 'auto', height: '80%' }}
           >
-            <div className="chat-content">
+            <div className="chat-content" ref={chatContentRef}>
               {prompts?.map((prompt: Prompt) => (
                 <div key={`chat-content-${prompt.id}`}>
                   <div
