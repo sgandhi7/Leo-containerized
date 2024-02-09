@@ -50,14 +50,7 @@ export const SourcesTable = ({
     }
   };
 
-  const getUrlFromReference = (
-    dataset: string,
-    source: CompletionSource,
-  ): string => {
-    if (dataset === 'GDELT') {
-      return '#';
-    }
-
+  const getUrlFromReference = (source: CompletionSource): string => {
     if (source.reference) {
       const split = source.reference.split(',');
       return split[0];
@@ -65,14 +58,7 @@ export const SourcesTable = ({
     return '';
   };
 
-  const getNameFromReference = (
-    dataset: string,
-    source: CompletionSource,
-  ): string => {
-    if (dataset === 'GDELT') {
-      return source.gdelt || '';
-    }
-
+  const getNameFromReference = (source: CompletionSource): string => {
     const reference = source.reference;
     if (reference) {
       const split = reference.split(',');
@@ -82,18 +68,13 @@ export const SourcesTable = ({
     return '';
   };
 
-  const getSectionFromReference = (
-    dataset: string,
-    source: CompletionSource,
-  ): string => {
-    if (dataset === 'GDELT') {
-      return '';
-    }
-
+  const getSectionFromReference = (source: CompletionSource): string => {
     const reference = source.reference;
     if (reference) {
       const split = reference.split(',');
-      if (split.length === 3) {
+      if (split.length === 2) {
+        return `${split[1]}`;
+      } else if (split.length === 3) {
         return `${split[1]}, ${split[2]}`;
       }
     }
@@ -109,13 +90,13 @@ export const SourcesTable = ({
           source: (
             <NavLink
               id={`source-link-${index}`}
-              to={getUrlFromReference(dataset, item)}
+              to={getUrlFromReference(item)}
               target="_blank"
             >
-              {getNameFromReference(dataset, item)}
+              {getNameFromReference(item)}
             </NavLink>
           ),
-          section: getSectionFromReference(dataset, item),
+          section: getSectionFromReference(item),
           dataset,
           score: item.score,
         });
