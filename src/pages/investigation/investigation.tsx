@@ -102,8 +102,8 @@ export const Investigation = (): React.ReactElement => {
       <div className="grid-container">
         <div className="grid-row display-flex height-viewport">
           <div
-            className="flex-align-self-start width-full margin-x-auto margin-y-auto"
-            style={{ overflowY: 'auto', height: '80%' }}
+            className="flex-align-self-start margin-x-auto margin-y-auto"
+            style={{ overflowY: 'auto', height: '80%', width: '90%' }}
           >
             <div className="chat-content" ref={chatContentRef}>
               {prompts?.map((prompt: Prompt) => (
