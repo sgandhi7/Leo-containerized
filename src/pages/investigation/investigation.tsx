@@ -3,11 +3,9 @@ import { Search } from '@src/components/search/search';
 import useApi from '@src/hooks/use-api';
 import useAuth from '@src/hooks/use-auth';
 import {
-  CompletionSource,
   Investigation as InvestigationState,
   Prompt,
 } from '@src/types/investigation';
-import { getReference, getScore, getSource } from '@src/utils/api';
 import { getAvatarInitials } from '@src/utils/auth';
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -16,6 +14,7 @@ import {
   currentInvestigation as defaultInvestigation,
   initialSearch as defaultSearch,
 } from '../../store';
+import SourcesTable from './sources-table/sources-table';
 import infinteLoop from '/img/infinteLoop.svg';
 import logomark from '/img/logo-mark.svg';
 
@@ -178,25 +177,10 @@ export const Investigation = (): React.ReactElement => {
                                   </Button>
                                 </span>
                                 {showSources ? (
-                                  <ul className="usa-list">
-                                    {prompt.sources.map(
-                                      (
-                                        source: CompletionSource,
-                                        index: number,
-                                      ) => (
-                                        <li
-                                          key={`chat-content-sources-item-${index}`}
-                                          style={{ listStyle: 'square' }}
-                                        >
-                                          {`${getSource(source)}${getReference(
-                                            source,
-                                          )} (Text Similarity Score: ${getScore(
-                                            source,
-                                          )}%)`}
-                                        </li>
-                                      ),
-                                    )}
-                                  </ul>
+                                  <SourcesTable
+                                    id={`sources-${prompt.id}`}
+                                    items={prompt.sources}
+                                  />
                                 ) : (
                                   <></>
                                 )}

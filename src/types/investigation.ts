@@ -37,3 +37,10 @@ export interface ChatHistory {
   prompt: string;
   completion: string;
 }
+
+export interface ChatSource {
+  source: string | ReactNode;
+  section: string | null;
+  dataset: string | null;
+  score: number;
+}

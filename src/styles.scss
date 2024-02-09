@@ -362,6 +362,11 @@ body {
     overflow-y: auto;
     flex-direction: column-reverse;
     display: flex;
+
+    table.data-table thead th {
+      background-color: $color-gray;
+      color: $color-black;
+    }
   }
 
   .chat-content-question {
