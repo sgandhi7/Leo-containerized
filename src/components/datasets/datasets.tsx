@@ -4,7 +4,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { currentDataset as defaultDataset } from '../../store';
 
-export default function DatasetCheck() {
+export default function Datasets() {
   const { getItems, items } = useDatasetApi();
   const [datasets, setDatasets] = useState<string[]>([]);
   const [, setCurrentDataset] = useRecoilState<string>(defaultDataset);
@@ -41,18 +41,15 @@ export default function DatasetCheck() {
     <div
       id="story--uswds-forms-checkbox--standard--primary-inner"
       data-name="Standard"
-      className="grid-row flex-justify-center datasets"
+      className="display-flex flex-column datasets"
     >
-      <div>
-        <p>Datasets: </p>
-      </div>
       {items ? (
         items
           .filter((item: Dataset) => item.is_active)
           .map((dataset: Dataset) => (
             <div
               key={`checkbox${dataset.id}`}
-              className="usa-checkbox margin-x-1"
+              className="usa-checkbox margin-x-1 margin-bottom-1"
             >
               <input
                 className="usa-checkbox__input"

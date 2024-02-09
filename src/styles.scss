@@ -539,25 +539,48 @@ table.data-table tbody tr:hover {
   button {
     margin: 8px 16px 8px 16px;
   }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 20px 0;
-  }
-
-  li {
-    padding: 10px;
-    color: white;
-    cursor: pointer;
-  }
-
-  li:hover {
-    background-color: #555;
-  }
 }
 
 .sidebar.open {
+  left: 0;
+  width: 250px;
+}
+
+.filters {
+  width: 60px;
+  height: 100%;
+  position: relative;
+  display: block;
+  top: 0;
+  left: 0;
+  background-color: $color-white;
+  transition: left 0.3s ease;
+  z-index: 10001;
+  padding: 8px 12px;
+
+  .filters-text {
+    color: $color-black;
+    position: relative;
+    left: 10px;
+    bottom: 10px;
+    font-size: 14px;
+  }
+
+  .filters-text:hover {
+    text-decoration: underline;
+  }
+
+  #filters-btn {
+    position: relative;
+    left: 15px;
+  }
+
+  button {
+    margin: 8px 16px 8px 16px;
+  }
+}
+
+.filters.open {
   left: 0;
   width: 250px;
 }

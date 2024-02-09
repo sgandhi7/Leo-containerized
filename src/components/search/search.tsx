@@ -11,6 +11,7 @@ import { useRecoilState } from 'recoil';
 import {
   currentDataset as defaultDataset,
   currentInvestigation as defaultInvestigation,
+  currentMediaTypes as defaultMediaTypes,
   initialSearch as defaultSearch,
   searching,
 } from '../../store';
@@ -31,6 +32,7 @@ export const Search = ({
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [isSearching, setIsSearching] = useRecoilState<boolean>(searching);
   const [currentDataset] = useRecoilState<string>(defaultDataset);
+  const [currentMediaTypes] = useRecoilState<string>(defaultMediaTypes);
   const [, setInitialSearch] = useRecoilState<string>(defaultSearch);
 
   const updateFocus = () => {
@@ -60,9 +62,18 @@ export const Search = ({
     };
     newData.unshift(newPrompt);
 
+    // TODO: Remove this when datasets and media types are properly implemented
+    let allDatasets = currentDataset;
+    if (currentMediaTypes.indexOf('audio') !== -1) {
+      allDatasets += ',audio';
+    }
+    if (currentMediaTypes.indexOf('image') !== -1) {
+      allDatasets += ',image';
+    }
+
     // Get current chat history
     const chatHistory = getChatHistory(newData);
-    await search(queryCopy, currentDataset, chatHistory).then((response) => {
+    await search(queryCopy, allDatasets, chatHistory).then((response) => {
       if (response?.length > 0) {
         const completion = response[0];
         newPrompt = {
@@ -156,7 +167,13 @@ export const Search = ({
           id="search-btn"
           className={`search-input ${loading || isSearching ? 'disabled' : ''}`}
           onClick={handleSearch}
-          disabled={loading || isSearching || searchInput.trim() === ''}
+          disabled={
+            loading ||
+            isSearching ||
+            searchInput.trim() === '' ||
+            currentDataset === '' ||
+            currentMediaTypes === ''
+          }
         >
           {loading || isSearching ? (
             <img src={infinteLoop} alt="loading" className="searching" />

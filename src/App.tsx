@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router';
 import { RecoilRoot } from 'recoil';
+import Filters from './components/filters/filters';
 import { ProtectedRoute } from './components/protected-route/protected-route';
 import Sidebar from './components/sidebar/sidebar';
 import { Account } from './pages/account/account';
@@ -15,6 +16,7 @@ export const App = (): React.ReactElement => (
   <RecoilRoot>
     <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
       <Sidebar />
+      <Filters />
       <main id="mainSection" className="usa-section">
         <Routes>
           <Route path="/signin" element={<SignIn />} />

@@ -3,10 +3,10 @@ import { datasets } from '@src/data/dataset';
 import { fireEvent, render } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
 import * as useDatasetApi from '../../hooks/use-dataset-api';
-import DatasetCheck from './dataset-check';
+import Datasets from './datasets';
 
-describe('DatasetCheck', () => {
-  test('renders without crashing', () => {
+describe('Datasets', () => {
+  test('renders successfully', () => {
     jest.spyOn(useDatasetApi, 'default').mockReturnValue({
       item: undefined,
       items: datasets,
@@ -17,7 +17,7 @@ describe('DatasetCheck', () => {
 
     const { getByLabelText } = render(
       <RecoilRoot>
-        <DatasetCheck />
+        <Datasets />
       </RecoilRoot>,
     );
     const checkbox = getByLabelText('9/11 Commission');
@@ -35,7 +35,7 @@ describe('DatasetCheck', () => {
 
     const { getByLabelText } = render(
       <RecoilRoot>
-        <DatasetCheck />
+        <Datasets />
       </RecoilRoot>,
     );
     const checkbox = getByLabelText('9/11 Commission') as HTMLInputElement;
@@ -58,7 +58,7 @@ describe('DatasetCheck', () => {
 
     const { getByLabelText } = render(
       <RecoilRoot>
-        <DatasetCheck />
+        <Datasets />
       </RecoilRoot>,
     );
     const checkbox = getByLabelText('GDELT') as HTMLInputElement;
