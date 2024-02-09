@@ -1,4 +1,3 @@
-import { Button, Icon } from '@metrostar/comet-uswds';
 import { Search } from '@src/components/search/search';
 import useApi from '@src/hooks/use-api';
 import useAuth from '@src/hooks/use-auth';
@@ -14,8 +13,7 @@ import {
   currentInvestigation as defaultInvestigation,
   initialSearch as defaultSearch,
 } from '../../store';
-import SourcesTable from './sources-table/sources-table';
-import infinteLoop from '/img/infinteLoop.svg';
+import SourceInfo from './source-info/source-info';
 import logomark from '/img/logo-mark.svg';
 
 export const Investigation = (): React.ReactElement => {
@@ -25,7 +23,6 @@ export const Investigation = (): React.ReactElement => {
   const [prompts, setPrompts] = useState<Prompt[] | null>(null);
   const [currentInvestigation, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
-  const [showSources, setShowSources] = useState<boolean>(false);
   const [searchInput, setSearchInput] = useState('');
   const [initialSearch] = useRecoilState<string>(defaultSearch);
   const chatContentRef = useRef<HTMLDivElement>(null);
@@ -96,6 +93,8 @@ export const Investigation = (): React.ReactElement => {
     };
   }, []);
 
+  console.log(loading);
+
   return (
     <>
       <div className="grid-container">
@@ -120,79 +119,31 @@ export const Investigation = (): React.ReactElement => {
                       <div className="grid-col-11">{prompt.prompt}</div>
                     </div>
                   </div>
-                  {loading ? (
-                    <div
-                      key={`chat-content-answer-loading`}
-                      className="grid-row chat-content-answer text-bold"
-                    >
-                      <img
-                        src={infinteLoop}
-                        alt="loading"
-                        className="searching"
-                      />
-                    </div>
-                  ) : (
-                    <div
-                      key={`chat-content-answer-${prompt.id}`}
-                      className="chat-content-answer margin-bottom-2 "
-                    >
-                      <div className="grid-row">
-                        <div className="grid-col-1">
-                          <img
-                            className="usa__logo-mark"
-                            src={logomark}
-                            alt="Horizon Hunt Logo"
+                  <div
+                    key={`chat-content-answer-${prompt.id}`}
+                    className="chat-content-answer margin-bottom-2 "
+                  >
+                    <div className="grid-row">
+                      <div className="grid-col-1">
+                        <img
+                          className="usa__logo-mark"
+                          src={logomark}
+                          alt="Horizon Hunt Logo"
+                        />
+                      </div>
+                      <div className="grid-col-11">
+                        {prompt.completion}
+                        {prompt.sources && prompt.sources.length > 0 ? (
+                          <SourceInfo
+                            promptId={prompt.id}
+                            items={prompt.sources}
                           />
-                        </div>
-                        <div className="grid-col-11">
-                          {prompt.completion}
-                          {prompt.sources && prompt.sources.length > 0 ? (
-                            <div
-                              className="grid-row"
-                              key={`chat-content-sources-${prompt.id}`}
-                            >
-                              <div className="grid-col padding-top-3">
-                                <span
-                                  className="padding-right-1"
-                                  style={{ position: 'relative', top: '5px' }}
-                                >
-                                  <Icon
-                                    id={`chat-content-sources-icon-${prompt.id}`}
-                                    type="info"
-                                    className="color-primary"
-                                  />
-                                </span>
-                                <span
-                                  id={`chat-content-sources-span-${prompt.id}`}
-                                >
-                                  <Button
-                                    id={`chat-content-sources-btn-${prompt.id}`}
-                                    variant="unstyled"
-                                    onClick={() => {
-                                      setShowSources(!showSources);
-                                    }}
-                                    className="font-sans-3xs"
-                                  >
-                                    {showSources ? 'Hide' : 'Show'} Source
-                                  </Button>
-                                </span>
-                                {showSources ? (
-                                  <SourcesTable
-                                    id={`sources-${prompt.id}`}
-                                    items={prompt.sources}
-                                  />
-                                ) : (
-                                  <></>
-                                )}
-                              </div>
-                            </div>
-                          ) : (
-                            <></>
-                          )}
-                        </div>
+                        ) : (
+                          <></>
+                        )}
                       </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               ))}
             </div>

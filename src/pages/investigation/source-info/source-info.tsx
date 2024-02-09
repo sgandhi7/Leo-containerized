@@ -1,19 +1,21 @@
 import { DataTable } from '@metrostar/comet-extras';
+import { Button, Icon } from '@metrostar/comet-uswds';
 import { ChatSource, CompletionSource } from '@src/types/investigation';
 import { ColumnDef } from '@tanstack/react-table';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 interface SourcesTableProps {
-  id: string;
+  promptId: string;
   items: CompletionSource[] | undefined;
 }
 
-export const SourcesTable = ({
-  id,
+export const SourceInfo = ({
+  promptId,
   items,
 }: SourcesTableProps): React.ReactElement => {
   const [sources, setSources] = useState<ChatSource[]>();
+  const [showSources, setShowSources] = useState<boolean>(false);
   const cols = React.useMemo<ColumnDef<ChatSource>[]>(
     () => [
       {
@@ -106,19 +108,49 @@ export const SourcesTable = ({
   }, [items]);
 
   return (
-    <div id={id} className="padding-y-2">
-      {sources ? (
-        <DataTable
-          id="sources-table"
-          className="width-full"
-          columns={cols}
-          data={sources}
-        ></DataTable>
-      ) : (
-        <></>
-      )}
+    <div className="grid-row" key={`chat-content-sources-${promptId}`}>
+      <div className="grid-col padding-top-3">
+        <span
+          className="padding-right-1"
+          style={{ position: 'relative', top: '5px' }}
+        >
+          <Icon
+            id={`chat-content-sources-icon-${promptId}`}
+            type="info"
+            className="color-primary"
+          />
+        </span>
+        <span id={`chat-content-sources-span-${promptId}`}>
+          <Button
+            id={`chat-content-sources-btn-${promptId}`}
+            variant="unstyled"
+            onClick={() => {
+              setShowSources(!showSources);
+            }}
+            className="font-sans-3xs"
+          >
+            {showSources ? 'Hide' : 'Show'} Source
+          </Button>
+        </span>
+        {showSources ? (
+          <div className="padding-y-2">
+            {sources ? (
+              <DataTable
+                id="sources-table"
+                className="width-full"
+                columns={cols}
+                data={sources}
+              ></DataTable>
+            ) : (
+              <></>
+            )}
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
     </div>
   );
 };
 
-export default SourcesTable;
+export default SourceInfo;
