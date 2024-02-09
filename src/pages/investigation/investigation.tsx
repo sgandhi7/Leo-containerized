@@ -168,10 +168,7 @@ export const Investigation = (): React.ReactElement => {
                       <div className="grid-col-11">
                         {prompt.completion}
                         {prompt.sources && prompt.sources.length > 0 ? (
-                          <SourceInfo
-                            promptId={prompt.id}
-                            items={prompt.sources}
-                          />
+                          <SourceInfo prompt={prompt} items={prompt.sources} />
                         ) : (
                           <></>
                         )}

@@ -1,17 +1,18 @@
 import { DataTable } from '@metrostar/comet-extras';
 import { Button, Icon } from '@metrostar/comet-uswds';
-import { ChatSource, CompletionSource } from '@src/types/investigation';
+import { ChatSource, CompletionSource, Prompt } from '@src/types/investigation';
+import { hasReport } from '@src/utils/api';
 import { ColumnDef } from '@tanstack/react-table';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 interface SourcesTableProps {
-  promptId: string;
+  prompt: Prompt;
   items: CompletionSource[] | undefined;
 }
 
 export const SourceInfo = ({
-  promptId,
+  prompt,
   items,
 }: SourcesTableProps): React.ReactElement => {
   const [sources, setSources] = useState<ChatSource[]>();
@@ -83,6 +84,10 @@ export const SourceInfo = ({
     return '';
   };
 
+  const handleDownload = () => {
+    console.log('Download report');
+  };
+
   useEffect(() => {
     if (items) {
       const newData: ChatSource[] = [];
@@ -108,32 +113,63 @@ export const SourceInfo = ({
   }, [items]);
 
   return (
-    <div className="grid-row" key={`chat-content-sources-${promptId}`}>
+    <div className="grid-row" key={`chat-content-sources-${prompt.id}`}>
       <div className="grid-col padding-top-3">
-        <span
-          className="padding-right-1"
-          style={{ position: 'relative', top: '5px' }}
-        >
-          <Icon
-            id={`chat-content-sources-icon-${promptId}`}
-            type="info"
-            className="color-primary"
-          />
-        </span>
-        <span id={`chat-content-sources-span-${promptId}`}>
-          <Button
-            id={`chat-content-sources-btn-${promptId}`}
-            variant="unstyled"
-            onClick={() => {
-              setShowSources(!showSources);
-            }}
-            className="font-sans-3xs"
+        <div className="float-left">
+          <span
+            className="padding-right-1"
+            style={{ position: 'relative', top: '5px' }}
           >
-            {showSources ? 'Hide' : 'Show'} Source
-          </Button>
-        </span>
+            <Icon
+              id={`chat-content-sources-icon-${prompt.id}`}
+              type="info"
+              className="color-primary"
+            />
+          </span>
+          <span id={`chat-content-sources-span-${prompt.id}`}>
+            <Button
+              id={`chat-content-sources-btn-${prompt.id}`}
+              variant="unstyled"
+              onClick={() => {
+                setShowSources(!showSources);
+              }}
+              className="font-sans-3xs"
+            >
+              {showSources ? 'Hide' : 'Show'} Source
+            </Button>
+          </span>
+        </div>
+        {hasReport(prompt.prompt) ? (
+          <div className="float-right padding-right-3">
+            <span
+              className="padding-right-1"
+              style={{ position: 'relative', top: '5px' }}
+            >
+              <Icon
+                id={`chat-content-download-icon-${prompt.id}`}
+                type="file_download"
+                className="color-primary"
+              />
+            </span>
+            <span id={`chat-content-download-span-${prompt.id}`}>
+              <Button
+                id={`chat-content-download-btn-${prompt.id}`}
+                variant="unstyled"
+                onClick={() => {
+                  handleDownload();
+                }}
+                className="font-sans-3xs"
+              >
+                Download Report
+              </Button>
+            </span>
+          </div>
+        ) : (
+          <></>
+        )}
+
         {showSources ? (
-          <div className="padding-y-2">
+          <div className="clear-both padding-top-5 padding-bottom-2">
             {sources ? (
               <DataTable
                 id="sources-table"

@@ -367,6 +367,14 @@ body {
       background-color: $color-gray;
       color: $color-black;
     }
+
+    .usa-button.usa-button--unstyled {
+      text-decoration: none;
+    }
+
+    .usa-button.usa-button--unstyled:hover {
+      text-decoration: underline;
+    }
   }
 
   .chat-content-question {
