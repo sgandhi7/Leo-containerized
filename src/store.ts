@@ -32,8 +32,8 @@ const currentMediaTypes = atom({
   default: 'pdf',
 });
 
-const initialSearch = atom({
-  key: 'initialSearch',
+const currentSearch = atom({
+  key: 'currentSearch',
   default: '',
 });
 
@@ -41,8 +41,8 @@ export {
   currentDataset,
   currentInvestigation,
   currentMediaTypes,
+  currentSearch,
   currentUser,
-  initialSearch,
   searching,
   signedIn,
 };

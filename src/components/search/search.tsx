@@ -12,7 +12,7 @@ import {
   currentDataset as defaultDataset,
   currentInvestigation as defaultInvestigation,
   currentMediaTypes as defaultMediaTypes,
-  initialSearch as defaultSearch,
+  currentSearch as defaultSearch,
   searching,
 } from '../../store';
 import infinteLoop from '/img/infinteLoop.svg';
@@ -33,7 +33,7 @@ export const Search = ({
   const [isSearching, setIsSearching] = useRecoilState<boolean>(searching);
   const [currentDataset] = useRecoilState<string>(defaultDataset);
   const [currentMediaTypes] = useRecoilState<string>(defaultMediaTypes);
-  const [, setInitialSearch] = useRecoilState<string>(defaultSearch);
+  const [, setCurrentSearch] = useRecoilState<string>(defaultSearch);
 
   const updateFocus = () => {
     const input = document.querySelector('textarea');
@@ -44,8 +44,8 @@ export const Search = ({
 
   const handleSearch = async () => {
     setIsSearching(true);
+    setCurrentSearch(searchInput);
     if (location.pathname === '/') {
-      setInitialSearch(searchInput);
       navigate('/investigations');
     }
 

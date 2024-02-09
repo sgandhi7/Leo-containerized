@@ -11,20 +11,22 @@ import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import {
   currentInvestigation as defaultInvestigation,
-  initialSearch as defaultSearch,
+  currentSearch as defaultSearch,
+  searching,
 } from '../../store';
 import SourceInfo from './source-info/source-info';
 import logomark from '/img/logo-mark.svg';
 
 export const Investigation = (): React.ReactElement => {
   const { id } = useParams();
-  const { getItem, item, loading } = useApi();
+  const { getItem, item } = useApi();
   const { currentUserData } = useAuth();
   const [prompts, setPrompts] = useState<Prompt[] | null>(null);
   const [currentInvestigation, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
+  const [isSearching] = useRecoilState<boolean>(searching);
   const [searchInput, setSearchInput] = useState('');
-  const [initialSearch] = useRecoilState<string>(defaultSearch);
+  const [currentSearch] = useRecoilState<string>(defaultSearch);
   const chatContentRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -67,8 +69,8 @@ export const Investigation = (): React.ReactElement => {
   }, [currentInvestigation]);
 
   useEffect(() => {
-    setSearchInput(initialSearch);
-  }, [initialSearch]);
+    setSearchInput(currentSearch);
+  }, [currentSearch]);
 
   useEffect(() => {
     // Observe chat content for changes and scroll to the bottom when changes occur
@@ -93,8 +95,6 @@ export const Investigation = (): React.ReactElement => {
     };
   }, []);
 
-  console.log(loading);
-
   return (
     <>
       <div className="grid-container">
@@ -104,6 +104,40 @@ export const Investigation = (): React.ReactElement => {
             style={{ overflowY: 'auto', height: '80%', width: '90%' }}
           >
             <div className="chat-content" ref={chatContentRef}>
+              {isSearching ? (
+                <div key={`chat-content-loading`}>
+                  <div
+                    key={`chat-content-question-loading`}
+                    className="chat-content-question margin-bottom-2"
+                  >
+                    <div className="grid-row">
+                      <div className="grid-col-1">
+                        <div className="chat-question-avatar">
+                          <span>{getAvatarInitials(currentUserData)}</span>
+                        </div>
+                      </div>
+                      <div className="grid-col-11">{currentSearch}</div>
+                    </div>
+                  </div>
+                  <div
+                    key={`chat-content-answer-loading`}
+                    className="chat-content-answer margin-bottom-2 "
+                  >
+                    <div className="grid-row">
+                      <div className="grid-col-1">
+                        <img
+                          className="usa__logo-mark"
+                          src={logomark}
+                          alt="Horizon Hunt Logo"
+                        />
+                      </div>
+                      <div className="grid-col-11">Generating response...</div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )}
               {prompts?.map((prompt: Prompt) => (
                 <div key={`chat-content-${prompt.id}`}>
                   <div

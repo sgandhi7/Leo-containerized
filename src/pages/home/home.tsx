@@ -4,7 +4,10 @@ import { Investigation as InvestigationState } from '@src/types/investigation';
 import { Suggestion } from '@src/types/suggestion';
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { currentInvestigation as defaultInvestigation } from '../../store';
+import {
+  currentInvestigation as defaultInvestigation,
+  currentSearch as defaultSearch,
+} from '../../store';
 import logomark from '/img/logo-mark.svg';
 
 export const Home = (): React.ReactElement => {
@@ -12,6 +15,7 @@ export const Home = (): React.ReactElement => {
   const [, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [searchInput, setSearchInput] = useState<string>('');
+  const [, setCurrentSearch] = useRecoilState<string>(defaultSearch);
 
   const handleButtonClick = (buttonText: string) => {
     setSearchInput(buttonText);
@@ -24,6 +28,11 @@ export const Home = (): React.ReactElement => {
   useEffect(() => {
     getItems();
   }, [getItems]);
+
+  // Clear current search when navigating to home
+  useEffect(() => {
+    setCurrentSearch('');
+  }, [setCurrentSearch]);
 
   return (
     <>
