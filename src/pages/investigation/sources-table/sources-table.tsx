@@ -125,7 +125,7 @@ export const SourcesTable = ({
   }, [items]);
 
   return (
-    <div id={id}>
+    <div id={id} className="padding-y-2">
       {sources ? (
         <DataTable
           id="sources-table"
