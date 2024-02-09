@@ -5,6 +5,8 @@ import { Suggestion } from '@src/types/suggestion';
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { currentInvestigation as defaultInvestigation } from '../../store';
+import logomark from '/img/logo-mark.svg';
+
 export const Home = (): React.ReactElement => {
   const { getItems, items } = useSuggestionsApi();
   const [, setCurrentInvestigation] =
@@ -31,6 +33,12 @@ export const Home = (): React.ReactElement => {
             className="flex-align-self-start width-100 padding-top-15 margin-x-auto margin-y-auto"
             style={{ textAlign: 'center' }}
           >
+            <img
+              className="usa__logo"
+              src={logomark}
+              alt="Horizon Hunt Logo"
+              width={56}
+            />
             <h1 className="margin-bottom-2">
               What would you like to Investigate?
             </h1>

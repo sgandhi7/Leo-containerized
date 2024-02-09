@@ -132,6 +132,10 @@ export const Search = ({
               ) {
                 handleSearch();
               }
+              // TODO: Remove this and fix button resizing
+              else if (event.key === 'Enter' && event.shiftKey) {
+                event.preventDefault();
+              }
             }}
             placeholder="Message Horizon Hunt..."
             rows={1}
