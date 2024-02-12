@@ -33,7 +33,7 @@ export const Sidebar = (): React.ReactElement => {
                     className="usa__logo"
                     src={logo}
                     alt="Horizon Hunt Logo"
-                    width={176}
+                    height={28}
                     style={{ marginLeft: '-1px' }}
                   />
                 ) : (
@@ -41,7 +41,7 @@ export const Sidebar = (): React.ReactElement => {
                     className="usa__logo"
                     src={logomark}
                     alt="Horizon Hunt Logo"
-                    width={28}
+                    height={28}
                     style={{ marginLeft: '3px' }}
                   />
                 )}

@@ -303,14 +303,15 @@ body {
     background-color: $color-white;
     box-shadow: unset;
     color: $color-black;
-    border: 2px solid $color-primary;
+    border: 2px solid $color-white;
   }
 
   .usa-button--outline:hover {
-    color: $color-blue;
+    color: $color-black;
     background-color: $color-white;
     box-shadow: unset;
-    border: 2px solid $color-blue;
+    border: 2px solid $color-white;
+    text-decoration: underline;
   }
 
   .usa-button.usa-button--unstyled {
