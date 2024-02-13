@@ -566,7 +566,7 @@ table.data-table tbody tr:hover {
   position: relative;
   display: block;
   top: 0;
-  left: 0;
+  right: 0;
   background-color: $color-white;
   transition: left 0.3s ease;
   z-index: 10001;
@@ -583,46 +583,41 @@ table.data-table tbody tr:hover {
     text-decoration: underline;
   }
 
-  #filters-btn {
-    background-color: $color-green-light;
-    color: $color-black;
-    position: relative;
-    left: 0;
-    width: 100px;
-    margin: 0;
-    border-radius: 0px 4px 4px 0px;
-    text-decoration: none;
-    span {
-      position: relative;
-      left: 10px;
-      bottom: 10px;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-    svg {
-      position: relative;
-      left: 15px;
-    }
-  }
-
-  #toggle-btn {
-    margin: 0;
-    text-decoration: none;
-    padding-top: 2px;
-  }
-
-  #filters-btn.open {
-    width: 50px;
-  }
-
   button {
     margin: 8px 16px 8px 16px;
   }
 }
 
+.filters-btn-container {
+  position: fixed;
+  right: 120px;
+  bottom: 85px;
+  z-index: 10001;
+}
+
+#filters-btn {
+  background-color: none;
+  color: $color-black;
+  position: relative;
+  left: 20px;
+  top: 0;
+  width: 100px;
+  margin: 0;
+  border-radius: 0px 4px 4px 0px;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+  &.open {
+    position: relative;
+    left: 0;
+    bottom: 90px;
+    z-index: 10002;
+  }
+}
+
 .filters.open {
-  left: 0;
+  right: 0;
   width: 250px;
 }
 

@@ -1,74 +1,54 @@
-import { Button, Icon } from '@metrostar/comet-uswds';
+import { Button } from '@metrostar/comet-uswds';
 import useAuth from '@src/hooks/use-auth';
-import React, { useState } from 'react';
+import React from 'react';
+import { useRecoilState } from 'recoil';
+import { filtering } from '../../../src/store';
 import Datasets from '../datasets/datasets';
 import MediaTypes from '../media-types/media-types';
 
 export const Filters = (): React.ReactElement => {
   const { isSignedIn } = useAuth();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isFiltering, setIsFiltering] = useRecoilState<boolean>(filtering);
 
   const toggleFilters = () => {
-    setIsOpen(!isOpen);
+    setIsFiltering(!isFiltering);
   };
 
   return (
-    <div id="filters">
+    <div id="filters" className="display-flex flex-row">
       {isSignedIn ? (
         <div
-          className={`filters ${isOpen ? 'open padding-x-2 padding-y-3' : ''}`}
+          className={`filters ${isFiltering ? 'open padding-x-2 padding-y-3' : ''}`}
         >
           <div className={`width-full display-flex flex-column`}>
             <div>
-              {isOpen ? (
-                <>
-                  <Button
-                    id="toggle-btn"
-                    variant="unstyled"
-                    onClick={toggleFilters}
-                  >
-                    <Icon
-                      id="expand-collapse-icon"
-                      type="navigate_far_before"
-                      className="text-black"
-                      size="size-4"
-                    />
-                    <span className="filters-text text-black font-bold">
-                      Collapse
-                    </span>
-                  </Button>
+              {isFiltering ? (
+                <div className="display-flex flex-column">
                   <div>
-                    <div className="padding-top-2">Datasets</div>
+                    <span className="text-bold">Filters</span>
+                    <div className="padding-top-4">Datasets</div>
                     <hr className="width-full" />
                     <Datasets />
                     <div className="padding-top-4">Media Types</div>
                     <hr className="width-full" />
                     <MediaTypes />
                   </div>
-                </>
+                  <div className="filters-btn-container">
+                    <Button
+                      id="filters-btn"
+                      variant="unstyled"
+                      className="open"
+                      onClick={toggleFilters}
+                    >
+                      Hide Filters
+                    </Button>
+                  </div>
+                </div>
               ) : (
                 <></>
               )}
             </div>
           </div>
-          {isOpen ? (
-            <></>
-          ) : (
-            <Button
-              id="filters-btn"
-              className={`${isOpen ? 'open' : ''}`}
-              variant="unstyled"
-              onClick={toggleFilters}
-            >
-              <span className="text-black text-bold">Filters</span>
-              <Icon
-                id="expand-collapse-icon"
-                type="navigate_far_next"
-                className="text-black"
-                size="size-4"
-              />
-            </Button>
-          )}
         </div>
       ) : (
         <></>

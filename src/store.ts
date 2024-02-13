@@ -17,6 +17,11 @@ const currentInvestigation = atom<Investigation>({
   default: {},
 });
 
+const filtering = atom({
+  key: 'filtering',
+  default: false,
+});
+
 const searching = atom({
   key: 'searching',
   default: false,
@@ -43,6 +48,7 @@ export {
   currentMediaTypes,
   currentSearch,
   currentUser,
+  filtering,
   searching,
   signedIn,
 };

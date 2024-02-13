@@ -13,6 +13,7 @@ import {
   currentInvestigation as defaultInvestigation,
   currentMediaTypes as defaultMediaTypes,
   currentSearch as defaultSearch,
+  filtering,
   searching,
 } from '../../store';
 import infinteLoop from '/img/infinteLoop.svg';
@@ -31,6 +32,7 @@ export const Search = ({
   const [currentInvestigation, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [isSearching, setIsSearching] = useRecoilState<boolean>(searching);
+  const [isFiltering, setIsFiltering] = useRecoilState<boolean>(filtering);
   const [currentDataset] = useRecoilState<string>(defaultDataset);
   const [currentMediaTypes] = useRecoilState<string>(defaultMediaTypes);
   const [, setCurrentSearch] = useRecoilState<string>(defaultSearch);
@@ -104,6 +106,10 @@ export const Search = ({
     const value = target.value;
     setQuery(value);
     setSearchInput(value);
+  };
+
+  const toggleFilters = () => {
+    setIsFiltering(!isFiltering);
   };
 
   useEffect(() => {
@@ -181,6 +187,13 @@ export const Search = ({
             <>Search</>
           )}
         </Button>
+        {isFiltering ? (
+          <></>
+        ) : (
+          <Button id="filters-btn" variant="unstyled" onClick={toggleFilters}>
+            Show Filters
+          </Button>
+        )}
       </div>
     </div>
   );
