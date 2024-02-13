@@ -75,8 +75,14 @@ export const Investigation = (): React.ReactElement => {
   useEffect(() => {
     // Observe chat content for changes and scroll to the bottom when changes occur
     const observer = new MutationObserver((mutationsList) => {
-      mutationsList.forEach(() => {
-        scrollToBottom();
+      mutationsList.forEach((item) => {
+        if (
+          item.type === 'childList' &&
+          item.addedNodes.length > 0 &&
+          (item.target as HTMLElement).className === 'chat-content'
+        ) {
+          scrollToBottom();
+        }
       });
     });
 
