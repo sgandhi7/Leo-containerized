@@ -27,9 +27,21 @@ const currentDataset = atom({
   default: 'document',
 });
 
+const currentMediaTypes = atom({
+  key: 'currentMediaTypes',
+  default: 'pdf',
+});
+
+const currentSearch = atom({
+  key: 'currentSearch',
+  default: '',
+});
+
 export {
   currentDataset,
   currentInvestigation,
+  currentMediaTypes,
+  currentSearch,
   currentUser,
   searching,
   signedIn,

@@ -27,21 +27,19 @@ export const FAQs = () => {
                 {
                   children: (
                     <span>
-                      <p>
-                        <span>
-                          Generative AI is a type of artificial intelligence
-                          that can create new content,
-                        </span>
-                        <span> such as text,</span>
-                        <span> images,</span>
-                        <span> code,</span>
-                        <span> or music.</span>
-                        <span>
-                          It does this by learning from a massive dataset of
-                          existing content and using that knowledge to generate
-                          new examples.
-                        </span>
-                      </p>
+                      <span>
+                        Generative AI is a type of artificial intelligence that
+                        can create new content,
+                      </span>
+                      <span> such as text,</span>
+                      <span> images,</span>
+                      <span> code,</span>
+                      <span> or music.</span>
+                      <span>
+                        It does this by learning from a massive dataset of
+                        existing content and using that knowledge to generate
+                        new examples.
+                      </span>
                     </span>
                   ),
                   expanded: true,
@@ -84,17 +82,11 @@ export const FAQs = () => {
                 {
                   children: (
                     <span>
-                      <p>
-                        <span>
-                          There are many different types of generative AI
-                          models,
-                        </span>
-                        <span>
-                          {' '}
-                          each with its own strengths and weaknesses.
-                        </span>
-                        <span> Some common types include:</span>
-                      </p>
+                      <span>
+                        There are many different types of generative AI models,
+                      </span>
+                      <span> each with its own strengths and weaknesses.</span>
+                      <span> Some common types include:</span>
                       <ul>
                         <span></span>
                         <li>
@@ -166,12 +158,10 @@ export const FAQs = () => {
                 {
                   children: (
                     <span>
-                      <p>
-                        <span>
-                          Generative AI has a wide range of potential benefits,
-                        </span>
-                        <span> including:</span>
-                      </p>
+                      <span>
+                        Generative AI has a wide range of potential benefits,
+                      </span>
+                      <span> including:</span>
                       <ul>
                         <span></span>
                         <li>
@@ -224,12 +214,8 @@ export const FAQs = () => {
                 {
                   children: (
                     <span>
-                      <p>
-                        <span>
-                          Generative AI also has some potential risks,
-                        </span>
-                        <span> including:</span>
-                      </p>
+                      <span>Generative AI also has some potential risks,</span>
+                      <span> including:</span>
                       <ul>
                         <span></span>
                         <li>
@@ -276,13 +262,11 @@ export const FAQs = () => {
                 {
                   children: (
                     <span>
-                      <p>
-                        <span>
-                          There are a number of things that can be done to
-                          mitigate the risks of generative AI,
-                        </span>
-                        <span> including:</span>
-                      </p>
+                      <span>
+                        There are a number of things that can be done to
+                        mitigate the risks of generative AI,
+                      </span>
+                      <span> including:</span>
                       <ul>
                         <span></span>
                         <li>
@@ -316,12 +300,10 @@ export const FAQs = () => {
                 {
                   children: (
                     <span>
-                      <p>
-                        <span>
-                          Generative AI has a wide range of applications,
-                        </span>
-                        <span> including:</span>
-                      </p>
+                      <span>
+                        Generative AI has a wide range of applications,
+                      </span>
+                      <span> including:</span>
                       <ul>
                         <span></span>
                         <li>
@@ -383,18 +365,16 @@ export const FAQs = () => {
                 {
                   children: (
                     <span>
-                      <p>
-                        <span>
-                          Generative AI is a rapidly evolving field with the
-                          potential to revolutionize many industries.
-                        </span>
-                        <span> As the technology continues to develop,</span>
-                        <span>
-                          {' '}
-                          we can expect to see even more innovative applications
-                          of generative AI in the years to come.
-                        </span>
-                      </p>
+                      <span>
+                        Generative AI is a rapidly evolving field with the
+                        potential to revolutionize many industries.
+                      </span>
+                      <span> As the technology continues to develop,</span>
+                      <span>
+                        {' '}
+                        we can expect to see even more innovative applications
+                        of generative AI in the years to come.
+                      </span>
                     </span>
                   ),
                   expanded: false,
@@ -411,24 +391,22 @@ export const FAQs = () => {
                 {
                   children: (
                     <span>
-                      <p>
-                        <span>
-                          Some people worry that generative AI will eventually
-                          become so good that it will replace humans in creative
-                          jobs.
-                        </span>
-                        <span> However,</span>
-                        <span>
-                          {' '}
-                          it is more likely that generative AI will be used to
-                          augment human creativity,
-                        </span>
-                        <span>
-                          {' '}
-                          allowing people to create things that would be
-                          impossible without the help of AI.
-                        </span>
-                      </p>
+                      <span>
+                        Some people worry that generative AI will eventually
+                        become so good that it will replace humans in creative
+                        jobs.
+                      </span>
+                      <span> However,</span>
+                      <span>
+                        {' '}
+                        it is more likely that generative AI will be used to
+                        augment human creativity,
+                      </span>
+                      <span>
+                        {' '}
+                        allowing people to create things that would be
+                        impossible without the help of AI.
+                      </span>
                     </span>
                   ),
                   expanded: false,
@@ -438,17 +416,15 @@ export const FAQs = () => {
                 {
                   children: (
                     <span>
-                      <p>
-                        <span>
-                          Some people worry that generative AI could become
-                          powerful enough to take over the world.
-                        </span>
-                        <span> However,</span>
-                        <span> this is highly unlikely.</span>
-                        <span> Generative AI is a tool,</span>
-                        <span> and like any tool,</span>
-                        <span> it can be used for good or evil.</span>
-                      </p>
+                      <span>
+                        Some people worry that generative AI could become
+                        powerful enough to take over the world.
+                      </span>
+                      <span> However,</span>
+                      <span> this is highly unlikely.</span>
+                      <span> Generative AI is a tool,</span>
+                      <span> and like any tool,</span>
+                      <span> it can be used for good or evil.</span>
                     </span>
                   ),
                   expanded: false,
@@ -458,13 +434,11 @@ export const FAQs = () => {
                 {
                   children: (
                     <span>
-                      <p>
-                        The ownership of intellectual property rights to content
-                        created by generative AI can be complex and depends on a
-                        number of factors, such as who created the model, who
-                        owns the data that the model was trained on, and how the
-                        model was used to create the content.
-                      </p>
+                      The ownership of intellectual property rights to content
+                      created by generative AI can be complex and depends on a
+                      number of factors, such as who created the model, who owns
+                      the data that the model was trained on, and how the model
+                      was used to create the content.
                     </span>
                   ),
                   expanded: false,
@@ -475,10 +449,8 @@ export const FAQs = () => {
                 {
                   children: (
                     <span>
-                      <p>
-                        Some of the leading companies working on generative AI
-                        include:
-                      </p>
+                      Some of the leading companies working on generative AI
+                      include:
                       <ul>
                         <span></span>
                         <li>
@@ -552,10 +524,8 @@ export const FAQs = () => {
                 {
                   children: (
                     <span>
-                      <p>
-                        There are a number of ethical considerations surrounding
-                        generative AI, including:
-                      </p>
+                      There are a number of ethical considerations surrounding
+                      generative AI, including:
                       <ul>
                         <li>
                           <strong>Bias:</strong> As mentioned earlier,
@@ -587,10 +557,8 @@ export const FAQs = () => {
                 {
                   children: (
                     <span>
-                      <p>
-                        There are a number of resources available to learn more
-                        about generative AI, including:
-                      </p>
+                      There are a number of resources available to learn more
+                      about generative AI, including:
                       <ul>
                         <li>
                           <strong>Blogs:</strong> Many companies and researchers
@@ -621,6 +589,17 @@ export const FAQs = () => {
                   id: 'item-14',
                   label:
                     'What resources are available to learn more about generative AI?',
+                },
+                {
+                  children: (
+                    <span>
+                      You can generate all standard MSIC reports by naming them
+                      in your queries. Ex: Intelligence-Led Analysis Report
+                    </span>
+                  ),
+                  expanded: false,
+                  id: 'item-15',
+                  label: 'What types of reports can I generate?',
                 },
               ]}
             />

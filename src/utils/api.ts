@@ -55,3 +55,15 @@ export const getChatHistory = (prompts: Prompt[]): ChatHistory[] => {
       completion: prompt.completion,
     }));
 };
+
+export const hasReport = (prompt: string) => {
+  const searchText = prompt.toLowerCase();
+  if (
+    searchText.indexOf('generate') !== -1 &&
+    searchText.indexOf('report') !== -1
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+};

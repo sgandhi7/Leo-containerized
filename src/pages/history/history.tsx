@@ -5,11 +5,15 @@ import { Investigation } from '@src/types/investigation';
 import { ColumnDef } from '@tanstack/react-table';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { currentSearch as defaultSearch } from '../../store';
 import { convertToReadableFormat } from '../../utils/utils';
 import infinteLoop from '/img/infinteLoop.svg';
+
 export const History = (): React.ReactElement => {
   const [loading, setLoading] = useState(true);
   const { getItems, deleteItem, items } = useApi();
+  const [, setCurrentSearch] = useRecoilState<string>(defaultSearch);
   const [investigations, setInvestigiations] = useState<Investigation[]>();
   const cols = React.useMemo<ColumnDef<Investigation>[]>(
     () => [
@@ -104,8 +108,13 @@ export const History = (): React.ReactElement => {
       setLoading(false);
     }
   }, [loading, investigations]);
+
+  // Clear current search when navigating to home
+  useEffect(() => {
+    setCurrentSearch('');
+  }, [setCurrentSearch]);
   return (
-    <div className="grid-container padding-top-1">
+    <div className="grid-container">
       <div className="grid-row">
         <div className="grid-col">
           <h1>History</h1>

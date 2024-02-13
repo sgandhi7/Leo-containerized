@@ -5,6 +5,7 @@ import {
   getReference,
   getScore,
   getSource,
+  hasReport,
   isMocked,
 } from './api';
 
@@ -136,5 +137,13 @@ describe('Api', () => {
       { prompt: 'Prompt 2', completion: 'Completed' },
       { prompt: 'Prompt 1', completion: 'Completed' },
     ]);
+  });
+
+  it('should return true if the object has a report property', () => {
+    expect(hasReport('generate report')).toBe(true);
+  });
+
+  it('should return false if the object does not have a report property', () => {
+    expect(hasReport('test')).toBe(false);
   });
 });

@@ -1,14 +1,18 @@
 @forward 'providers/uswds/uswds.scss';
 
-$color-primary: #381f59;
-$color-primary-gray: #edeaee;
+// Colors
+$color-primary: #031626;
+$color-primary-gray: #f3f5f7;
 $color-secondary: #d83933;
 $color-white: #ffffff;
 $color-black: #000000;
 $color-gray: #dfe1e2;
 $color-blue: #005ea2;
 $color-green: #00bb9d;
-$color-green-light: #00cfc8;
+$color-green-light: #69f9c3;
+
+// Font
+$font-family: 'Public Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 body {
   background-color: $color-primary-gray;
@@ -42,11 +46,12 @@ body {
 
   .usa-section {
     padding-top: 0 !important;
+    padding-bottom: 0 !important;
 
     h1 {
-      color: $color-primary;
+      color: $color-black;
       margin-top: 2rem;
-      font-size: 3.5rem;
+      font-size: 2rem;
     }
   }
 
@@ -58,47 +63,50 @@ body {
   }
 
   #mainSection {
-    min-height: 800px;
-    margin-top: 96px;
+    width: 100%;
     .signin {
       background-image: url('/img/hero.jpg');
       background-size: cover;
       height: 100vh;
       min-width: 100%;
       h1 {
-        color: $color-green;
+        color: $color-green-light;
+      }
+      .usa-form {
+        max-width: 500px !important;
       }
       .usa-label {
         color: $color-green-light;
       }
     }
 
+    h1 {
+      font-family: $font-family;
+    }
+
     h2 {
-      font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Roboto, Arial,
-        sans-serif;
+      font-family: $font-family;
       font-size: 24px;
       font-weight: 400;
       line-height: 1.2;
     }
     p {
-      font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Roboto, Arial,
-        sans-serif;
-      font-size: 18px;
+      font-family: $font-family;
+      font-size: 1rem;
       font-weight: 400;
       line-height: 1.2;
+      color: #71767a;
     }
 
     #faqs {
       p {
-        font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Roboto,
-          Arial, sans-serif;
+        font-family: $font-family;
         font-size: 1rem;
         font-weight: 400;
         line-height: 1.4;
       }
     }
     .grid-container {
-      max-width: 80rem;
       .grid-col-2 {
         flex: 1;
       }
@@ -115,20 +123,26 @@ body {
   #investigations.prompt {
     position: fixed;
     width: 100%;
-    bottom: -1rem;
+    bottom: 2rem;
   }
 
   .button-container {
     margin-bottom: 1rem;
     .helper-button {
       margin: 1rem;
-      padding: 1rem;
-      border: 2px solid rgba(56, 31, 89, 0.2);
+      padding: 24px 12px;
+      background-color: $color-primary;
+      color: $color-white;
+      border: 2px solid $color-primary;
       cursor: pointer;
       border-radius: 10px;
-      width: 30%;
+      width: 350px;
+      text-align: left;
+      font-size: 14px;
       &:hover {
-        border: 2px solid rgba(56, 31, 89, 0.7);
+        background-color: $color-white;
+        color: $color-primary;
+        border: 2px solid $color-primary;
       }
     }
     p.helper-text {
@@ -164,25 +178,48 @@ body {
   }
 
   .search-area {
+    max-width: 80rem;
     display: flex;
     align-items: center;
 
     .search-area-input {
       flex: 1;
-      width: 97%;
       padding: 1rem;
       margin: 1rem 0;
       box-sizing: border-box;
-      border: 2px solid #381f59;
-      border-radius: 10px;
+      border: 2px solid #71767a;
+      border-radius: 8px;
       resize: none;
       overflow: hidden;
     }
     button.search-input {
-      padding: 1rem;
+      min-height: 3rem;
+      padding: 12px 20px;
+      position: relative;
+      right: 16px;
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+
+      &:disabled {
+        color: $color-black;
+        background-color: $color-green-light;
+        border-color: $color-green-light;
+      }
+
+      > .searching {
+        height: 18px;
+      }
+
+      /* Disabled state only for when searching */
+      &.disabled {
+        color: $color-white;
+        background-color: #adadad;
+        border-color: #adadad;
+      }
     }
     textarea.search-area-input:disabled {
-      background-color: #eaeced;
+      color: #71767a;
+      background-color: $color-white;
     }
     .search-button {
       height: 40px; /* Set your desired height for the button */
@@ -202,12 +239,16 @@ body {
     display: none;
   }
   .text-container {
-    width: 100%;
+    width: 89%;
+    margin-right: 0;
     label {
       display: none;
     }
     .usa-textarea {
       height: 3rem;
+      border-right: none !important;
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
     }
     .usa-textarea,
     .usa-range,
@@ -245,34 +286,32 @@ body {
     }
   }
 
-  .usa-nav-container {
-    max-width: unset;
-  }
-
   .usa-button {
-    color: $color-green-light;
-    background-color: $color-primary;
+    color: $color-black;
+    background-color: $color-green-light;
     border: 2px solid $color-green-light;
   }
 
   .usa-button:hover {
-    color: rgba(0, 207, 200, 0.8);
-    background-color: $color-primary;
+    color: $color-black;
+    background-color: $color-green-light;
     border: 2px solid $color-green-light;
+    text-decoration: underline;
   }
 
   .usa-button--outline {
     background-color: $color-white;
     box-shadow: unset;
     color: $color-black;
-    border: 2px solid $color-blue;
+    border: 2px solid $color-white;
   }
 
   .usa-button--outline:hover {
-    color: $color-blue;
+    color: $color-black;
     background-color: $color-white;
     box-shadow: unset;
-    border: 2px solid $color-blue;
+    border: 2px solid $color-white;
+    text-decoration: underline;
   }
 
   .usa-button.usa-button--unstyled {
@@ -291,6 +330,10 @@ body {
   }
 
   .usa-input:focus {
+    border-color: $color-primary;
+  }
+
+  .usa-textarea:focus {
     border-color: $color-primary;
   }
 
@@ -317,24 +360,32 @@ body {
 
   .chat-content {
     background-color: transparent;
-    height: 82vh;
     overflow-y: auto;
-    padding-bottom: 3rem;
     flex-direction: column-reverse;
     display: flex;
+
+    table.data-table thead th {
+      background-color: $color-gray;
+      color: $color-black;
+    }
+
+    .usa-button.usa-button--unstyled {
+      text-decoration: none;
+    }
+
+    .usa-button.usa-button--unstyled:hover {
+      text-decoration: underline;
+    }
   }
 
   .chat-content-question {
-    background-color: #381f59;
-    border-top-right-radius: 10px;
-    color: #ffffff;
+    background-color: $color-white;
+    border: 1px solid $color-gray;
+    color: $color-black;
     border-radius: 4px;
-    padding: 1rem;
-    margin: 2rem 0;
-    align-self: flex-end;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    padding: 20px;
+    line-height: 1.75rem;
+    white-space: pre-wrap;
   }
 
   .chat-content-answer {
@@ -342,9 +393,23 @@ body {
     border: 1px solid $color-gray;
     color: $color-black;
     border-radius: 4px;
-    padding: 35px 20px;
+    padding: 20px;
     line-height: 1.75rem;
     white-space: pre-wrap;
+  }
+
+  .chat-question-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid $color-primary;
+    background-color: $color-white;
+    font-weight: 700;
+    > span {
+      position: relative;
+      top: 3px;
+      left: 11px;
+    }
   }
 
   .datasets {
@@ -406,6 +471,10 @@ body {
   filter: brightness(0.5) sepia(1) hue-rotate(140deg) saturate(6);
 }
 
+table.data-table {
+  font-family: $font-family;
+}
+
 table.data-table thead th {
   background-color: $color-primary;
   color: $color-green-light;
@@ -421,7 +490,140 @@ table.data-table tbody td {
 }
 
 table.data-table tbody tr:hover {
-  background-color: $color-green;
+  background-color: $color-primary-gray;
+}
+
+.sidebar {
+  width: 60px;
+  height: 100%;
+  position: relative;
+  display: block;
+  top: 0;
+  left: 0;
+  background-color: $color-primary;
+  transition: left 0.3s ease;
+  z-index: 10001;
+
+  .sidebar-text {
+    position: relative;
+    left: 10px;
+    bottom: 10px;
+    font-size: 14px;
+  }
+
+  .sidebar-text:hover {
+    text-decoration: underline;
+  }
+
+  .sidebar-profile {
+    position: fixed;
+    left: 15px;
+    bottom: 20px;
+  }
+
+  .sidebar-profile-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid $color-white;
+    background-color: $color-primary;
+    font-weight: 700;
+  }
+
+  .sidebar-profile-initials {
+    color: $color-white;
+    position: relative;
+    top: 3px;
+    left: 7px;
+  }
+
+  .sidebar-profile-name {
+    width: 200px;
+    position: relative;
+    top: 3px;
+    left: 35px;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .sidebar-btn-group {
+    padding: 12px 0;
+  }
+
+  button {
+    margin: 8px 16px 8px 16px;
+  }
+}
+
+.sidebar.open {
+  left: 0;
+  width: 250px;
+}
+
+.filters {
+  width: 0;
+  height: 100%;
+  position: relative;
+  display: block;
+  top: 0;
+  left: 0;
+  background-color: $color-white;
+  transition: left 0.3s ease;
+  z-index: 10001;
+
+  .filters-text {
+    color: $color-black;
+    position: relative;
+    left: 10px;
+    bottom: 10px;
+    font-size: 14px;
+  }
+
+  .filters-text:hover {
+    text-decoration: underline;
+  }
+
+  #filters-btn {
+    background-color: $color-green-light;
+    color: $color-black;
+    position: relative;
+    left: 0;
+    width: 100px;
+    margin: 0;
+    border-radius: 0px 4px 4px 0px;
+    text-decoration: none;
+    span {
+      position: relative;
+      left: 10px;
+      bottom: 10px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    svg {
+      position: relative;
+      left: 15px;
+    }
+  }
+
+  #toggle-btn {
+    margin: 0;
+    text-decoration: none;
+    padding-top: 2px;
+  }
+
+  #filters-btn.open {
+    width: 50px;
+  }
+
+  button {
+    margin: 8px 16px 8px 16px;
+  }
+}
+
+.filters.open {
+  left: 0;
+  width: 250px;
 }
 
 @media (min-width: 80em) {

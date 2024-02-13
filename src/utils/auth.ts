@@ -12,6 +12,14 @@ export const getDisplayName = (user: User): string => {
   }
 };
 
+export const getAvatarInitials = (user: User | undefined): string => {
+  if (!user?.firstName) {
+    return '';
+  }
+
+  return user.firstName?.split('')[0].charAt(0).toUpperCase();
+};
+
 export const getSignInRedirectUrl = (): string => {
   return `${window.location.origin}/signin`;
 };

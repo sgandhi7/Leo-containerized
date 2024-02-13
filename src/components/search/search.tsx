@@ -1,6 +1,4 @@
-import { Button } from '@metrostar/comet-uswds';
-import DatasetCheck from '@src/components/search/dataset-check';
-import SuggestData from '@src/components/search/suggest-data';
+import { Button, TextArea } from '@metrostar/comet-uswds';
 import useApi from '@src/hooks/use-api';
 import {
   Investigation as InvestigationState,
@@ -13,10 +11,12 @@ import { useRecoilState } from 'recoil';
 import {
   currentDataset as defaultDataset,
   currentInvestigation as defaultInvestigation,
+  currentMediaTypes as defaultMediaTypes,
+  currentSearch as defaultSearch,
   searching,
 } from '../../store';
-import { TextAreaInput } from '../text-area-input/textarea-input.tsx';
 import infinteLoop from '/img/infinteLoop.svg';
+
 export const Search = ({
   searchInput,
   setSearchInput,
@@ -32,7 +32,9 @@ export const Search = ({
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [isSearching, setIsSearching] = useRecoilState<boolean>(searching);
   const [currentDataset] = useRecoilState<string>(defaultDataset);
-  const home = location.pathname === '/';
+  const [currentMediaTypes] = useRecoilState<string>(defaultMediaTypes);
+  const [, setCurrentSearch] = useRecoilState<string>(defaultSearch);
+
   const updateFocus = () => {
     const input = document.querySelector('textarea');
     if (input) {
@@ -40,8 +42,9 @@ export const Search = ({
     }
   };
 
-  const submitSearch = async () => {
+  const handleSearch = async () => {
     setIsSearching(true);
+    setCurrentSearch(searchInput);
     if (location.pathname === '/') {
       navigate('/investigations');
     }
@@ -59,9 +62,18 @@ export const Search = ({
     };
     newData.unshift(newPrompt);
 
+    // TODO: Remove this when datasets and media types are properly implemented
+    let allDatasets = currentDataset;
+    if (currentMediaTypes.indexOf('audio') !== -1) {
+      allDatasets += ',audio';
+    }
+    if (currentMediaTypes.indexOf('image') !== -1) {
+      allDatasets += ',image';
+    }
+
     // Get current chat history
     const chatHistory = getChatHistory(newData);
-    await search(queryCopy, currentDataset, chatHistory).then((response) => {
+    await search(queryCopy, allDatasets, chatHistory).then((response) => {
       if (response?.length > 0) {
         const completion = response[0];
         newPrompt = {
@@ -94,65 +106,82 @@ export const Search = ({
     setSearchInput(value);
   };
 
-  const handleSearch = () => {
-    submitSearch();
-  };
-
   useEffect(() => {
     if (!isSearching && !loading) {
+      setSearchInput('');
       updateFocus();
     }
-  }, [isSearching, loading]);
+  }, [isSearching, loading, setSearchInput]);
 
   return (
     <div className="grid-container position-relative bottom-2">
       <div
-        className={`display-flex flex-justify-center search-area ${
+        className={`display-flex flex-justify-center search-area margin-x-auto margin-y-auto ${
           location.pathname === '/'
             ? 'search-area-home'
             : 'search-area-investigation'
         }`}
       >
-        <TextAreaInput
-          id="search-input"
-          name="search-input"
-          label="Enter your search here..."
-          className="search-area-input"
-          autoFocus
-          placeholder="Enter your search here..."
-          disabled={loading || isSearching}
-          value={searchInput}
-          onChange={handleOnChange}
-          onKeyDown={(event) => {
-            if (event.key === 'Enter' && !event.shiftKey) {
-              event.preventDefault();
-            }
-          }}
-          onKeyUp={(event) => {
-            if (
-              event.key === 'Enter' &&
-              !event.shiftKey &&
-              searchInput.trim() !== ''
-            ) {
-              submitSearch();
-            }
-          }}
-        />
-        {loading || isSearching ? (
-          <img src={infinteLoop} alt="loading" className="searching" />
-        ) : (
-          <Button
-            id="search-btn"
-            className="search-input"
-            onClick={handleSearch}
+        <div className="text-container">
+          <TextArea
+            id="search-input"
+            name="search-input"
+            aria-label="Search Horizon Hunt"
+            className="search-area-input"
+            value={searchInput}
+            onChange={handleOnChange}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+              }
+            }}
+            onKeyUp={(event) => {
+              if (
+                event.key === 'Enter' &&
+                !event.shiftKey &&
+                searchInput.trim() !== ''
+              ) {
+                handleSearch();
+              }
+              // TODO: Remove this and fix button resizing
+              else if (event.key === 'Enter' && event.shiftKey) {
+                event.preventDefault();
+              }
+            }}
+            placeholder="Message Horizon Hunt..."
+            rows={1}
+            cols={1}
             disabled={loading || isSearching}
-          >
-            Search
-          </Button>
-        )}
+            autoFocus
+            style={{
+              minHeight: `3rem`,
+              maxHeight: `${1 * 20}rem`,
+              borderRadius: '10px',
+              margin: '1rem',
+              marginRight: 0,
+              padding: '12px',
+            }}
+          />
+        </div>
+        <Button
+          id="search-btn"
+          className={`search-input ${loading || isSearching ? 'disabled' : ''}`}
+          onClick={handleSearch}
+          disabled={
+            loading ||
+            isSearching ||
+            searchInput.trim() === '' ||
+            currentDataset === '' ||
+            currentMediaTypes === ''
+          }
+        >
+          {loading || isSearching ? (
+            <img src={infinteLoop} alt="loading" className="searching" />
+          ) : (
+            <>Search</>
+          )}
+        </Button>
       </div>
-      {home ? <DatasetCheck /> : null}
-      {home ? <SuggestData /> : null}
     </div>
   );
 };

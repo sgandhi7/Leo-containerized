@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route, Routes } from 'react-router';
 import { RecoilRoot } from 'recoil';
-import { Header } from './components/header/header';
+import Filters from './components/filters/filters';
 import { ProtectedRoute } from './components/protected-route/protected-route';
+import Sidebar from './components/sidebar/sidebar';
 import { Account } from './pages/account/account';
 import { Collaborate } from './pages/collaborate/collaborate';
 import { FAQs } from './pages/faqs/faqs';
@@ -13,8 +14,9 @@ import { SignIn } from './pages/sign-in/sign-in';
 
 export const App = (): React.ReactElement => (
   <RecoilRoot>
-    <div>
-      <Header />
+    <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
+      <Sidebar />
+      <Filters />
       <main id="mainSection" className="usa-section">
         <Routes>
           <Route path="/signin" element={<SignIn />} />
