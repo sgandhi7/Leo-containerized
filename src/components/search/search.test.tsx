@@ -59,15 +59,15 @@ describe('Search', () => {
       getItems: jest.fn(),
       deleteItem: jest.fn(),
     });
-    const { getByRole } = render(componentWrapper);
+    const { getByRole, getAllByRole } = render(componentWrapper);
 
     const searchInput = getByRole('textbox');
     await act(async () => {
       fireEvent.change(searchInput, { target: { value: 'test' } });
     });
-    const searchButton = getByRole('button');
+    const searchButtons = getAllByRole('button');
     await act(async () => {
-      fireEvent.click(searchButton);
+      fireEvent.click(searchButtons[0]);
     });
   });
 
@@ -115,7 +115,7 @@ describe('Search', () => {
       getItems: jest.fn(),
       deleteItem: jest.fn(),
     });
-    const { getByRole } = render(
+    const { getAllByRole } = render(
       <AuthProvider>
         <RecoilRoot
           initializeState={(state) => state.set(defaultDataset, 'document')}
@@ -127,9 +127,9 @@ describe('Search', () => {
       </AuthProvider>,
     );
 
-    const searchButton = getByRole('button');
+    const searchButton = getAllByRole('button');
     await act(async () => {
-      fireEvent.click(searchButton);
+      fireEvent.click(searchButton[0]);
     });
   });
 });

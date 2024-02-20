@@ -16,7 +16,6 @@ export const App = (): React.ReactElement => (
   <RecoilRoot>
     <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
       <Sidebar />
-      <Filters />
       <main id="mainSection" className="usa-section">
         <Routes>
           <Route path="/signin" element={<SignIn />} />
@@ -31,6 +30,7 @@ export const App = (): React.ReactElement => (
           </Route>
         </Routes>
       </main>
+      <Filters />
     </div>
   </RecoilRoot>
 );
