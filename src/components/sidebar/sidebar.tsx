@@ -50,6 +50,7 @@ export const Sidebar = (): React.ReactElement => {
                 <Button
                   id="toggle-btn"
                   variant="unstyled"
+                  aria-label="collapse"
                   onClick={toggleSidebar}
                 >
                   <Icon
@@ -72,6 +73,7 @@ export const Sidebar = (): React.ReactElement => {
                 <Button
                   id="history-btn"
                   variant="unstyled"
+                  aria-label="history"
                   onClick={() => navigate('/history')}
                 >
                   <Icon
@@ -91,6 +93,7 @@ export const Sidebar = (): React.ReactElement => {
                 <Button
                   id="faqs-btn"
                   variant="unstyled"
+                  aria-label="frequently asked questions"
                   onClick={() => navigate('/faqs')}
                 >
                   <Icon
