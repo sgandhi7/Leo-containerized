@@ -386,7 +386,7 @@ export const FAQs = () => {
           </div>
           <div className="grid-col-2">
             <Accordion
-              id="accordion-1"
+              id="accordion-2"
               items={[
                 {
                   children: (
