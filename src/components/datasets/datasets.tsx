@@ -1,17 +1,17 @@
 import useDatasetApi from '@src/hooks/use-dataset-api';
 import { Dataset } from '@src/types/dataset';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { currentDataset as defaultDataset } from '../../store';
 
 export default function Datasets() {
   const { getItems, items } = useDatasetApi();
-  const [datasets, setDatasets] = useState<string[]>([]);
-  const [, setCurrentDataset] = useRecoilState<string>(defaultDataset);
+  const [currentDataset, setCurrentDataset] =
+    useRecoilState<string[]>(defaultDataset);
 
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
-    const newValues = [...datasets];
+    const newValues = [...currentDataset];
     if (checked) {
       newValues.push(value);
     } else {
@@ -20,7 +20,7 @@ export default function Datasets() {
         newValues.splice(index, 1);
       }
     }
-    setDatasets(newValues);
+    setCurrentDataset(newValues);
   };
 
   useEffect(() => {
@@ -29,13 +29,9 @@ export default function Datasets() {
 
   useEffect(() => {
     if (items && items.length > 0) {
-      setDatasets([items[0].value]);
+      setCurrentDataset([items[0].value]);
     }
-  }, [items]);
-
-  useEffect(() => {
-    setCurrentDataset(datasets.length > 0 ? [...datasets].join(',') : '');
-  }, [datasets, setCurrentDataset]);
+  }, [items, setCurrentDataset]);
 
   return (
     <div
@@ -57,7 +53,7 @@ export default function Datasets() {
                 type="checkbox"
                 name={`checkbox${dataset.id}`}
                 value={`${dataset.value}`}
-                checked={datasets.includes(dataset.value)}
+                checked={currentDataset.includes(dataset.value)}
                 onChange={handleCheckboxChange}
               />
               <label
