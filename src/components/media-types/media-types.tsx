@@ -56,6 +56,7 @@ export default function MediaTypes() {
               id={`media_type_checkbox${mediaType.id}__usa-checkbox__input`}
               type="checkbox"
               name={`media_type_checkbox${mediaType.id}`}
+              disabled={mediaType.disable}
               value={`${mediaType.value}`}
               checked={mediaTypes.includes(mediaType.value)}
               onChange={handleCheckboxChange}
