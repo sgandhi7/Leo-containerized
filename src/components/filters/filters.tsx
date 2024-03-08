@@ -14,37 +14,17 @@ export const Filters = (): React.ReactElement => {
   const { isSignedIn } = useAuth();
   const [isFiltering, setIsFiltering] = useRecoilState<boolean>(filtering);
   const [currentDataset, setCurrentDataset] =
-    useRecoilState<string>(defaultDataset);
+    useRecoilState<string[]>(defaultDataset);
   const [currentMediaTypes, setCurrentMediaTypes] =
-    useRecoilState<string>(defaultMediaTypes);
+    useRecoilState<string[]>(defaultMediaTypes);
 
   const toggleFilters = () => {
     setIsFiltering((isFiltering) => !isFiltering);
   };
 
   const clearFilters = () => {
-    console.log(
-      'clear beginning ' + currentDataset + ' and media ' + currentMediaTypes,
-    );
-
-    if (currentDataset || currentMediaTypes) {
-      setCurrentMediaTypes('');
-      setCurrentMediaTypes('');
-    }
-
-    const filterWrapper = document.getElementById('filters');
-    if (filterWrapper) {
-      const filterInputs = Array.from(
-        filterWrapper.getElementsByTagName(
-          'input',
-        ) as HTMLCollectionOf<HTMLInputElement>,
-      );
-      filterInputs.forEach((element) => (element.checked = false));
-    }
-
-    console.log(
-      'clear after ' + currentDataset + ' and media ' + currentMediaTypes,
-    );
+    setCurrentDataset([]);
+    setCurrentMediaTypes([]);
   };
 
   const applyFilters = () => {
