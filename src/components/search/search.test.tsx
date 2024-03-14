@@ -86,7 +86,7 @@ describe('Search', () => {
     const { getByRole } = render(
       <AuthProvider>
         <RecoilRoot
-          initializeState={(state) => state.set(defaultDataset, 'document')}
+          initializeState={(state) => state.set(defaultDataset, ['document'])}
         >
           <BrowserRouter>
             <Search searchInput={'test'} setSearchInput={setSearchInput} />
@@ -118,7 +118,7 @@ describe('Search', () => {
     const { getAllByRole } = render(
       <AuthProvider>
         <RecoilRoot
-          initializeState={(state) => state.set(defaultDataset, 'document')}
+          initializeState={(state) => state.set(defaultDataset, ['document'])}
         >
           <BrowserRouter>
             <Search searchInput={'test'} setSearchInput={setSearchInput} />

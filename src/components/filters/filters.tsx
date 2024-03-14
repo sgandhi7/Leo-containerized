@@ -28,14 +28,10 @@ export const Filters = (): React.ReactElement => {
   };
 
   const applyFilters = () => {
-    console.log(
-      'apply before ' + currentDataset + ' and media ' + currentMediaTypes,
-    );
     setCurrentDataset(currentDataset);
     setCurrentMediaTypes(currentMediaTypes);
-    console.log(
-      'apply after ' + currentDataset + ' and media ' + currentMediaTypes,
-    );
+
+    document.getElementById('search-btn')?.click();
   };
 
   return (
