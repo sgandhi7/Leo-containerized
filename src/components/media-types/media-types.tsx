@@ -6,12 +6,12 @@ import { currentMediaTypes as defaultMediaTypes } from '../../store';
 
 export default function MediaTypes() {
   const [items, setItems] = useState<MediaType[]>([]);
-  const [mediaTypes, setMediaTypes] = useState<string[]>([]);
-  const [, setCurrentMediaTypes] = useRecoilState<string>(defaultMediaTypes);
+  const [currentMediaTypes, setCurrentMediaTypes] =
+    useRecoilState<string[]>(defaultMediaTypes);
 
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
-    const newValues = [...mediaTypes];
+    const newValues = [...currentMediaTypes];
     if (checked) {
       newValues.push(value);
     } else {
@@ -20,7 +20,7 @@ export default function MediaTypes() {
         newValues.splice(index, 1);
       }
     }
-    setMediaTypes(newValues);
+    setCurrentMediaTypes(newValues);
   };
 
   useEffect(() => {
@@ -29,15 +29,9 @@ export default function MediaTypes() {
 
   useEffect(() => {
     if (items && items.length > 0) {
-      setMediaTypes([items[0].value]);
+      setCurrentMediaTypes([items[0].value]);
     }
-  }, [items]);
-
-  useEffect(() => {
-    setCurrentMediaTypes(
-      mediaTypes.length > 0 ? [...mediaTypes].join(',') : '',
-    );
-  }, [mediaTypes, setCurrentMediaTypes]);
+  }, [items, setCurrentMediaTypes]);
 
   return (
     <div
@@ -56,8 +50,9 @@ export default function MediaTypes() {
               id={`media_type_checkbox${mediaType.id}__usa-checkbox__input`}
               type="checkbox"
               name={`media_type_checkbox${mediaType.id}`}
+              disabled={mediaType.disable}
               value={`${mediaType.value}`}
-              checked={mediaTypes.includes(mediaType.value)}
+              checked={currentMediaTypes.includes(mediaType.value)}
               onChange={handleCheckboxChange}
             />
             <label

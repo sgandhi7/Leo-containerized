@@ -582,17 +582,21 @@ table.data-table tbody tr:hover {
   .filters-text:hover {
     text-decoration: underline;
   }
-
-  button {
-    margin: 8px 16px 8px 16px;
-  }
 }
 
 .filters-btn-container {
-  position: fixed;
-  right: 120px;
-  bottom: 85px;
+  position: relative;
   z-index: 10001;
+}
+
+#apply-filters-btn,
+#clear-filters-btn {
+  width: 100px;
+}
+
+#clear-filters-btn {
+  background-color: #dee1e5;
+  border: 2px solid #dee1e5;
 }
 
 #filters-btn {

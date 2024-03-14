@@ -33,8 +33,8 @@ export const Search = ({
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [isSearching, setIsSearching] = useRecoilState<boolean>(searching);
   const [isFiltering, setIsFiltering] = useRecoilState<boolean>(filtering);
-  const [currentDataset] = useRecoilState<string>(defaultDataset);
-  const [currentMediaTypes] = useRecoilState<string>(defaultMediaTypes);
+  const [currentDataset] = useRecoilState<string[]>(defaultDataset);
+  const [currentMediaTypes] = useRecoilState<string[]>(defaultMediaTypes);
   const [, setCurrentSearch] = useRecoilState<string>(defaultSearch);
 
   const updateFocus = () => {
@@ -65,32 +65,34 @@ export const Search = ({
     newData.unshift(newPrompt);
 
     // TODO: Remove this when datasets and media types are properly implemented
-    let allDatasets = currentDataset;
-    if (currentMediaTypes.indexOf('audio') !== -1) {
-      allDatasets += ',audio';
+    const allDatasets = [...currentDataset];
+    if (currentMediaTypes.includes('audio')) {
+      allDatasets.push('audio');
     }
-    if (currentMediaTypes.indexOf('image') !== -1) {
-      allDatasets += ',image';
+    if (currentMediaTypes.includes('image')) {
+      allDatasets.push('image');
     }
 
     // Get current chat history
     const chatHistory = getChatHistory(newData);
-    await search(queryCopy, allDatasets, chatHistory).then((response) => {
-      if (response?.length > 0) {
-        const completion = response[0];
-        newPrompt = {
-          id: generateGUID(),
-          prompt: queryCopy,
-          completion: completion.completion.trim(),
-          sources: completion.sources,
-        };
+    await search(queryCopy, allDatasets.toString(), chatHistory).then(
+      (response) => {
+        if (response?.length > 0) {
+          const completion = response[0];
+          newPrompt = {
+            id: generateGUID(),
+            prompt: queryCopy,
+            completion: completion.completion.trim(),
+            sources: completion.sources,
+          };
 
-        newData[0] = newPrompt;
-        updateCurrentInvestigation(newData);
-        setIsSearching(false);
-      }
-      setSearchInput('');
-    });
+          newData[0] = newPrompt;
+          updateCurrentInvestigation(newData);
+          setIsSearching(false);
+        }
+        setSearchInput('');
+      },
+    );
     setQuery('');
   };
 
@@ -177,8 +179,8 @@ export const Search = ({
             loading ||
             isSearching ||
             searchInput.trim() === '' ||
-            currentDataset === '' ||
-            currentMediaTypes === ''
+            currentDataset.length === 0 ||
+            currentMediaTypes.length === 0
           }
         >
           {loading || isSearching ? (

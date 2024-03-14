@@ -27,14 +27,14 @@ const searching = atom({
   default: false,
 });
 
-const currentDataset = atom({
+const currentDataset = atom<string[]>({
   key: 'currentDataset',
-  default: 'document',
+  default: ['document'],
 });
 
-const currentMediaTypes = atom({
+const currentMediaTypes = atom<string[]>({
   key: 'currentMediaTypes',
-  default: 'pdf',
+  default: ['pdf'],
 });
 
 const currentSearch = atom({
