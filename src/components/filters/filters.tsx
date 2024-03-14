@@ -82,14 +82,14 @@ export const Filters = (): React.ReactElement => {
                   <div className="filters-btn-container display-flex flex-justify margin-top-4">
                     <Button
                       id="clear-filters-btn"
-                      className="usa-button radius-pill text-normal"
+                      className="usa-button text-normal"
                       onClick={clearFilters}
                     >
                       Clear
                     </Button>
                     <Button
                       id="apply-filters-btn"
-                      className="usa-button radius-pill text-normal"
+                      className="usa-button text-normal"
                       onClick={applyFilters}
                     >
                       Apply

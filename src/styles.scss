@@ -589,6 +589,11 @@ table.data-table tbody tr:hover {
   z-index: 10001;
 }
 
+#apply-filters-btn,
+#clear-filters-btn {
+  width: 100px;
+}
+
 #clear-filters-btn {
   background-color: #dee1e5;
   border: 2px solid #dee1e5;
