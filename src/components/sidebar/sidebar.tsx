@@ -119,7 +119,7 @@ export const Sidebar = (): React.ReactElement => {
                 </span>
                 {isOpen ? (
                   <span className="sidebar-profile-name text-white">
-                    {currentUserData.firstName}
+                    {currentUserData.displayName}
                   </span>
                 ) : (
                   <></>

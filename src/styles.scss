@@ -534,7 +534,7 @@ table.data-table tbody tr:hover {
     color: $color-white;
     position: relative;
     top: 3px;
-    left: 7px;
+    left: 8px;
   }
 
   .sidebar-profile-name {
@@ -544,6 +544,7 @@ table.data-table tbody tr:hover {
     left: 35px;
     font-size: 14px;
     font-weight: 400;
+    text-wrap: nowrap;
   }
 
   .sidebar-btn-group {
