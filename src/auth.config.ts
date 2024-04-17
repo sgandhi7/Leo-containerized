@@ -5,7 +5,7 @@ export const msalConfig: Configuration = {
   auth: {
     clientId: process.env.SSO_CLIENT_ID || '',
     authority: `https://login.microsoftonline.com/${process.env.SSO_TENANT_ID || ''}`,
-    redirectUri: '/',
+    redirectUri: '/signin',
     postLogoutRedirectUri: '/',
   },
   system: {

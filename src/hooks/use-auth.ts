@@ -51,7 +51,7 @@ const useAuth = () => {
   const signIn = (isSso: boolean): void => {
     if (isSso) {
       instance
-        .loginPopup(loginRequest)
+        .loginRedirect(loginRequest)
         .then(() => {
           setIsSignedIn(true);
           navigate('/');
@@ -72,7 +72,7 @@ const useAuth = () => {
     /* istanbul ignore next */
     if (isAuthenticated) {
       instance
-        .logoutPopup(loginRequest)
+        .logoutRedirect(loginRequest)
         .then(() => {
           setIsSignedIn(false);
           navigate('/signin');
