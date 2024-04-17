@@ -1,7 +1,6 @@
 import { render } from '@testing-library/react';
 
 import { User } from '@src/types/user';
-import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import * as useAuthMock from '../../hooks/use-auth';
@@ -10,13 +9,11 @@ import { Filters } from './filters';
 describe('Filters', () => {
   test('should render successfully', () => {
     const { baseElement } = render(
-      <AuthProvider>
-        <RecoilRoot>
-          <BrowserRouter>
-            <Filters />
-          </BrowserRouter>
-        </RecoilRoot>
-      </AuthProvider>,
+      <RecoilRoot>
+        <BrowserRouter>
+          <Filters />
+        </BrowserRouter>
+      </RecoilRoot>,
     );
 
     expect(baseElement).toBeTruthy();
@@ -32,13 +29,11 @@ describe('Filters', () => {
     });
 
     const { baseElement } = render(
-      <AuthProvider>
-        <RecoilRoot>
-          <BrowserRouter>
-            <Filters />
-          </BrowserRouter>
-        </RecoilRoot>
-      </AuthProvider>,
+      <RecoilRoot>
+        <BrowserRouter>
+          <Filters />
+        </BrowserRouter>
+      </RecoilRoot>,
     );
 
     expect(baseElement).toBeTruthy();

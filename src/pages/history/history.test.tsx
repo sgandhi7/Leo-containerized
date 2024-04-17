@@ -1,7 +1,6 @@
 import { investigationData } from '@src/data/investigation';
 import '@testing-library/jest-dom';
 import { act, render } from '@testing-library/react';
-import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import * as useApi from '../../hooks/use-api';
@@ -9,13 +8,11 @@ import { History } from './history';
 
 describe('History', () => {
   const componentWrapper = (
-    <AuthProvider>
-      <RecoilRoot>
-        <BrowserRouter>
-          <History />
-        </BrowserRouter>
-      </RecoilRoot>
-    </AuthProvider>
+    <RecoilRoot>
+      <BrowserRouter>
+        <History />
+      </BrowserRouter>
+    </RecoilRoot>
   );
 
   test('should render successfully', async () => {

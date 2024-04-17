@@ -1,5 +1,5 @@
-import { userData } from '@src/data/user';
-import { User } from '@src/types/user';
+import { AccountInfo } from '@azure/msal-browser';
+import { azureUserData } from '@src/data/user';
 import { generateGUID } from './api';
 import { getDisplayName, getSignInRedirectUrl, hasSsoConfig } from './auth';
 
@@ -10,36 +10,14 @@ describe('Auth Helpers', () => {
   });
 
   test('should get display name with display name', () => {
-    const displayName = getDisplayName(userData);
-    expect(displayName).toEqual(userData.displayName);
-  });
-
-  test('should get display name with first and last', () => {
-    const newUser: User = {
-      ...userData,
-      displayName: undefined,
-    };
-
-    const displayName = getDisplayName(newUser);
-    expect(displayName).toEqual(userData.displayName);
-  });
-
-  test('should get display name with just first name', () => {
-    const newUser: User = {
-      ...userData,
-      displayName: undefined,
-      lastName: undefined,
-    };
-    const displayName = getDisplayName(newUser);
-    expect(displayName).toEqual(userData.firstName);
+    const displayName = getDisplayName(azureUserData);
+    expect(displayName).toEqual(azureUserData.name);
   });
 
   test('should get empty display name', () => {
-    const newUser: User = {
-      ...userData,
-      displayName: undefined,
-      lastName: undefined,
-      firstName: undefined,
+    const newUser: AccountInfo = {
+      ...azureUserData,
+      name: undefined,
     };
 
     const displayName = getDisplayName(newUser);
@@ -63,7 +41,7 @@ describe('Auth Helpers', () => {
   });
 
   test('should verify SSL config', () => {
-    process.env.SSO_AUTHORITY = 'http://localhost';
+    process.env.SSO_TENANT_ID = 'http://localhost';
     process.env.SSO_CLIENT_ID = 'dev-client';
 
     const hasConfig = hasSsoConfig();

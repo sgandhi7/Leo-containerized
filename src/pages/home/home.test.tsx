@@ -1,6 +1,5 @@
 import { suggestions } from '@src/data/suggestion';
 import { act, fireEvent, render } from '@testing-library/react';
-import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import * as useApi from '../../hooks/use-api';
@@ -11,13 +10,11 @@ import { Home } from './home';
 
 describe('Home', () => {
   const componentWrapper = (
-    <AuthProvider>
-      <RecoilRoot>
-        <BrowserRouter>
-          <Home />
-        </BrowserRouter>
-      </RecoilRoot>
-    </AuthProvider>
+    <RecoilRoot>
+      <BrowserRouter>
+        <Home />
+      </BrowserRouter>
+    </RecoilRoot>
   );
 
   test('should render successfully', async () => {

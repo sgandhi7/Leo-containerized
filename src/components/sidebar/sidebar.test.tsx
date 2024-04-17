@@ -2,7 +2,6 @@ import { render } from '@testing-library/react';
 
 import { User } from '@src/types/user';
 import userEvent from '@testing-library/user-event';
-import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import * as useAuthMock from '../../hooks/use-auth';
@@ -11,13 +10,11 @@ import { Sidebar } from './sidebar';
 describe('Sidebar', () => {
   test('should render successfully', () => {
     const { baseElement } = render(
-      <AuthProvider>
-        <RecoilRoot>
-          <BrowserRouter>
-            <Sidebar />
-          </BrowserRouter>
-        </RecoilRoot>
-      </AuthProvider>,
+      <RecoilRoot>
+        <BrowserRouter>
+          <Sidebar />
+        </BrowserRouter>
+      </RecoilRoot>,
     );
 
     expect(baseElement).toBeTruthy();
@@ -34,13 +31,11 @@ describe('Sidebar', () => {
     });
 
     const { baseElement } = render(
-      <AuthProvider>
-        <RecoilRoot>
-          <BrowserRouter>
-            <Sidebar />
-          </BrowserRouter>
-        </RecoilRoot>
-      </AuthProvider>,
+      <RecoilRoot>
+        <BrowserRouter>
+          <Sidebar />
+        </BrowserRouter>
+      </RecoilRoot>,
     );
 
     const historyBtn = baseElement.querySelector(

@@ -1,6 +1,4 @@
-import keycloak from '@src/utils/keycloak';
 import { act, renderHook } from '@testing-library/react';
-import { AuthProvider } from 'react-oidc-context';
 import { RecoilRoot } from 'recoil';
 import useAuth from './use-auth';
 
@@ -15,9 +13,7 @@ describe('useAuth', () => {
   });
 
   const contextWrapper = ({ children }: ContextWrapperProps) => (
-    <AuthProvider {...keycloak}>
-      <RecoilRoot>{children}</RecoilRoot>
-    </AuthProvider>
+    <RecoilRoot>{children}</RecoilRoot>
   );
 
   test('should call signIn successfully', async () => {
