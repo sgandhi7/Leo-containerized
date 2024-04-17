@@ -1,17 +1,17 @@
+import { MsalProvider } from '@azure/msal-react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
 import { App } from './App.tsx';
 import './styles.scss';
-import keycloak from './utils/keycloak.ts';
+import msalInstance from './utils/msal.ts';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthProvider {...keycloak}>
+      <MsalProvider instance={msalInstance}>
         <App />
-      </AuthProvider>
+      </MsalProvider>
     </BrowserRouter>
   </React.StrictMode>,
 );

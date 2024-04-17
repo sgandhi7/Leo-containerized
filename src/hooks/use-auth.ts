@@ -1,13 +1,13 @@
-import { getSignInRedirectUrl } from '@src/utils/auth';
+import { useMsal } from '@azure/msal-react';
 import { useEffect, useState } from 'react';
-import { useAuth as useKeycloakAuth } from 'react-oidc-context';
 import { useRecoilState } from 'recoil';
+import { loginRequest } from 'src/auth.config';
 import { userData } from '../data/user';
 import { currentUser, signedIn } from '../store';
 import { User } from '../types/user';
 
 const useAuth = () => {
-  const auth = useKeycloakAuth();
+  const { instance } = useMsal();
   const [isSignedIn, setIsSignedIn] = useRecoilState<boolean>(signedIn);
   const [error, setError] = useState<string | null>();
   const [currentUserData, setCurrentUserDate] = useRecoilState<
@@ -25,32 +25,31 @@ const useAuth = () => {
 
   useEffect(() => {
     /* istanbul ignore next */
-    if (auth.isAuthenticated) {
+    if (instance.getActiveAccount()) {
       setIsSignedIn(true);
     }
-  }, [auth.isAuthenticated, setIsSignedIn]);
+  }, [instance, setIsSignedIn]);
 
   useEffect(() => {
-    const profile = auth.user?.profile;
+    // const profile = auth.user?.profile;
+    const profile = instance.getActiveAccount();
     /* istanbul ignore next */
     if (profile) {
       setCurrentUserDate({
-        firstName: profile.given_name,
-        lastName: profile.family_name,
+        firstName: '',
+        lastName: '',
         displayName: profile.name,
-        emailAddress: profile.email,
-        phoneNumber: profile.phone_number,
+        emailAddress: profile.username,
+        phoneNumber: '',
       });
     }
-  }, [auth.user?.profile, setCurrentUserDate]);
+  }, [instance, setCurrentUserDate]);
 
   const signIn = (isSso: boolean): void => {
     if (isSso) {
-      auth
-        .signinRedirect({ redirect_uri: getSignInRedirectUrl() })
-        .catch((err) => {
-          setError(err);
-        });
+      instance.loginRedirect(loginRequest).catch((err) => {
+        setError(err);
+      });
     } else {
       setIsSignedIn(true);
       setCurrentUserDate(userData);
@@ -61,14 +60,10 @@ const useAuth = () => {
     setIsSignedIn(false);
     setCurrentUserDate({} as User);
     /* istanbul ignore next */
-    if (auth.isAuthenticated) {
-      auth
-        .signoutRedirect({
-          post_logout_redirect_uri: getSignInRedirectUrl(),
-        })
-        .catch((err) => {
-          setError(err);
-        });
+    if (instance.getActiveAccount()) {
+      instance.logoutRedirect().catch((err) => {
+        setError(err);
+      });
     } else {
       setIsSignedIn(false);
       setCurrentUserDate({} as User);

@@ -25,5 +25,5 @@ export const getSignInRedirectUrl = (): string => {
 };
 
 export const hasSsoConfig = (): boolean => {
-  return process.env.SSO_AUTHORITY && process.env.SSO_CLIENT_ID ? true : false;
+  return process.env.SSO_CLIENT_ID ? true : false;
 };
