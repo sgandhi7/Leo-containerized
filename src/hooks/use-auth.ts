@@ -1,4 +1,4 @@
-import { useMsal } from '@azure/msal-react';
+import { useIsAuthenticated, useMsal } from '@azure/msal-react';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { loginRequest } from 'src/auth.config';
@@ -8,6 +8,7 @@ import { User } from '../types/user';
 
 const useAuth = () => {
   const { instance } = useMsal();
+  const isAuthenticated = useIsAuthenticated();
   const [isSignedIn, setIsSignedIn] = useRecoilState<boolean>(signedIn);
   const [error, setError] = useState<string | null>();
   const [currentUserData, setCurrentUserDate] = useRecoilState<
@@ -25,10 +26,10 @@ const useAuth = () => {
 
   useEffect(() => {
     /* istanbul ignore next */
-    if (instance.getActiveAccount()) {
+    if (isAuthenticated) {
       setIsSignedIn(true);
     }
-  }, [instance, setIsSignedIn]);
+  }, [isAuthenticated, setIsSignedIn]);
 
   useEffect(() => {
     // const profile = auth.user?.profile;
@@ -60,7 +61,7 @@ const useAuth = () => {
     setIsSignedIn(false);
     setCurrentUserDate({} as User);
     /* istanbul ignore next */
-    if (instance.getActiveAccount()) {
+    if (isAuthenticated) {
       instance.logoutRedirect().catch((err) => {
         setError(err);
       });
