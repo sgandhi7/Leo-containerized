@@ -1,11 +1,9 @@
-import { useIsAuthenticated } from '@azure/msal-react';
 import { Button } from '@metrostar/comet-uswds';
 import React from 'react';
 import useAuth from '../../hooks/use-auth';
 
 export const SignOut = (): React.ReactElement => {
   const { signOut } = useAuth();
-  const isAuthenticated = useIsAuthenticated();
 
   const handleSignOut = (): void => {
     signOut();
@@ -16,11 +14,7 @@ export const SignOut = (): React.ReactElement => {
       <div className="grid-container">
         <div className="grid-row">
           <div className="tablet:grid-col-5 padding-top-4">
-            <Button
-              id="signout"
-              disabled={!isAuthenticated}
-              onClick={handleSignOut}
-            >
+            <Button id="signout" onClick={handleSignOut}>
               Click to Sign Out
             </Button>
           </div>

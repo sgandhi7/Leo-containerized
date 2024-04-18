@@ -82,6 +82,7 @@ const useAuth = () => {
     } else {
       setIsSignedIn(false);
       setCurrentUserData({} as User);
+      navigate('/signin');
     }
   };
 
