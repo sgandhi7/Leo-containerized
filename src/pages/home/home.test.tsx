@@ -1,4 +1,6 @@
+import { MsalProvider } from '@azure/msal-react';
 import { suggestions } from '@src/data/suggestion';
+import msalInstance from '@src/utils/msal';
 import { act, fireEvent, render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
@@ -10,11 +12,13 @@ import { Home } from './home';
 
 describe('Home', () => {
   const componentWrapper = (
-    <RecoilRoot>
-      <BrowserRouter>
-        <Home />
-      </BrowserRouter>
-    </RecoilRoot>
+    <MsalProvider instance={msalInstance}>
+      <RecoilRoot>
+        <BrowserRouter>
+          <Home />
+        </BrowserRouter>
+      </RecoilRoot>
+    </MsalProvider>
   );
 
   test('should render successfully', async () => {

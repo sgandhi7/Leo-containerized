@@ -6,7 +6,7 @@ export const msalConfig: Configuration = {
     clientId: process.env.SSO_CLIENT_ID || '',
     authority: `https://login.microsoftonline.com/${process.env.SSO_TENANT_ID || ''}`,
     redirectUri: '/signin',
-    postLogoutRedirectUri: '/',
+    postLogoutRedirectUri: '/signin',
   },
   system: {
     allowNativeBroker: false, // Disables WAM Broker

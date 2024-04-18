@@ -1,4 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import useAuth from './use-auth';
 
@@ -13,7 +14,9 @@ describe('useAuth', () => {
   });
 
   const contextWrapper = ({ children }: ContextWrapperProps) => (
-    <RecoilRoot>{children}</RecoilRoot>
+    <BrowserRouter>
+      <RecoilRoot>{children}</RecoilRoot>
+    </BrowserRouter>
   );
 
   test('should call signIn successfully', async () => {
@@ -39,7 +42,7 @@ describe('useAuth', () => {
   });
 
   test('should call signIn with SSO and available configs', async () => {
-    process.env.SSO_AUTHORITY = 'http://localhost';
+    process.env.SSO_TENANT_ID = 'http://localhost';
     process.env.SSO_CLIENT_ID = 'dev-client';
 
     const { result } = renderHook(() => useAuth(), {

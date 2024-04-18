@@ -131,7 +131,7 @@ describe('SignIn', () => {
       signOut: jest.fn(),
     });
 
-    process.env.SSO_AUTHORITY = 'http://localhost';
+    process.env.SSO_TENANT_ID = 'http://localhost';
     process.env.SSO_CLIENT_ID = 'dev-client';
 
     const { baseElement } = render(signInComponent);

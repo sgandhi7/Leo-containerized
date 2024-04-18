@@ -3,7 +3,7 @@ import { getFirstName, getLastName } from '@src/utils/auth';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { loginRequest } from 'src/auth.config';
+import { loginRequest } from '../../src/auth.config';
 import { userData } from '../data/user';
 import { currentUser, signedIn } from '../store';
 import { User } from '../types/user';
@@ -75,7 +75,6 @@ const useAuth = () => {
         .logoutRedirect(loginRequest)
         .then(() => {
           setIsSignedIn(false);
-          navigate('/signin');
         })
         .catch((err) => {
           setError(err);
