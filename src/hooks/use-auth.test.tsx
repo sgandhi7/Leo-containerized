@@ -1,6 +1,5 @@
-import keycloak from '@src/utils/keycloak';
 import { act, renderHook } from '@testing-library/react';
-import { AuthProvider } from 'react-oidc-context';
+import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import useAuth from './use-auth';
 
@@ -15,9 +14,9 @@ describe('useAuth', () => {
   });
 
   const contextWrapper = ({ children }: ContextWrapperProps) => (
-    <AuthProvider {...keycloak}>
+    <BrowserRouter>
       <RecoilRoot>{children}</RecoilRoot>
-    </AuthProvider>
+    </BrowserRouter>
   );
 
   test('should call signIn successfully', async () => {
@@ -43,7 +42,7 @@ describe('useAuth', () => {
   });
 
   test('should call signIn with SSO and available configs', async () => {
-    process.env.SSO_AUTHORITY = 'http://localhost';
+    process.env.SSO_TENANT_ID = 'http://localhost';
     process.env.SSO_CLIENT_ID = 'dev-client';
 
     const { result } = renderHook(() => useAuth(), {

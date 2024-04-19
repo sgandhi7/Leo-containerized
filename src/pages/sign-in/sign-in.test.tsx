@@ -2,7 +2,6 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 
-import { AuthProvider } from 'react-oidc-context';
 import { RecoilRoot } from 'recoil';
 import * as useAuthMock from '../../hooks/use-auth';
 import { User } from '../../types/user';
@@ -10,13 +9,11 @@ import { SignIn } from './sign-in';
 
 describe('SignIn', () => {
   const signInComponent = (
-    <AuthProvider>
-      <RecoilRoot>
-        <BrowserRouter>
-          <SignIn />
-        </BrowserRouter>
-      </RecoilRoot>
-    </AuthProvider>
+    <RecoilRoot>
+      <BrowserRouter>
+        <SignIn />
+      </BrowserRouter>
+    </RecoilRoot>
   );
 
   const mockUsername = 'username1';
@@ -134,7 +131,7 @@ describe('SignIn', () => {
       signOut: jest.fn(),
     });
 
-    process.env.SSO_AUTHORITY = 'http://localhost';
+    process.env.SSO_TENANT_ID = 'http://localhost';
     process.env.SSO_CLIENT_ID = 'dev-client';
 
     const { baseElement } = render(signInComponent);

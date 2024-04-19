@@ -1,6 +1,7 @@
+import { MsalProvider } from '@azure/msal-react';
 import { suggestions } from '@src/data/suggestion';
+import msalInstance from '@src/utils/msal';
 import { act, fireEvent, render } from '@testing-library/react';
-import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import * as useApi from '../../hooks/use-api';
@@ -11,13 +12,13 @@ import { Home } from './home';
 
 describe('Home', () => {
   const componentWrapper = (
-    <AuthProvider>
+    <MsalProvider instance={msalInstance}>
       <RecoilRoot>
         <BrowserRouter>
           <Home />
         </BrowserRouter>
       </RecoilRoot>
-    </AuthProvider>
+    </MsalProvider>
   );
 
   test('should render successfully', async () => {

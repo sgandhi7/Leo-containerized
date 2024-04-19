@@ -35,7 +35,6 @@ export const SignIn = (): React.ReactElement => {
 
   const onSubmit: SubmitHandler<FormInput> = () => {
     signIn(false);
-    navigate('/');
   };
 
   const handleCancel = (event: FormEvent): void => {

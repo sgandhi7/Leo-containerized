@@ -1,3 +1,4 @@
+import { AccountInfo } from '@azure/msal-browser';
 import { User } from '../types/user';
 
 export const userData: User = {
@@ -6,4 +7,15 @@ export const userData: User = {
   displayName: 'Admin',
   emailAddress: 'admin@email.com',
   phoneNumber: '123-456-7890',
+};
+
+export const azureUserData: AccountInfo = {
+  homeAccountId: '1234',
+  environment: 'prod',
+  tenantId: '1234',
+  username: 'admin',
+  name: 'Admin User',
+  idTokenClaims: {},
+  idToken: '1234',
+  localAccountId: '1234',
 };

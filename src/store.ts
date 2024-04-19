@@ -1,6 +1,6 @@
-import { User } from '@src/types/user';
 import { atom } from 'recoil';
 import { Investigation } from './types/investigation';
+import { User } from './types/user';
 
 const signedIn = atom({
   key: 'signedIn',

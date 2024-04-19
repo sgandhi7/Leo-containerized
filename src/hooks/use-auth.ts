@@ -1,16 +1,20 @@
-import { getSignInRedirectUrl } from '@src/utils/auth';
+import { useIsAuthenticated, useMsal } from '@azure/msal-react';
+import { getFirstName, getLastName } from '@src/utils/auth';
 import { useEffect, useState } from 'react';
-import { useAuth as useKeycloakAuth } from 'react-oidc-context';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import { loginRequest } from '../../src/auth.config';
 import { userData } from '../data/user';
 import { currentUser, signedIn } from '../store';
 import { User } from '../types/user';
 
 const useAuth = () => {
-  const auth = useKeycloakAuth();
+  const { instance } = useMsal();
+  const isAuthenticated = useIsAuthenticated();
+  const navigate = useNavigate();
   const [isSignedIn, setIsSignedIn] = useRecoilState<boolean>(signedIn);
   const [error, setError] = useState<string | null>();
-  const [currentUserData, setCurrentUserDate] = useRecoilState<
+  const [currentUserData, setCurrentUserData] = useRecoilState<
     User | undefined
   >(currentUser);
 
@@ -24,54 +28,61 @@ const useAuth = () => {
   // }, [auth.user]);
 
   useEffect(() => {
-    /* istanbul ignore next */
-    if (auth.isAuthenticated) {
+    if (isAuthenticated && window.location.pathname === '/signin') {
       setIsSignedIn(true);
+      navigate('/');
     }
-  }, [auth.isAuthenticated, setIsSignedIn]);
+  });
 
   useEffect(() => {
-    const profile = auth.user?.profile;
+    const profile = instance.getActiveAccount();
     /* istanbul ignore next */
     if (profile) {
-      setCurrentUserDate({
-        firstName: profile.given_name,
-        lastName: profile.family_name,
+      setCurrentUserData({
+        firstName: getFirstName(profile),
+        lastName: getLastName(profile),
         displayName: profile.name,
-        emailAddress: profile.email,
-        phoneNumber: profile.phone_number,
+        emailAddress: profile.username,
+        phoneNumber: '',
       });
     }
-  }, [auth.user?.profile, setCurrentUserDate]);
+  }, [instance, setCurrentUserData]);
 
   const signIn = (isSso: boolean): void => {
     if (isSso) {
-      auth
-        .signinRedirect({ redirect_uri: getSignInRedirectUrl() })
+      instance
+        .loginRedirect(loginRequest)
+        .then(() => {
+          setIsSignedIn(true);
+          navigate('/');
+        })
         .catch((err) => {
           setError(err);
         });
     } else {
       setIsSignedIn(true);
-      setCurrentUserDate(userData);
+      setCurrentUserData(userData);
+      navigate('/');
     }
   };
 
   const signOut = (): void => {
     setIsSignedIn(false);
-    setCurrentUserDate({} as User);
+    setCurrentUserData({} as User);
     /* istanbul ignore next */
-    if (auth.isAuthenticated) {
-      auth
-        .signoutRedirect({
-          post_logout_redirect_uri: getSignInRedirectUrl(),
+    if (isAuthenticated) {
+      instance
+        .logoutRedirect(loginRequest)
+        .then(() => {
+          setIsSignedIn(false);
         })
         .catch((err) => {
           setError(err);
         });
     } else {
       setIsSignedIn(false);
-      setCurrentUserDate({} as User);
+      setCurrentUserData({} as User);
+      navigate('/signin');
     }
   };
 

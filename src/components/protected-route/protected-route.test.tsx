@@ -1,6 +1,5 @@
 import { User } from '@src/types/user';
 import { act, render } from '@testing-library/react';
-import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import * as useAuthMock from '../../hooks/use-auth';
@@ -8,13 +7,11 @@ import { ProtectedRoute } from './protected-route';
 
 describe('ProtectedRoute', () => {
   const wrapperComponent = (
-    <AuthProvider>
-      <RecoilRoot>
-        <BrowserRouter>
-          <ProtectedRoute />
-        </BrowserRouter>
-      </RecoilRoot>
-    </AuthProvider>
+    <RecoilRoot>
+      <BrowserRouter>
+        <ProtectedRoute />
+      </BrowserRouter>
+    </RecoilRoot>
   );
 
   test('should render successfully', async () => {

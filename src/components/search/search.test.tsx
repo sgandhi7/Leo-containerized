@@ -1,7 +1,6 @@
 import { act, fireEvent, render } from '@testing-library/react';
 
 import { completionData } from '@src/data/investigation';
-import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import * as useApi from '../../hooks/use-api';
@@ -11,13 +10,11 @@ import { Search } from './search';
 describe('Search', () => {
   const setSearchInput = jest.fn();
   const componentWrapper = (
-    <AuthProvider>
-      <RecoilRoot>
-        <BrowserRouter>
-          <Search searchInput={''} setSearchInput={setSearchInput} />
-        </BrowserRouter>
-      </RecoilRoot>
-    </AuthProvider>
+    <RecoilRoot>
+      <BrowserRouter>
+        <Search searchInput={''} setSearchInput={setSearchInput} />
+      </BrowserRouter>
+    </RecoilRoot>
   );
 
   test('should render successfully', async () => {
@@ -30,13 +27,11 @@ describe('Search', () => {
   test('renders Search component and checks input change', async () => {
     const setSearchInput = jest.fn();
     const { getByRole } = render(
-      <AuthProvider>
-        <RecoilRoot>
-          <BrowserRouter>
-            <Search searchInput="" setSearchInput={setSearchInput} />
-          </BrowserRouter>
-        </RecoilRoot>
-      </AuthProvider>,
+      <RecoilRoot>
+        <BrowserRouter>
+          <Search searchInput="" setSearchInput={setSearchInput} />
+        </BrowserRouter>
+      </RecoilRoot>,
     );
 
     const searchInput = getByRole('textbox');
@@ -84,15 +79,13 @@ describe('Search', () => {
       deleteItem: jest.fn(),
     });
     const { getByRole } = render(
-      <AuthProvider>
-        <RecoilRoot
-          initializeState={(state) => state.set(defaultDataset, ['document'])}
-        >
-          <BrowserRouter>
-            <Search searchInput={'test'} setSearchInput={setSearchInput} />
-          </BrowserRouter>
-        </RecoilRoot>
-      </AuthProvider>,
+      <RecoilRoot
+        initializeState={(state) => state.set(defaultDataset, ['document'])}
+      >
+        <BrowserRouter>
+          <Search searchInput={'test'} setSearchInput={setSearchInput} />
+        </BrowserRouter>
+      </RecoilRoot>,
     );
 
     const searchInput = getByRole('textbox');
@@ -116,15 +109,13 @@ describe('Search', () => {
       deleteItem: jest.fn(),
     });
     const { getAllByRole } = render(
-      <AuthProvider>
-        <RecoilRoot
-          initializeState={(state) => state.set(defaultDataset, ['document'])}
-        >
-          <BrowserRouter>
-            <Search searchInput={'test'} setSearchInput={setSearchInput} />
-          </BrowserRouter>
-        </RecoilRoot>
-      </AuthProvider>,
+      <RecoilRoot
+        initializeState={(state) => state.set(defaultDataset, ['document'])}
+      >
+        <BrowserRouter>
+          <Search searchInput={'test'} setSearchInput={setSearchInput} />
+        </BrowserRouter>
+      </RecoilRoot>,
     );
 
     const searchButton = getAllByRole('button');

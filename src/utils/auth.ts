@@ -1,12 +1,26 @@
+import { AccountInfo } from '@azure/msal-browser';
 import { User } from '@src/types/user';
 
-export const getDisplayName = (user: User): string => {
-  if (user.displayName) {
-    return user.displayName;
-  } else if (user.firstName && user.lastName) {
-    return `${user.firstName} ${user.lastName}`;
-  } else if (user.firstName && !user.lastName) {
-    return user.firstName;
+export const getDisplayName = (user: AccountInfo): string => {
+  if (user.name) {
+    return user.name;
+  } else {
+    return '';
+  }
+};
+
+export const getFirstName = (user: AccountInfo): string => {
+  if (user.name) {
+    return user.name.split(' ')[0];
+  } else {
+    return '';
+  }
+};
+
+export const getLastName = (user: AccountInfo): string => {
+  if (user.name) {
+    const name = user.name.split(' ');
+    return name[length - 1];
   } else {
     return '';
   }
@@ -25,5 +39,5 @@ export const getSignInRedirectUrl = (): string => {
 };
 
 export const hasSsoConfig = (): boolean => {
-  return process.env.SSO_AUTHORITY && process.env.SSO_CLIENT_ID ? true : false;
+  return process.env.SSO_TENANT_ID && process.env.SSO_CLIENT_ID ? true : false;
 };

@@ -11,26 +11,30 @@ import { History } from './pages/history/history';
 import { Home } from './pages/home/home';
 import { Investigation } from './pages/investigation/investigation';
 import { SignIn } from './pages/sign-in/sign-in';
+import { SignOut } from './pages/sign-out/sign-out';
 
-export const App = (): React.ReactElement => (
-  <RecoilRoot>
-    <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
-      <Sidebar />
-      <main id="mainSection" className="usa-section">
-        <Routes>
-          <Route path="/signin" element={<SignIn />} />
-          <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/history" element={<History />} />
-            <Route path="/account" element={<Account />} />
-            <Route path="/collaborate" element={<Collaborate />} />
-            <Route path="/investigations" element={<Investigation />} />
-            <Route path="/investigations/:id" element={<Investigation />} />
-            <Route path="/faqs" element={<FAQs />} />
-          </Route>
-        </Routes>
-      </main>
-      <Filters />
-    </div>
-  </RecoilRoot>
-);
+export const App = (): React.ReactElement => {
+  return (
+    <RecoilRoot>
+      <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
+        <Sidebar />
+        <main id="mainSection" className="usa-section">
+          <Routes>
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signout" element={<SignOut />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/history" element={<History />} />
+              <Route path="/account" element={<Account />} />
+              <Route path="/collaborate" element={<Collaborate />} />
+              <Route path="/investigations" element={<Investigation />} />
+              <Route path="/investigations/:id" element={<Investigation />} />
+              <Route path="/faqs" element={<FAQs />} />
+            </Route>
+          </Routes>
+        </main>
+        <Filters />
+      </div>
+    </RecoilRoot>
+  );
+};

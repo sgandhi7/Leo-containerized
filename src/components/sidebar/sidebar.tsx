@@ -109,6 +109,26 @@ export const Sidebar = (): React.ReactElement => {
                   )}
                 </Button>
               </div>
+              <div>
+                <Button
+                  id="signout-btn"
+                  variant="unstyled"
+                  aria-label="sign out"
+                  onClick={() => navigate('/signout')}
+                >
+                  <Icon
+                    id="signout-icon"
+                    type="logout"
+                    className="text-white"
+                    size="size-4"
+                  />
+                  {isOpen ? (
+                    <span className="sidebar-text text-white">Sign Out</span>
+                  ) : (
+                    <></>
+                  )}
+                </Button>
+              </div>
             </div>
           </div>
           {currentUserData ? (
@@ -119,7 +139,7 @@ export const Sidebar = (): React.ReactElement => {
                 </span>
                 {isOpen ? (
                   <span className="sidebar-profile-name text-white">
-                    {currentUserData.firstName}
+                    {currentUserData.displayName}
                   </span>
                 ) : (
                   <></>
