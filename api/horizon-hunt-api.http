@@ -1,5 +1,0 @@
-# Search
-GET https://ca-horizon-hunt-api.greensand-19f121e4.eastus.azurecontainerapps.io/api/search?query=what%20happened%20on%209%2F11%3F
-
-# Search
-GET https://ca-horizon-hunt-api.greensand-19f121e4.eastus.azurecontainerapps.io/api/wiki-search?query=what%20happened%20on%209%2F11%3F
