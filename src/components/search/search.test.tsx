@@ -44,15 +44,10 @@ describe('Search', () => {
 
   test('submits a search with no data', async () => {
     jest.spyOn(useApi, 'default').mockReturnValue({
-      item: undefined,
-      items: undefined,
       loading: false,
       completions: [],
       error: '',
       search: jest.fn().mockResolvedValue({ data: { results: [] } }),
-      getItem: jest.fn(),
-      getItems: jest.fn(),
-      deleteItem: jest.fn(),
     });
     const { getByRole, getAllByRole } = render(componentWrapper);
 
@@ -68,15 +63,10 @@ describe('Search', () => {
 
   test('submits a search with keypress', async () => {
     jest.spyOn(useApi, 'default').mockReturnValue({
-      item: undefined,
-      items: undefined,
       loading: false,
       completions: [],
       error: '',
       search: jest.fn().mockResolvedValue({ data: { results: [] } }),
-      getItem: jest.fn(),
-      getItems: jest.fn(),
-      deleteItem: jest.fn(),
     });
     const { getByRole } = render(
       <RecoilRoot
@@ -96,17 +86,12 @@ describe('Search', () => {
 
   test('submits a new search with button', async () => {
     jest.spyOn(useApi, 'default').mockReturnValue({
-      item: undefined,
-      items: undefined,
       loading: false,
       completions: [],
       error: '',
       search: jest
         .fn()
         .mockResolvedValue({ data: { results: completionData } }),
-      getItem: jest.fn(),
-      getItems: jest.fn(),
-      deleteItem: jest.fn(),
     });
     const { getAllByRole } = render(
       <RecoilRoot

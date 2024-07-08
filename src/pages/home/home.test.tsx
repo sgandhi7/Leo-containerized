@@ -1,12 +1,10 @@
 import { MsalProvider } from '@azure/msal-react';
-import { suggestions } from '@src/data/suggestion';
 import msalInstance from '@src/utils/msal';
 import { act, fireEvent, render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import * as useApi from '../../hooks/use-api';
 import * as useAuthMock from '../../hooks/use-auth';
-import * as useSuggestionsApi from '../../hooks/use-suggestions-api';
 import { User } from '../../types/user';
 import { Home } from './home';
 
@@ -44,23 +42,10 @@ describe('Home', () => {
 
   test('submits a search with helper button', async () => {
     jest.spyOn(useApi, 'default').mockReturnValue({
-      item: undefined,
-      items: undefined,
       loading: false,
       completions: [],
       error: '',
       search: jest.fn().mockResolvedValue({ data: { results: [] } }),
-      getItem: jest.fn(),
-      getItems: jest.fn(),
-      deleteItem: jest.fn(),
-    });
-
-    jest.spyOn(useSuggestionsApi, 'default').mockReturnValue({
-      item: undefined,
-      items: suggestions,
-      loading: false,
-      getItem: jest.fn(),
-      getItems: jest.fn(),
     });
 
     const { baseElement } = render(componentWrapper);

@@ -11,7 +11,7 @@ import {
 
 describe('Api', () => {
   beforeEach(() => {
-    process.env.API_ROOT_URL = undefined;
+    process.env.AZURE_API_URL = undefined;
   });
 
   it('should not get isMocked when environment variable present', () => {
