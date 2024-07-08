@@ -4,7 +4,6 @@ import { completionData } from '@src/data/investigation';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import * as useApi from '../../hooks/use-api';
-import { currentDataset as defaultDataset } from '../../store';
 import { Search } from './search';
 
 describe('Search', () => {
@@ -69,9 +68,7 @@ describe('Search', () => {
       search: jest.fn().mockResolvedValue({ data: { results: [] } }),
     });
     const { getByRole } = render(
-      <RecoilRoot
-        initializeState={(state) => state.set(defaultDataset, ['document'])}
-      >
+      <RecoilRoot>
         <BrowserRouter>
           <Search searchInput={'test'} setSearchInput={setSearchInput} />
         </BrowserRouter>
@@ -94,9 +91,7 @@ describe('Search', () => {
         .mockResolvedValue({ data: { results: completionData } }),
     });
     const { getAllByRole } = render(
-      <RecoilRoot
-        initializeState={(state) => state.set(defaultDataset, ['document'])}
-      >
+      <RecoilRoot>
         <BrowserRouter>
           <Search searchInput={'test'} setSearchInput={setSearchInput} />
         </BrowserRouter>

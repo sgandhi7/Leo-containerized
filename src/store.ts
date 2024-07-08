@@ -9,7 +9,7 @@ const signedIn = atom({
 
 const currentUser = atom<User | undefined>({
   key: 'currentUser',
-  default: undefined,
+  default: { firstName: 'Guest' } as User,
 });
 
 const currentInvestigation = atom<Investigation>({
@@ -17,24 +17,9 @@ const currentInvestigation = atom<Investigation>({
   default: {},
 });
 
-const filtering = atom({
-  key: 'filtering',
-  default: false,
-});
-
 const searching = atom({
   key: 'searching',
   default: false,
-});
-
-const currentDataset = atom<string[]>({
-  key: 'currentDataset',
-  default: ['document'],
-});
-
-const currentMediaTypes = atom<string[]>({
-  key: 'currentMediaTypes',
-  default: ['pdf'],
 });
 
 const currentSearch = atom({
@@ -43,12 +28,9 @@ const currentSearch = atom({
 });
 
 export {
-  currentDataset,
   currentInvestigation,
-  currentMediaTypes,
   currentSearch,
   currentUser,
-  filtering,
   searching,
   signedIn,
 };

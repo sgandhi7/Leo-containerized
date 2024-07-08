@@ -9,9 +9,7 @@ import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import {
-  currentDataset as defaultDataset,
   currentInvestigation as defaultInvestigation,
-  currentMediaTypes as defaultMediaTypes,
   currentSearch as defaultSearch,
   searching,
 } from '../../store';
@@ -31,8 +29,6 @@ export const Search = ({
   const [currentInvestigation, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [isSearching, setIsSearching] = useRecoilState<boolean>(searching);
-  const [currentDataset] = useRecoilState<string[]>(defaultDataset);
-  const [currentMediaTypes] = useRecoilState<string[]>(defaultMediaTypes);
   const [, setCurrentSearch] = useRecoilState<string>(defaultSearch);
 
   const updateFocus = () => {
@@ -158,13 +154,7 @@ export const Search = ({
           id="search-btn"
           className={`search-input ${loading || isSearching ? 'disabled' : ''}`}
           onClick={handleSearch}
-          disabled={
-            loading ||
-            isSearching ||
-            searchInput.trim() === '' ||
-            currentDataset.length === 0 ||
-            currentMediaTypes.length === 0
-          }
+          disabled={loading || isSearching || searchInput.trim() === ''}
         >
           {loading || isSearching ? (
             <img src={infinteLoop} alt="loading" className="searching" />

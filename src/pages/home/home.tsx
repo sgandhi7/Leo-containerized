@@ -7,7 +7,6 @@ import {
   currentInvestigation as defaultInvestigation,
   currentSearch as defaultSearch,
 } from '../../store';
-import logomark from '/img/logo-mark.svg';
 
 export const Home = (): React.ReactElement => {
   const [, setCurrentInvestigation] =
@@ -36,15 +35,7 @@ export const Home = (): React.ReactElement => {
             className="flex-align-self-start width-100 padding-top-15 margin-x-auto margin-y-auto"
             style={{ textAlign: 'center' }}
           >
-            <img
-              className="usa__logo"
-              src={logomark}
-              alt="Horizon Hunt Logo"
-              width={56}
-            />
-            <h1 className="margin-bottom-2">
-              What would you like to Investigate?
-            </h1>
+            <h1 className="margin-bottom-2">What would you like to Search?</h1>
             <p className="margin-bottom-3">
               Try a sample prompt, or start your own search below.
             </p>
