@@ -1,7 +1,6 @@
 import { Search } from '@src/components/search/search';
-import useSuggestionsApi from '@src/hooks/use-suggestions-api';
 import { Investigation as InvestigationState } from '@src/types/investigation';
-import { Suggestion } from '@src/types/suggestion';
+import { SUGGESTIONS } from '@src/utils/constants';
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import {
@@ -11,7 +10,6 @@ import {
 import logomark from '/img/logo-mark.svg';
 
 export const Home = (): React.ReactElement => {
-  const { getItems, items } = useSuggestionsApi();
   const [, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [searchInput, setSearchInput] = useState<string>('');
@@ -24,10 +22,6 @@ export const Home = (): React.ReactElement => {
   useEffect(() => {
     setCurrentInvestigation({});
   }, [setCurrentInvestigation]);
-
-  useEffect(() => {
-    getItems();
-  }, [getItems]);
 
   // Clear current search when navigating to home
   useEffect(() => {
@@ -55,19 +49,15 @@ export const Home = (): React.ReactElement => {
               Try a sample prompt, or start your own search below.
             </p>
             <div className="button-container">
-              {items ? (
-                items.map((suggestion: Suggestion) => (
-                  <button
-                    key={suggestion.id}
-                    className="helper-button"
-                    onClick={() => handleButtonClick(suggestion.value)}
-                  >
-                    {suggestion.value}
-                  </button>
-                ))
-              ) : (
-                <></>
-              )}
+              {SUGGESTIONS.map((suggestion: string, index: number) => (
+                <button
+                  key={`suggestion-${index}`}
+                  className="helper-button"
+                  onClick={() => handleButtonClick(suggestion)}
+                >
+                  {suggestion}
+                </button>
+              ))}
             </div>
           </div>
           <div className="flex-align-self-end width-full margin-bottom-5">

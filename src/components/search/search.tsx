@@ -13,7 +13,6 @@ import {
   currentInvestigation as defaultInvestigation,
   currentMediaTypes as defaultMediaTypes,
   currentSearch as defaultSearch,
-  filtering,
   searching,
 } from '../../store';
 import infinteLoop from '/img/infinteLoop.svg';
@@ -32,7 +31,6 @@ export const Search = ({
   const [currentInvestigation, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [isSearching, setIsSearching] = useRecoilState<boolean>(searching);
-  const [isFiltering, setIsFiltering] = useRecoilState<boolean>(filtering);
   const [currentDataset] = useRecoilState<string[]>(defaultDataset);
   const [currentMediaTypes] = useRecoilState<string[]>(defaultMediaTypes);
   const [, setCurrentSearch] = useRecoilState<string>(defaultSearch);
@@ -64,35 +62,24 @@ export const Search = ({
     };
     newData.unshift(newPrompt);
 
-    // TODO: Remove this when datasets and media types are properly implemented
-    const allDatasets = [...currentDataset];
-    if (currentMediaTypes.includes('audio')) {
-      allDatasets.push('audio');
-    }
-    if (currentMediaTypes.includes('image')) {
-      allDatasets.push('image');
-    }
-
     // Get current chat history
     const chatHistory = getChatHistory(newData);
-    await search(queryCopy, allDatasets.toString(), chatHistory).then(
-      (response) => {
-        if (response?.length > 0) {
-          const completion = response[0];
-          newPrompt = {
-            id: generateGUID(),
-            prompt: queryCopy,
-            completion: completion.completion.trim(),
-            sources: completion.sources,
-          };
+    await search(queryCopy, chatHistory).then((response) => {
+      if (response?.length > 0) {
+        const completion = response[0];
+        newPrompt = {
+          id: generateGUID(),
+          prompt: queryCopy,
+          completion: completion.completion.trim(),
+          sources: completion.sources,
+        };
 
-          newData[0] = newPrompt;
-          updateCurrentInvestigation(newData);
-          setIsSearching(false);
-        }
-        setSearchInput('');
-      },
-    );
+        newData[0] = newPrompt;
+        updateCurrentInvestigation(newData);
+        setIsSearching(false);
+      }
+      setSearchInput('');
+    });
     setQuery('');
   };
 
@@ -108,10 +95,6 @@ export const Search = ({
     const value = target.value;
     setQuery(value);
     setSearchInput(value);
-  };
-
-  const toggleFilters = () => {
-    setIsFiltering(!isFiltering);
   };
 
   useEffect(() => {
@@ -156,7 +139,7 @@ export const Search = ({
                 event.preventDefault();
               }
             }}
-            placeholder="Message Horizon Hunt..."
+            placeholder="Message Navigator..."
             rows={1}
             cols={1}
             disabled={loading || isSearching}
@@ -189,13 +172,6 @@ export const Search = ({
             <>Search</>
           )}
         </Button>
-        {isFiltering ? (
-          <></>
-        ) : (
-          <Button id="filters-btn" variant="unstyled" onClick={toggleFilters}>
-            Show Filters
-          </Button>
-        )}
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import {
 } from '@src/types/investigation';
 
 export const isMocked = (): boolean => {
-  const apiUrl = process.env.TXTAI_API_URL;
+  const apiUrl = process.env.AZURE_API_URL;
   /* istanbul ignore else */
   if (apiUrl) {
     return false;

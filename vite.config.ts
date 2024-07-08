@@ -37,7 +37,7 @@ export default defineConfig(({ mode }) => {
       port: 8080,
       proxy: {
         '/api': {
-          target: env.TXTAI_API_URL,
+          target: env.AZURE_API_URL,
           changeOrigin: true,
         },
       },

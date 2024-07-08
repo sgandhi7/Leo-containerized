@@ -1,5 +1,4 @@
 import { Search } from '@src/components/search/search';
-import useApi from '@src/hooks/use-api';
 import useAuth from '@src/hooks/use-auth';
 import {
   Investigation as InvestigationState,
@@ -7,7 +6,6 @@ import {
 } from '@src/types/investigation';
 import { getAvatarInitials } from '@src/utils/auth';
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import {
   currentInvestigation as defaultInvestigation,
@@ -18,11 +16,9 @@ import SourceInfo from './source-info/source-info';
 import logomark from '/img/logo-mark.svg';
 
 export const Investigation = (): React.ReactElement => {
-  const { id } = useParams();
-  const { getItem, item } = useApi();
   const { currentUserData } = useAuth();
   const [prompts, setPrompts] = useState<Prompt[] | null>(null);
-  const [currentInvestigation, setCurrentInvestigation] =
+  const [currentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [isSearching] = useRecoilState<boolean>(searching);
   const [searchInput, setSearchInput] = useState('');
@@ -36,28 +32,6 @@ export const Investigation = (): React.ReactElement => {
       lastAnswer.scrollIntoView();
     }
   };
-
-  useEffect(() => {
-    if (item) {
-      const prompts = item.prompts;
-      let newPrompts: Prompt[] = [];
-      if (prompts) {
-        newPrompts = [...prompts];
-        // Reverse the prompts so that the most recent is at the top
-        newPrompts?.sort((a, b) => {
-          return a.id < b.id ? 1 : -1;
-        });
-      }
-
-      setCurrentInvestigation({ ...item, prompts: newPrompts });
-    }
-  }, [item, setCurrentInvestigation]);
-
-  useEffect(() => {
-    if (id) {
-      getItem(id);
-    }
-  }, [id, getItem, setCurrentInvestigation]);
 
   useEffect(() => {
     if (currentInvestigation) {
