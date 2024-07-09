@@ -57,13 +57,13 @@ export const Search = ({
     // Get current chat history
     const chatHistory = getChatHistory(newData);
     await search(queryCopy, chatHistory).then((response) => {
-      if (response?.length > 0) {
-        const completion = response[0];
+      if (response) {
+        const completion = response;
         newPrompt = {
           id: generateGUID(),
           prompt: queryCopy,
-          completion: completion.completion.trim(),
-          sources: completion.sources,
+          completion: completion.answer.trim(),
+          sources: undefined,
         };
 
         newData[0] = newPrompt;

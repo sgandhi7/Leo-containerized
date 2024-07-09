@@ -8,16 +8,15 @@ const useApi = () => {
   const [error, setError] = useState<string | null>(null);
   const search = async (
     query: string,
-    chatHistory: ChatHistory[],
-  ): Promise<Completion[]> => {
+    chatHistory: string[] | ChatHistory[] = [],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): Promise<any> => {
     return await new Promise((resolve, reject) => {
       setLoading(true);
-      const url = `/wiki-search`;
-      const queryParams = {
-        query,
-      };
+      const url = `/score`;
+      const data = { question: query, chat_history: chatHistory };
       axios
-        .post(url, chatHistory, { params: { ...queryParams } })
+        .post(url, JSON.stringify(data))
         .then((response) => {
           return response.data;
         })
