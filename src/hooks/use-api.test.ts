@@ -15,7 +15,7 @@ describe('useApi', () => {
   });
 
   test('should call search successfully', async () => {
-    mock.onPost(new RegExp('/wiki-search')).reply(200, { results: [] });
+    mock.onPost(new RegExp('/score')).reply(200, { results: [] });
     const { result } = renderHook(() => useApi(), {
       wrapper: RecoilRoot,
     });

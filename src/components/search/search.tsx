@@ -62,7 +62,7 @@ export const Search = ({
         newPrompt = {
           id: generateGUID(),
           prompt: queryCopy,
-          completion: completion.answer.trim(),
+          completion: completion.answer ? completion.answer.trim() : '',
           sources: undefined,
         };
 
