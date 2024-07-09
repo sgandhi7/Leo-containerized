@@ -1,6 +1,6 @@
 import { DataTable } from '@metrostar/comet-extras';
 import { Button, Icon } from '@metrostar/comet-uswds';
-import { ChatSource, CompletionSource, Prompt } from '@src/types/investigation';
+import { ChatSource, CompletionSource, Prompt } from '@src/types/chat';
 import { hasReport } from '@src/utils/api';
 import { ColumnDef } from '@tanstack/react-table';
 import React, { useEffect, useState } from 'react';

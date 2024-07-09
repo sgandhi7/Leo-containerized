@@ -1,4 +1,4 @@
-import { promptData } from '@src/data/investigation';
+import { promptData } from '@src/data/chat';
 import { render } from '@testing-library/react';
 import { SourceInfo } from './source-info';
 

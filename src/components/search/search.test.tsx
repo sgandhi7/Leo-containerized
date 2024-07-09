@@ -1,6 +1,6 @@
 import { act, fireEvent, render } from '@testing-library/react';
 
-import { completionData } from '@src/data/investigation';
+import { completionData } from '@src/data/chat';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import * as useApi from '../../hooks/use-api';

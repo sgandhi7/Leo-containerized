@@ -1,8 +1,4 @@
-import {
-  ChatHistory,
-  CompletionSource,
-  Prompt,
-} from '@src/types/investigation';
+import { ChatHistory, CompletionSource, Prompt } from '@src/types/chat';
 
 export const isMocked = (): boolean => {
   const apiUrl = process.env.AZURE_API_URL;

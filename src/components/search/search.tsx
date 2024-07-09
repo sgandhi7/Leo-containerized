@@ -1,15 +1,12 @@
 import { Button, TextArea } from '@metrostar/comet-uswds';
 import useApi from '@src/hooks/use-api';
-import {
-  Investigation as InvestigationState,
-  Prompt,
-} from '@src/types/investigation';
+import { Chat as ChatState, Prompt } from '@src/types/chat';
 import { generateGUID, getChatHistory } from '@src/utils/api';
 import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import {
-  currentInvestigation as defaultInvestigation,
+  currentChat as defaultChat,
   currentSearch as defaultSearch,
   searching,
 } from '../../store';
@@ -26,8 +23,7 @@ export const Search = ({
   const location = useLocation();
   const { search, loading } = useApi();
   const [, setQuery] = useState('');
-  const [currentInvestigation, setCurrentInvestigation] =
-    useRecoilState<InvestigationState>(defaultInvestigation);
+  const [currentChat, setCurrentChat] = useRecoilState<ChatState>(defaultChat);
   const [isSearching, setIsSearching] = useRecoilState<boolean>(searching);
   const [, setCurrentSearch] = useRecoilState<string>(defaultSearch);
 
@@ -42,13 +38,13 @@ export const Search = ({
     setIsSearching(true);
     setCurrentSearch(searchInput);
     if (location.pathname === '/') {
-      navigate('/investigations');
+      navigate('/chat');
     }
 
     const queryCopy = searchInput;
     let newData: Prompt[] = [];
-    if (currentInvestigation?.prompts) {
-      newData = [...currentInvestigation.prompts];
+    if (currentChat?.prompts) {
+      newData = [...currentChat.prompts];
     }
 
     let newPrompt: Prompt = {
@@ -71,7 +67,7 @@ export const Search = ({
         };
 
         newData[0] = newPrompt;
-        updateCurrentInvestigation(newData);
+        updateCurrentChat(newData);
         setIsSearching(false);
       }
       setSearchInput('');
@@ -79,8 +75,8 @@ export const Search = ({
     setQuery('');
   };
 
-  const updateCurrentInvestigation = (newData: Prompt[]) => {
-    setCurrentInvestigation((prev) => ({
+  const updateCurrentChat = (newData: Prompt[]) => {
+    setCurrentChat((prev) => ({
       ...prev,
       prompts: [...newData],
     }));

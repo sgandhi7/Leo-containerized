@@ -1,6 +1,6 @@
 import axios from '@src/utils/axios';
 import { useState } from 'react';
-import { ChatHistory, Completion } from '../types/investigation';
+import { ChatHistory, Completion } from '../types/chat';
 
 const useApi = () => {
   const [loading, setLoading] = useState<boolean>(false);

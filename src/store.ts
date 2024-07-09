@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { Investigation } from './types/investigation';
+import { Chat } from './types/chat';
 import { User } from './types/user';
 
 const signedIn = atom({
@@ -12,8 +12,8 @@ const currentUser = atom<User | undefined>({
   default: { firstName: 'Guest' } as User,
 });
 
-const currentInvestigation = atom<Investigation>({
-  key: 'currentInvestigation',
+const currentChat = atom<Chat>({
+  key: 'currentChat',
   default: {},
 });
 
@@ -27,10 +27,4 @@ const currentSearch = atom({
   default: '',
 });
 
-export {
-  currentInvestigation,
-  currentSearch,
-  currentUser,
-  searching,
-  signedIn,
-};
+export { currentChat, currentSearch, currentUser, searching, signedIn };

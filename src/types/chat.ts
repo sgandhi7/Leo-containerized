@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export interface Investigation {
+export interface Chat {
   id?: string;
   name?: string | ReactNode;
   status?: 'In Progress' | 'Complete' | 'Cancelled';

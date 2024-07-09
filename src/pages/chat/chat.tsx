@@ -1,25 +1,21 @@
 import { Search } from '@src/components/search/search';
 import useAuth from '@src/hooks/use-auth';
-import {
-  Investigation as InvestigationState,
-  Prompt,
-} from '@src/types/investigation';
+import { Chat as ChatState, Prompt } from '@src/types/chat';
 import { getAvatarInitials } from '@src/utils/auth';
 import React, { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import {
-  currentInvestigation as defaultInvestigation,
+  currentChat as defaultChat,
   currentSearch as defaultSearch,
   searching,
 } from '../../store';
 import SourceInfo from './source-info/source-info';
 import logomark from '/img/logo-mark.svg';
 
-export const Investigation = (): React.ReactElement => {
+export const Chat = (): React.ReactElement => {
   const { currentUserData } = useAuth();
   const [prompts, setPrompts] = useState<Prompt[] | null>(null);
-  const [currentInvestigation] =
-    useRecoilState<InvestigationState>(defaultInvestigation);
+  const [currentChat] = useRecoilState<ChatState>(defaultChat);
   const [isSearching] = useRecoilState<boolean>(searching);
   const [searchInput, setSearchInput] = useState('');
   const [currentSearch] = useRecoilState<string>(defaultSearch);
@@ -34,13 +30,13 @@ export const Investigation = (): React.ReactElement => {
   };
 
   useEffect(() => {
-    if (currentInvestigation) {
-      const responsePrompts = currentInvestigation.prompts;
+    if (currentChat) {
+      const responsePrompts = currentChat.prompts;
       if (responsePrompts) {
         setPrompts(responsePrompts);
       }
     }
-  }, [currentInvestigation]);
+  }, [currentChat]);
 
   useEffect(() => {
     setSearchInput(currentSearch);

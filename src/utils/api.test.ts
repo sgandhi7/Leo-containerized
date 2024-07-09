@@ -1,4 +1,4 @@
-import { Prompt } from '@src/types/investigation';
+import { Prompt } from '@src/types/chat';
 import {
   generateGUID,
   getChatHistory,

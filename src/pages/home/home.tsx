@@ -1,16 +1,15 @@
 import { Search } from '@src/components/search/search';
-import { Investigation as InvestigationState } from '@src/types/investigation';
+import { Chat as ChatState } from '@src/types/chat';
 import { SUGGESTIONS } from '@src/utils/constants';
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import {
-  currentInvestigation as defaultInvestigation,
+  currentChat as defaultChat,
   currentSearch as defaultSearch,
 } from '../../store';
 
 export const Home = (): React.ReactElement => {
-  const [, setCurrentInvestigation] =
-    useRecoilState<InvestigationState>(defaultInvestigation);
+  const [, setCurrentChat] = useRecoilState<ChatState>(defaultChat);
   const [searchInput, setSearchInput] = useState<string>('');
   const [, setCurrentSearch] = useRecoilState<string>(defaultSearch);
 
@@ -19,8 +18,8 @@ export const Home = (): React.ReactElement => {
   };
 
   useEffect(() => {
-    setCurrentInvestigation({});
-  }, [setCurrentInvestigation]);
+    setCurrentChat({});
+  }, [setCurrentChat]);
 
   // Clear current search when navigating to home
   useEffect(() => {

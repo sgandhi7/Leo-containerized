@@ -1,4 +1,4 @@
-import { Completion, Investigation, Prompt } from '../types/investigation';
+import { Chat, Completion, Prompt } from '../types/chat';
 
 export const promptData: Prompt[] = [
   {
@@ -29,7 +29,7 @@ export const promptData: Prompt[] = [
   },
 ];
 
-export const investigationData: Investigation[] = [
+export const chatData: Chat[] = [
   {
     id: '1',
     name: 'Who is John Doe?',

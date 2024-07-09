@@ -1,13 +1,13 @@
 import { act, render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import { Investigation } from './investigation';
+import { Chat } from './chat';
 
-describe('Investigation', () => {
+describe('Chat', () => {
   const componentWrapper = (
     <RecoilRoot>
       <BrowserRouter>
-        <Investigation />
+        <Chat />
       </BrowserRouter>
     </RecoilRoot>
   );
