@@ -49,3 +49,4 @@ testem.log
 /typings
 *.local
 cypress/videos
+swagger.json
