@@ -7,6 +7,7 @@ The goal of this project is to provide Navigator users with a web-based tool for
 1. [Running the Project Locally](#running-the-project-locally)
 2. [Running Unit Tests](#running-unit-tests)
 3. [Running Code Quality Checks](#running-code-quality-checks)
+4. [Publishing a new Docker Image](#publishing-a-new-docker-image)
 
 ## Running the Project Locally
 
@@ -54,3 +55,18 @@ npm run format
 ```
 
 You can also see the `.vscode/settings.json` file to find how to enable auto-formatting on save.
+
+## Publishing a new Docker Image
+
+To publish a new docker image to the Azure Container Registry, perform the following:
+
+```sh
+# Login to Azure and ACI
+az login
+az acr login --name navigator
+
+# Build and Publish image
+docker build . -t navigator-ui
+docker tag navigator-ui navigator.azurecr.io/navigator/ui:[SOME_TAG] # Ex: 1.0.99
+docker push navigator.azurecr.io/navigator/ui:[SOME_TAG] # Ex: 1.0.99
+```
