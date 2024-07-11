@@ -122,7 +122,9 @@ describe('Api', () => {
       { id: '3', prompt: 'Prompt 3', completion: 'Loading...' },
     ];
     const result = getChatHistory(prompts);
-    expect(result).toEqual([{ prompt: 'Prompt 2', completion: 'Completed' }]);
+    expect(result).toEqual([
+      { inputs: { question: 'Prompt 2' }, outputs: { answer: 'Completed' } },
+    ]);
   });
 
   it('should reverse the order of prompts', () => {
@@ -133,9 +135,9 @@ describe('Api', () => {
     ];
     const result = getChatHistory(prompts);
     expect(result).toEqual([
-      { prompt: 'Prompt 3', completion: 'Completed' },
-      { prompt: 'Prompt 2', completion: 'Completed' },
-      { prompt: 'Prompt 1', completion: 'Completed' },
+      { inputs: { question: 'Prompt 3' }, outputs: { answer: 'Completed' } },
+      { inputs: { question: 'Prompt 2' }, outputs: { answer: 'Completed' } },
+      { inputs: { question: 'Prompt 1' }, outputs: { answer: 'Completed' } },
     ]);
   });
 

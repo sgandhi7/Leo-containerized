@@ -47,8 +47,8 @@ export const getChatHistory = (prompts: Prompt[]): ChatHistory[] => {
     .filter((prompt) => prompt.completion !== 'Loading...') // Do not include any prompts that are still awaiting a response
     .reverse() // Chat history is displayed in reverse order in the UI, need to reverse for the API
     .map((prompt: Prompt) => ({
-      prompt: prompt.prompt,
-      completion: prompt.completion,
+      inputs: { question: prompt.prompt },
+      outputs: { answer: prompt.completion },
     }));
 };
 

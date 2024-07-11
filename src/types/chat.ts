@@ -34,8 +34,16 @@ export interface Completion {
 }
 
 export interface ChatHistory {
-  prompt: string;
-  completion: string;
+  inputs: ChatInput;
+  outputs: ChatOutput;
+}
+
+export interface ChatInput {
+  question: string;
+}
+
+export interface ChatOutput {
+  answer: string;
 }
 
 export interface ChatSource {
