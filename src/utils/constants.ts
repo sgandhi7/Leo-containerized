@@ -13,7 +13,7 @@ export const PASSWORD_RULES = {
 };
 
 export const SUGGESTIONS = [
-  'How much time can I take off?',
-  'We are expecting a new baby in the next 4 months. What is my parental leave?',
-  'Whats the process for Foreign Travel? What do I need to do and by when?',
+  'How much PTO can I use?',
+  'What is the process for taking Leave?',
+  'What should I do if I get married or have children?',
 ];
