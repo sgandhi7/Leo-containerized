@@ -93,7 +93,9 @@ export const Chat = (): React.ReactElement => {
                   What would you like to Search?
                 </h1>
                 <p className="margin-bottom-3">
-                  Try a sample prompt, or start your own search below.
+                  This chatbot can ONLY answer questions about PTO, Leave, All
+                  Benefits (like Healthcare or Retirement and including Life
+                  Events)
                 </p>
                 <div className="button-container">
                   {SUGGESTIONS.map((suggestion: string, index: number) => (
