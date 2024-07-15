@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router';
 import { RecoilRoot } from 'recoil';
 import { ProtectedRoute } from './components/protected-route/protected-route';
 import { Chat } from './pages/chat/chat';
-import { Home } from './pages/home/home';
 import { SignIn } from './pages/sign-in/sign-in';
 import { SignOut } from './pages/sign-out/sign-out';
 
@@ -16,7 +15,7 @@ export const App = (): React.ReactElement => {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signout" element={<SignOut />} />
             <Route element={<ProtectedRoute />}>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Chat />} />
               <Route path="/chat" element={<Chat />} />
               <Route path="/chat/:id" element={<Chat />} />
             </Route>
