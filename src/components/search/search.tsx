@@ -3,7 +3,7 @@ import useApi from '@src/hooks/use-api';
 import { Chat as ChatState, Prompt } from '@src/types/chat';
 import { generateGUID, getChatHistory } from '@src/utils/api';
 import React, { SyntheticEvent, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import {
   currentChat as defaultChat,
@@ -19,7 +19,7 @@ export const Search = ({
   searchInput: string;
   setSearchInput: React.Dispatch<React.SetStateAction<string>>;
 }): React.ReactElement => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const location = useLocation();
   const { search, loading } = useApi();
   const [, setQuery] = useState('');
@@ -37,9 +37,9 @@ export const Search = ({
   const handleSearch = async () => {
     setIsSearching(true);
     setCurrentSearch(searchInput);
-    if (location.pathname === '/') {
-      navigate('/chat');
-    }
+    // if (location.pathname === '/') {
+    //   navigate('/chat');
+    // }
 
     const queryCopy = searchInput;
     let newData: Prompt[] = [];

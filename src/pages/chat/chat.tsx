@@ -2,6 +2,7 @@ import { Search } from '@src/components/search/search';
 import useAuth from '@src/hooks/use-auth';
 import { Chat as ChatState, Prompt } from '@src/types/chat';
 import { getAvatarInitials } from '@src/utils/auth';
+import { SUGGESTIONS } from '@src/utils/constants';
 import React, { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import {
@@ -27,6 +28,10 @@ export const Chat = (): React.ReactElement => {
       const lastAnswer = answers[0] as HTMLElement;
       lastAnswer.scrollIntoView();
     }
+  };
+
+  const handleButtonClick = (buttonText: string) => {
+    setSearchInput(buttonText);
   };
 
   useEffect(() => {
@@ -79,6 +84,32 @@ export const Chat = (): React.ReactElement => {
             className="flex-align-self-start margin-x-auto margin-y-auto"
             style={{ overflowY: 'auto', height: '80%', width: '90%' }}
           >
+            {!currentSearch ? (
+              <div
+                className="flex-align-self-start width-100 margin-x-auto margin-y-auto"
+                style={{ textAlign: 'center' }}
+              >
+                <h1 className="margin-bottom-2">
+                  What would you like to Search?
+                </h1>
+                <p className="margin-bottom-3">
+                  Try a sample prompt, or start your own search below.
+                </p>
+                <div className="button-container">
+                  {SUGGESTIONS.map((suggestion: string, index: number) => (
+                    <button
+                      key={`suggestion-${index}`}
+                      className="helper-button"
+                      onClick={() => handleButtonClick(suggestion)}
+                    >
+                      {suggestion}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <></>
+            )}
             <div className="chat-content" ref={chatContentRef}>
               {isSearching ? (
                 <div key={`chat-content-loading`}>
