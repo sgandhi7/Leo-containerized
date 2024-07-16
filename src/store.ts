@@ -4,7 +4,7 @@ import { User } from './types/user';
 
 const signedIn = atom({
   key: 'signedIn',
-  default: true,
+  default: false,
 });
 
 const currentUser = atom<User | undefined>({
