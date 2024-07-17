@@ -23,6 +23,8 @@ npm install
 AZURE_API_URL=[SOME_API_URL] # Ex: https://some-api.azurecontainerapps.io
 AZURE_API_KEY=[SOME_API_KEY] # Ex: 1234567890asdfghjkl
 AZURE_MODEL_DEPLOYMENT=[SOME_MODEL_DEPLOYMENT] # Ex: deployment-ml-1
+SSO_TENANT_ID=[SOME_TENANT_ID] # Ex: 1234abcd-12ab-34cd-56ef-123456abcdef
+SSO_CLIENT_ID=[SOME_CLIENT_ID] # Ex: 4321dcba-21ba-43dc-65fe-654321fedcba
 ```
 
 3. To start the app, run the following:

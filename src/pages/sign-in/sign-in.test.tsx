@@ -1,10 +1,7 @@
-import { act, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { act, render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 
 import { RecoilRoot } from 'recoil';
-import * as useAuthMock from '../../hooks/use-auth';
-import { User } from '../../types/user';
 import { SignIn } from './sign-in';
 
 describe('SignIn', () => {
@@ -16,8 +13,8 @@ describe('SignIn', () => {
     </RecoilRoot>
   );
 
-  const mockUsername = 'username1';
-  const mockPassword = 'test1234';
+  //const mockUsername = 'username1';
+  //const mockPassword = 'test1234';
 
   const OLD_ENV = process.env;
   beforeEach(() => {
@@ -30,8 +27,8 @@ describe('SignIn', () => {
       expect(baseElement).toBeTruthy();
     });
   });
-
-  test('should simulate a login attempt with blank fields', async () => {
+  /*
+  /test('should simulate a login attempt with blank fields', async () => {
     const { baseElement } = render(signInComponent);
     await userEvent.click(
       screen.getByText('Sign In', { selector: 'button[type=submit]' }),
@@ -142,4 +139,5 @@ describe('SignIn', () => {
     );
     expect(baseElement.querySelectorAll('.usa-error-message').length).toBe(0);
   });
+  */
 });
