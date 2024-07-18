@@ -30,6 +30,10 @@ export const Chat = (): React.ReactElement => {
     }
   };
 
+  const formatCompletion = (completion: string) => {
+    return completion.replace('**', '<b>');
+  };
+
   const handleButtonClick = (buttonText: string) => {
     setSearchInput(buttonText);
   };
@@ -175,7 +179,11 @@ export const Chat = (): React.ReactElement => {
                         />
                       </div>
                       <div className="grid-col-11">
-                        {prompt.completion}
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: formatCompletion(prompt.completion),
+                          }}
+                        />
                         {prompt.sources && prompt.sources.length > 0 ? (
                           <SourceInfo prompt={prompt} items={prompt.sources} />
                         ) : (
