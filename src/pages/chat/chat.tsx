@@ -95,7 +95,7 @@ export const Chat = (): React.ReactElement => {
                 <p className="margin-bottom-3">
                   This chatbot can ONLY answer questions about PTO, Leave, All
                   Benefits (like Healthcare or Retirement and including Life
-                  Events)
+                  Events).
                 </p>
                 <div className="button-container">
                   {SUGGESTIONS.map((suggestion: string, index: number) => (
