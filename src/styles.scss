@@ -396,6 +396,11 @@ body {
     padding: 20px;
     line-height: 1.75rem;
     white-space: pre-wrap;
+
+    ul {
+      margin: 0;
+      padding: 0;
+    }
   }
 
   .chat-question-avatar {

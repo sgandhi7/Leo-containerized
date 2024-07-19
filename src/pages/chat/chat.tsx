@@ -160,7 +160,9 @@ export const Chat = (): React.ReactElement => {
                           <span>{getAvatarInitials(currentUserData)}</span>
                         </div>
                       </div>
-                      <div className="grid-col-11">{prompt.prompt}</div>
+                      <div className="grid-col-11">
+                        <p>{prompt.prompt}</p>
+                      </div>
                     </div>
                   </div>
                   <div
