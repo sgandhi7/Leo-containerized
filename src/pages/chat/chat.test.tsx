@@ -3,6 +3,10 @@ import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { Chat } from './chat';
 
+jest.mock('react-markdown', () => ({ children }: { children: string }) => (
+  <div>{children}</div>
+));
+
 describe('Chat', () => {
   const componentWrapper = (
     <RecoilRoot>
