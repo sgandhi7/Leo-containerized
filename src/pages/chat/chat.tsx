@@ -12,7 +12,7 @@ import {
   searching,
 } from '../../store';
 import SourceInfo from './source-info/source-info';
-import logomark from '/img/logo-mark.svg';
+import logomark from '/img/logo.png';
 
 export const Chat = (): React.ReactElement => {
   const { currentUserData } = useAuth();
