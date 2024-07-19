@@ -30,19 +30,8 @@ export const Chat = (): React.ReactElement => {
     }
   };
 
-  const formatCompletion = (completion: string): JSX.Element => {
-    const boldRegex = /\*\*(.*?)\*\*/g;
-    let index = 0;
-    const parts = completion.split(boldRegex).map((part) => {
-      if (part.match(boldRegex)) {
-        const boldText = part.replace(/\*\*/g, '');
-        return <strong key={index++}>{boldText}</strong>;
-      } else {
-        return part;
-      }
-    });
-    console.log(parts);
-    return <>{parts}</>;
+  const formatCompletion = (completion: string): string => {
+    return completion.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
   };
 
   const handleButtonClick = (buttonText: string) => {
