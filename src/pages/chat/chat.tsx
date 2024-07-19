@@ -4,6 +4,7 @@ import { Chat as ChatState, Prompt } from '@src/types/chat';
 import { getAvatarInitials } from '@src/utils/auth';
 import { SUGGESTIONS } from '@src/utils/constants';
 import React, { useEffect, useRef, useState } from 'react';
+import Markdown from 'react-markdown';
 import { useRecoilState } from 'recoil';
 import {
   currentChat as defaultChat,
@@ -28,10 +29,6 @@ export const Chat = (): React.ReactElement => {
       const lastAnswer = answers[0] as HTMLElement;
       lastAnswer.scrollIntoView();
     }
-  };
-
-  const formatCompletion = (completion: string): string => {
-    return completion.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
   };
 
   const handleButtonClick = (buttonText: string) => {
@@ -179,11 +176,7 @@ export const Chat = (): React.ReactElement => {
                         />
                       </div>
                       <div className="grid-col-11">
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: formatCompletion(prompt.completion),
-                          }}
-                        />
+                        <Markdown>{prompt.completion}</Markdown>
                         {prompt.sources && prompt.sources.length > 0 ? (
                           <SourceInfo prompt={prompt} items={prompt.sources} />
                         ) : (
