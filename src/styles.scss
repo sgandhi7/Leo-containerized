@@ -394,12 +394,15 @@ body {
     color: $color-black;
     border-radius: 4px;
     padding: 20px;
-    line-height: 1.75rem;
+    line-height: 1rem;
     white-space: pre-wrap;
 
     ul {
       margin: 0;
-      padding: 0;
+    }
+
+    * {
+      line-height: 16px;
     }
   }
 
