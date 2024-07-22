@@ -89,6 +89,12 @@ export const Search = ({
     setSearchInput(value);
   };
 
+  const handleClear = () => {
+    updateCurrentChat([]);
+    setSearchInput('');
+    updateFocus();
+  };
+
   useEffect(() => {
     if (!isSearching && !loading) {
       setSearchInput('');
@@ -105,6 +111,13 @@ export const Search = ({
             : 'search-area-investigation'
         }`}
       >
+        <Button
+          id="clear-btn"
+          onClick={handleClear}
+          disabled={!currentChat?.prompts || currentChat?.prompts.length === 0}
+        >
+          Clear
+        </Button>
         <div className="text-container">
           <TextArea
             id="search-input"
