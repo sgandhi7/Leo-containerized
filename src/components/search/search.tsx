@@ -93,6 +93,7 @@ export const Search = ({
     updateCurrentChat([]);
     setSearchInput('');
     updateFocus();
+    setCurrentSearch('');
   };
 
   useEffect(() => {
@@ -111,13 +112,6 @@ export const Search = ({
             : 'search-area-investigation'
         }`}
       >
-        <Button
-          id="clear-btn"
-          onClick={handleClear}
-          disabled={!currentChat?.prompts || currentChat?.prompts.length === 0}
-        >
-          Clear
-        </Button>
         <div className="text-container">
           <TextArea
             id="search-input"
@@ -170,6 +164,14 @@ export const Search = ({
           ) : (
             <>Search</>
           )}
+        </Button>
+        <Button
+          id="clear-btn"
+          onClick={handleClear}
+          disabled={!currentChat?.prompts || currentChat?.prompts.length === 0}
+          variant="unstyled"
+        >
+          Clear
         </Button>
       </div>
     </div>
