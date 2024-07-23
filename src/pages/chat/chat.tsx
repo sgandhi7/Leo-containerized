@@ -90,13 +90,9 @@ export const Chat = (): React.ReactElement => {
                 className="flex-align-self-start width-100 margin-x-auto margin-y-auto"
                 style={{ textAlign: 'center' }}
               >
-                <h1 className="margin-bottom-2">
-                  What would you like to Search?
-                </h1>
+                <h1 className="margin-bottom-2">MetroStar Navigator</h1>
                 <p className="margin-bottom-3">
-                  This chatbot can ONLY answer questions about PTO, Leave, All
-                  Benefits (like Healthcare or Retirement and including Life
-                  Events).
+                  Let's Answer Your PTO, Leave, and Benefits Questions
                 </p>
                 <div className="button-container">
                   {SUGGESTIONS.map((suggestion: string, index: number) => (

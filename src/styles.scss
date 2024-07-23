@@ -65,7 +65,7 @@ body {
   #mainSection {
     width: 100%;
     .signin {
-      background-image: url('/img/hero.jpg');
+      background-image: url('/img/space.jpg');
       background-size: cover;
       height: 100vh;
       min-width: 100%;
@@ -234,7 +234,9 @@ body {
       outline: none;
     }
   }
-
+  .disclaimer {
+    text-align: center;
+  }
   .text-area-label {
     display: none;
   }
