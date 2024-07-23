@@ -131,7 +131,7 @@ export const Search = ({
                 event.preventDefault();
               }
             }}
-            placeholder="Message Navigator..."
+            placeholder="Type your question here..."
             rows={1}
             cols={1}
             disabled={loading || isSearching}
@@ -159,6 +159,9 @@ export const Search = ({
           )}
         </Button>
       </div>
+      <p className="disclaimer">
+        Navigator can make mistakes, validate important information.
+      </p>
     </div>
   );
 };
