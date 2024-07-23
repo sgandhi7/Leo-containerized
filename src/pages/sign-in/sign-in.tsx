@@ -18,7 +18,7 @@ export const SignIn = (): React.ReactElement => {
             <h1>Sign In</h1>
             {error && (
               <Alert id="loginAlert" type="error" heading="Error">
-                Incorrect email or password was entered.
+                Login unsuccessful. Please try again.
               </Alert>
             )}
             {hasSsoConfig() && (
