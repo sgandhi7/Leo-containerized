@@ -89,6 +89,13 @@ export const Search = ({
     setSearchInput(value);
   };
 
+  const handleClear = () => {
+    updateCurrentChat([]);
+    setSearchInput('');
+    updateFocus();
+    setCurrentSearch('');
+  };
+
   useEffect(() => {
     if (!isSearching && !loading) {
       setSearchInput('');
@@ -157,6 +164,14 @@ export const Search = ({
           ) : (
             <>Search</>
           )}
+        </Button>
+        <Button
+          id="clear-btn"
+          onClick={handleClear}
+          disabled={!currentChat?.prompts || currentChat?.prompts.length === 0}
+          variant="unstyled"
+        >
+          Clear
         </Button>
       </div>
       <p className="disclaimer">
