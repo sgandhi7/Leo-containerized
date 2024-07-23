@@ -58,6 +58,7 @@ const useAuth = () => {
         })
         .catch((err) => {
           setError(err);
+          console.log(err);
         });
     } else {
       setIsSignedIn(true);
