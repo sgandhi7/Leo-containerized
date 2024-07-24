@@ -35,6 +35,29 @@ export const Chat = (): React.ReactElement => {
     setSearchInput(buttonText);
   };
 
+  const formatLinks = (text: string) => {
+    let newText = text;
+    if (newText.toLowerCase().indexOf('atlas') > -1) {
+      // Full replacement because the Document is name differently
+      newText = newText.replace(
+        'https://mssaipcaihubstorage.blob.core.windows.net/atlas/The Atlas (5).pdf',
+        'https://metrostarsys.sharepoint.com/workforce/HR%20Chatbot%2FAtlas%2FThe%20Atlas%20%285%29%2Epdf',
+      );
+    } else if (newText.toLowerCase().indexOf('benefits') > -1) {
+      newText = newText.replace(
+        'https://mssaipcaihubstorage.blob.core.windows.net/benefits',
+        'https://metrostarsys.sharepoint.com/workforce/HR%20Chatbot%2FBenefit',
+      );
+    } else if (newText.toLowerCase().indexOf('ppal') > -1) {
+      newText = newText.replace(
+        'https://mssaipcaihubstorage.blob.core.windows.net/ppal',
+        'https://metrostarsys.sharepoint.com/workforce/HR%20Chatbot%2FPPAL',
+      );
+    }
+
+    return newText;
+  };
+
   useEffect(() => {
     if (currentChat) {
       const responsePrompts = currentChat.prompts;
@@ -174,7 +197,7 @@ export const Chat = (): React.ReactElement => {
                         />
                       </div>
                       <div className="grid-col-11">
-                        <Markdown>{prompt.completion}</Markdown>
+                        <Markdown>{formatLinks(prompt.completion)}</Markdown>
                         {prompt.sources && prompt.sources.length > 0 ? (
                           <SourceInfo prompt={prompt} items={prompt.sources} />
                         ) : (
