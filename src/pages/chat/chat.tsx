@@ -35,6 +35,7 @@ export const Chat = (): React.ReactElement => {
     setSearchInput(buttonText);
   };
 
+  // TODO: Remove when URLs are remapped directly as part of data ingestion
   const formatLinks = (text: string) => {
     let newText = text;
     if (newText.toLowerCase().indexOf('atlas') > -1) {
