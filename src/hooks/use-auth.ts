@@ -50,15 +50,30 @@ const useAuth = () => {
 
   const signIn = (isSso: boolean): void => {
     if (isSso) {
-      instance
-        .loginRedirect(loginRequest)
-        .then(() => {
-          setIsSignedIn(true);
-          navigate('/');
-        })
-        .catch((err) => {
-          setError(err);
-        });
+      // If iframe, use loginPopup
+      if (window.top !== window.self) {
+        instance
+          .loginPopup(loginRequest)
+          .then(() => {
+            setIsSignedIn(true);
+            navigate('/');
+          })
+          .catch((err) => {
+            setError(err);
+            console.log(err);
+          });
+      } else {
+        instance
+          .loginRedirect(loginRequest)
+          .then(() => {
+            setIsSignedIn(true);
+            navigate('/');
+          })
+          .catch((err) => {
+            setError(err);
+            console.log(err);
+          });
+      }
     } else {
       setIsSignedIn(true);
       setCurrentUserData(userData);
