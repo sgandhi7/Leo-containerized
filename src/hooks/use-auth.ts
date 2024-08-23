@@ -1,6 +1,6 @@
 import { useMsal } from '@azure/msal-react';
 import { app, authentication } from '@microsoft/teams-js';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { userData } from '../data/user';
@@ -30,6 +30,24 @@ const useAuth = () => {
     setCurrentUserData(userData);
     setIsSignedIn(true);
   }, [setCurrentUserData, setIsSignedIn]);
+
+  useEffect(() => {
+    const handleRedirectPromise = async () => {
+      try {
+        console.log('Handling redirect promise...');
+        await instance.initialize();
+        const result = await instance.handleRedirectPromise();
+        console.log('RedirectPromise result:', result);
+        if (result) {
+          await handleAuthenticationSuccess();
+        }
+      } catch (error) {
+        console.error('Error handling redirect:', error);
+      }
+    };
+
+    handleRedirectPromise();
+  }, [instance, handleAuthenticationSuccess]);
 
   const authenticateOnWeb = useCallback(async () => {
     try {
