@@ -1,35 +1,24 @@
-import { Alert, Button } from '@metrostar/comet-uswds';
-import { hasSsoConfig } from '@src/utils/auth';
-import React from 'react';
+import { Alert } from '@metrostar/comet-uswds';
+import React, { useEffect } from 'react';
 import useAuth from '../../hooks/use-auth';
 
 export const SignIn = (): React.ReactElement => {
-  const { signIn, error } = useAuth();
+  const { error, signIn } = useAuth();
 
-  const handleSsoSignIn = (): void => {
-    signIn(true);
-  };
+  useEffect(() => {
+    signIn();
+  }, [signIn]);
 
   return (
     <div className="signin">
       <div className="grid-container">
         <div className="grid-row">
-          <div className="tablet:grid-col-5 signin-form">
-            <h1>Sign In</h1>
+          <div className="grid-col padding-top-1">
+            <span className="text-white">Sign in required...</span>
             {error && (
               <Alert id="loginAlert" type="error" heading="Error">
                 Login unsuccessful. Please try again.
               </Alert>
-            )}
-            {hasSsoConfig() && (
-              <Button
-                id="sign-in-sso"
-                type="button"
-                variant="outline"
-                onClick={handleSsoSignIn}
-              >
-                Sign In with SSO
-              </Button>
             )}
           </div>
         </div>

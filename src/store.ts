@@ -9,7 +9,7 @@ const signedIn = atom({
 
 const currentUser = atom<User | undefined>({
   key: 'currentUser',
-  default: { firstName: 'Guest' } as User,
+  default: undefined,
 });
 
 const currentChat = atom<Chat>({
