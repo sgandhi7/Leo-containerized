@@ -1,14 +1,14 @@
-import { useMsal } from '@azure/msal-react';
+import { PublicClientApplication } from '@azure/msal-browser';
 import { app, authentication } from '@microsoft/teams-js';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import { msalConfig } from '../auth.config';
 import { userData } from '../data/user';
 import { currentUser, signedIn } from '../store';
 import { User } from '../types/user';
 
 const useAuth = () => {
-  const { instance } = useMsal();
   const navigate = useNavigate();
   const [isSignedIn, setIsSignedIn] = useRecoilState<boolean>(signedIn);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
@@ -16,6 +16,11 @@ const useAuth = () => {
   const [currentUserData, setCurrentUserData] = useRecoilState<
     User | undefined
   >(currentUser);
+
+  const msalInstance = useMemo(
+    () => new PublicClientApplication(msalConfig),
+    [],
+  );
 
   /* TODO: Uncomment for interacting with own API, no need to send tokens to external public API */
   // useEffect(() => {
@@ -35,8 +40,8 @@ const useAuth = () => {
     const handleRedirectPromise = async () => {
       try {
         console.log('Handling redirect promise...');
-        await instance.initialize();
-        const result = await instance.handleRedirectPromise();
+        await msalInstance.initialize();
+        const result = await msalInstance.handleRedirectPromise();
         console.log('RedirectPromise result:', result);
         if (result) {
           await handleAuthenticationSuccess();
@@ -47,17 +52,17 @@ const useAuth = () => {
     };
 
     handleRedirectPromise();
-  }, [instance, handleAuthenticationSuccess]);
+  }, [msalInstance, handleAuthenticationSuccess]);
 
   const authenticateOnWeb = useCallback(async () => {
     try {
       console.log('MSAL initializing');
-      await instance.initialize();
-      const accounts = instance.getAllAccounts();
+      await msalInstance.initialize();
+      const accounts = msalInstance.getAllAccounts();
       console.log('MSAL accounts:', accounts);
       if (accounts.length > 0) {
         console.log('Acquiring token silently');
-        const silentResult = await instance.acquireTokenSilent({
+        const silentResult = await msalInstance.acquireTokenSilent({
           scopes: ['User.Read'],
           account: accounts[0],
         });
@@ -65,7 +70,7 @@ const useAuth = () => {
         await handleAuthenticationSuccess();
       } else {
         console.log('Performing login redirect');
-        await instance.loginRedirect({
+        await msalInstance.loginRedirect({
           scopes: ['User.Read'],
         });
       }
@@ -73,7 +78,7 @@ const useAuth = () => {
       setError('Authentication error:' + error);
       console.error('Authentication error:', error);
     }
-  }, [instance, handleAuthenticationSuccess]);
+  }, [msalInstance, handleAuthenticationSuccess]);
 
   const authenticateInTeams = useCallback(async () => {
     try {
