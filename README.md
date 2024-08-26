@@ -69,6 +69,6 @@ az acr login --name navigator
 
 # Build and Publish image
 docker build . -t navigator-ui
-docker tag navigator-ui navigator.azurecr.io/navigator/ui:1.2.9
-docker push navigator.azurecr.io/navigator/ui:1.2.9
+docker tag navigator-ui navigator.azurecr.io/navigator/ui:1.3.0
+docker push navigator.azurecr.io/navigator/ui:1.3.0
 ```

@@ -1,9 +1,13 @@
-import { Alert, Button } from '@metrostar/comet-uswds';
-import React from 'react';
+import { Alert } from '@metrostar/comet-uswds';
+import React, { useEffect } from 'react';
 import useAuth from '../../hooks/use-auth';
 
 export const SignIn = (): React.ReactElement => {
   const { error, signIn } = useAuth();
+
+  useEffect(() => {
+    signIn();
+  }, [signIn]);
 
   return (
     <div className="signin">
@@ -16,11 +20,6 @@ export const SignIn = (): React.ReactElement => {
                 Login unsuccessful. Please try again.
               </Alert>
             )}
-            <div className="padding-top-2">
-              <Button id="sign-in" type="button" onClick={signIn}>
-                Click to Sign In
-              </Button>
-            </div>
           </div>
         </div>
       </div>
