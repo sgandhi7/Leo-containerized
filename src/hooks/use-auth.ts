@@ -1,107 +1,116 @@
-import { useIsAuthenticated, useMsal } from '@azure/msal-react';
-import { getFirstName, getLastName } from '@src/utils/auth';
-import { useEffect, useState } from 'react';
+import { useMsal } from '@azure/msal-react';
+import { app, authentication } from '@microsoft/teams-js';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { loginRequest } from '../../src/auth.config';
 import { userData } from '../data/user';
 import { currentUser, signedIn } from '../store';
 import { User } from '../types/user';
 
 const useAuth = () => {
   const { instance } = useMsal();
-  const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
   const [isSignedIn, setIsSignedIn] = useRecoilState<boolean>(signedIn);
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [error, setError] = useState<string | null>();
   const [currentUserData, setCurrentUserData] = useRecoilState<
     User | undefined
   >(currentUser);
 
-  /* TODO: Uncomment for interacting with own API, no need to send tokens to external public API */
-  // useEffect(() => {
-  //   if (auth.user) {
-  //     axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.user.access_token;
-  //   } else {
-  //     axios.defaults.headers.common['Authorization'] = undefined;
-  //   }
-  // }, [auth.user]);
+  const handleAuthenticationSuccess = useCallback(async () => {
+    setCurrentUserData(userData);
+    setIsSignedIn(true);
+  }, [setCurrentUserData, setIsSignedIn]);
 
-  useEffect(() => {
-    if (isAuthenticated && window.location.pathname === '/signin') {
-      setIsSignedIn(true);
-      navigate('/');
-    }
-  });
-
-  useEffect(() => {
-    const profile = instance.getActiveAccount();
-    /* istanbul ignore next */
-    if (profile) {
-      setCurrentUserData({
-        firstName: getFirstName(profile),
-        lastName: getLastName(profile),
-        displayName: profile.name,
-        emailAddress: profile.username,
-        phoneNumber: '',
-      });
-    }
-  }, [instance, setCurrentUserData]);
-
-  const signIn = (isSso: boolean): void => {
-    if (isSso) {
-      // If iframe, use loginPopup
-      if (window.top !== window.self) {
-        instance
-          .loginPopup(loginRequest)
-          .then(() => {
-            setIsSignedIn(true);
-            navigate('/');
-          })
-          .catch((err) => {
-            setError(err);
-            console.log(err);
-          });
-      } else {
-        instance
-          .loginRedirect(loginRequest)
-          .then(() => {
-            setIsSignedIn(true);
-            navigate('/');
-          })
-          .catch((err) => {
-            setError(err);
-            console.log(err);
-          });
-      }
-    } else {
-      setIsSignedIn(true);
-      setCurrentUserData(userData);
-      navigate('/');
-    }
-  };
-
-  const signOut = (): void => {
-    setIsSignedIn(false);
-    setCurrentUserData({} as User);
-    /* istanbul ignore next */
-    if (isAuthenticated) {
-      instance
-        .logoutRedirect(loginRequest)
-        .then(() => {
-          setIsSignedIn(false);
-        })
-        .catch((err) => {
-          setError(err);
+  const authenticateOnWeb = useCallback(async () => {
+    try {
+      console.log('MSAL initializing');
+      // await instance.initialize();
+      const accounts = instance.getAllAccounts();
+      console.log('MSAL accounts:', accounts);
+      if (accounts.length > 0) {
+        console.log('Acquiring token silently');
+        const silentResult = await instance.acquireTokenSilent({
+          scopes: ['User.Read'],
+          account: accounts[0],
         });
-    } else {
-      setIsSignedIn(false);
-      setCurrentUserData({} as User);
-      navigate('/signin');
+        console.log('Silent result:', silentResult);
+        await handleAuthenticationSuccess();
+      } else {
+        console.log('Performing login redirect');
+        await instance.loginRedirect({
+          scopes: ['User.Read'],
+        });
+      }
+    } catch (error) {
+      setError('Authentication error:' + error);
+      console.error('Authentication error:', error);
+    }
+  }, [instance, handleAuthenticationSuccess]);
+
+  const authenticateInTeams = useCallback(async () => {
+    try {
+      // Get client-side token
+      const token = await authentication.getAuthToken();
+      console.log('Teams client token:', token);
+      handleAuthenticationSuccess();
+    } catch (error) {
+      console.error('Error during Teams SSO:', error);
+      await authenticateOnWeb();
+    }
+  }, [handleAuthenticationSuccess, authenticateOnWeb]);
+
+  const initializeTeamsApp = async () => {
+    return Promise.race([
+      app.initialize(),
+      new Promise((_, reject) =>
+        setTimeout(
+          () => reject(new Error('Teams SDK initialization timed out')),
+          10000,
+        ),
+      ),
+    ]);
+  };
+
+  const initializeUser = async () => {
+    if (!currentUserData && !isAuthenticating) {
+      setIsAuthenticating(true);
+      console.log('Starting authentication...');
+      try {
+        const isInTeams = await initializeTeamsApp()
+          .then(() => app.getContext())
+          .catch(() => false);
+        if (isInTeams) {
+          console.log('Running in Teams');
+          await authenticateInTeams();
+        } else {
+          console.log('Running in web');
+          await authenticateOnWeb();
+          setCurrentUserData(userData);
+        }
+      } catch (error) {
+        console.error('Authentication error:', error);
+      } finally {
+        navigate('/');
+      }
     }
   };
 
-  return { isSignedIn, currentUserData, error, signIn, signOut };
+  const signIn = async () => {
+    initializeUser();
+  };
+
+  const signOut = async () => {
+    console.log('Signing out...');
+  };
+
+  return {
+    isSignedIn,
+    currentUserData,
+    error,
+    signIn,
+    signOut,
+  };
 };
 
 export default useAuth;
