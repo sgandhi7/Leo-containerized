@@ -17,37 +17,10 @@ const useAuth = () => {
     User | undefined
   >(currentUser);
 
-  /* TODO: Uncomment for interacting with own API, no need to send tokens to external public API */
-  // useEffect(() => {
-  //   if (auth.user) {
-  //     axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.user.access_token;
-  //   } else {
-  //     axios.defaults.headers.common['Authorization'] = undefined;
-  //   }
-  // }, [auth.user]);
-
   const handleAuthenticationSuccess = useCallback(async () => {
     setCurrentUserData(userData);
     setIsSignedIn(true);
   }, [setCurrentUserData, setIsSignedIn]);
-
-  // useEffect(() => {
-  //   const handleRedirectPromise = async () => {
-  //     try {
-  //       console.log('Handling redirect promise...');
-  //       await instance.initialize();
-  //       const result = await instance.handleRedirectPromise();
-  //       console.log('RedirectPromise result:', result);
-  //       if (result) {
-  //         await handleAuthenticationSuccess();
-  //       }
-  //     } catch (error) {
-  //       console.error('Error handling redirect:', error);
-  //     }
-  //   };
-
-  //   handleRedirectPromise();
-  // }, [instance, handleAuthenticationSuccess]);
 
   const authenticateOnWeb = useCallback(async () => {
     try {
