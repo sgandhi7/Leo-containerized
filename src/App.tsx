@@ -20,13 +20,17 @@ export const App = (): React.ReactElement => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
-      <main id="mainSection" className="usa-section">
-        <Routes>
-          <Route path="/" element={<Chat />} />
-          <Route path="/chat" element={<Chat />} />
-          <Route path="/chat/:id" element={<Chat />} />
-        </Routes>
-      </main>
+      {isAuthenticated ? (
+        <main id="mainSection" className="usa-section">
+          <Routes>
+            <Route path="/" element={<Chat />} />
+            <Route path="/chat" element={<Chat />} />
+            <Route path="/chat/:id" element={<Chat />} />
+          </Routes>
+        </main>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
