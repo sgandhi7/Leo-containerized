@@ -6,9 +6,9 @@ import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import {
-  currentChat as defaultChat,
-  currentSearch as defaultSearch,
-  searching,
+  currentChatState,
+  currentSearchState,
+  searchingState,
 } from '../../store';
 import infinteLoop from '/img/infinteLoop.svg';
 
@@ -23,9 +23,10 @@ export const Search = ({
   const location = useLocation();
   const { search, loading } = useApi();
   const [, setQuery] = useState('');
-  const [currentChat, setCurrentChat] = useRecoilState<ChatState>(defaultChat);
-  const [isSearching, setIsSearching] = useRecoilState<boolean>(searching);
-  const [, setCurrentSearch] = useRecoilState<string>(defaultSearch);
+  const [currentChat, setCurrentChat] =
+    useRecoilState<ChatState>(currentChatState);
+  const [isSearching, setIsSearching] = useRecoilState<boolean>(searchingState);
+  const [, setCurrentSearch] = useRecoilState<string>(currentSearchState);
 
   const updateFocus = () => {
     const input = document.querySelector('textarea');
