@@ -7,9 +7,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import Markdown from 'react-markdown';
 import { useRecoilState } from 'recoil';
 import {
-  currentChat as defaultChat,
-  currentSearch as defaultSearch,
-  searching,
+  currentChatState,
+  currentSearchState,
+  searchingState,
 } from '../../store';
 import SourceInfo from './source-info/source-info';
 import logomark from '/img/logo.png';
@@ -17,10 +17,10 @@ import logomark from '/img/logo.png';
 export const Chat = (): React.ReactElement => {
   const { currentUserData } = useAuth();
   const [prompts, setPrompts] = useState<Prompt[] | null>(null);
-  const [currentChat] = useRecoilState<ChatState>(defaultChat);
-  const [isSearching] = useRecoilState<boolean>(searching);
+  const [currentChat] = useRecoilState<ChatState>(currentChatState);
+  const [isSearching] = useRecoilState<boolean>(searchingState);
   const [searchInput, setSearchInput] = useState('');
-  const [currentSearch] = useRecoilState<string>(defaultSearch);
+  const [currentSearch] = useRecoilState<string>(currentSearchState);
   const chatContentRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {

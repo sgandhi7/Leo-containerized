@@ -2,29 +2,35 @@ import { atom } from 'recoil';
 import { Chat } from './types/chat';
 import { User } from './types/user';
 
-const signedIn = atom({
+const signedInState = atom({
   key: 'signedIn',
   default: false,
 });
 
-const currentUser = atom<User | undefined>({
+const currentUserState = atom<User | undefined>({
   key: 'currentUser',
   default: undefined,
 });
 
-const currentChat = atom<Chat>({
+const currentChatState = atom<Chat>({
   key: 'currentChat',
   default: {},
 });
 
-const searching = atom({
+const searchingState = atom({
   key: 'searching',
   default: false,
 });
 
-const currentSearch = atom({
+const currentSearchState = atom({
   key: 'currentSearch',
   default: '',
 });
 
-export { currentChat, currentSearch, currentUser, searching, signedIn };
+export {
+  currentChatState,
+  currentSearchState,
+  currentUserState,
+  searchingState,
+  signedInState,
+};

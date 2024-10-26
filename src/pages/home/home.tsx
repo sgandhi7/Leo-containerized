@@ -3,15 +3,12 @@ import { Chat as ChatState } from '@src/types/chat';
 import { SUGGESTIONS } from '@src/utils/constants';
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import {
-  currentChat as defaultChat,
-  currentSearch as defaultSearch,
-} from '../../store';
+import { currentChatState, currentSearchState } from '../../store';
 
 export const Home = (): React.ReactElement => {
-  const [, setCurrentChat] = useRecoilState<ChatState>(defaultChat);
+  const [, setCurrentChat] = useRecoilState<ChatState>(currentChatState);
   const [searchInput, setSearchInput] = useState<string>('');
-  const [, setCurrentSearch] = useRecoilState<string>(defaultSearch);
+  const [, setCurrentSearch] = useRecoilState<string>(currentSearchState);
 
   const handleButtonClick = (buttonText: string) => {
     setSearchInput(buttonText);
