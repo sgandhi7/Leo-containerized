@@ -16,7 +16,15 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
   return {
-    plugins: [react(), tsconfigPaths(), eslint(), EnvironmentPlugin('all')],
+    plugins: [
+      react(),
+      tsconfigPaths(),
+      eslint({
+        fix: true,
+        include: ['src/**/*.ts', 'src/**/*.tsx'],
+      }),
+      EnvironmentPlugin('all'),
+    ],
     resolve: {
       alias: {
         '~uswds': path.resolve(__dirname, 'node_modules/@uswds/uswds'),
@@ -35,6 +43,9 @@ export default defineConfig(({ mode }) => {
     server: {
       open: true,
       port: 8080,
+      hmr: {
+        overlay: false
+      },
       proxy: {
         '/api': {
           target: env.AZURE_API_URL,

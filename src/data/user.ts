@@ -6,7 +6,6 @@ export const userData: User = {
   lastName: '',
   displayName: 'Admin',
   emailAddress: 'admin@email.com',
-  phoneNumber: '123-456-7890',
 };
 
 export const azureUserData: AccountInfo = {
