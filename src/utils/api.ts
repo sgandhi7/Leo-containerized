@@ -1,7 +1,7 @@
-import { ChatHistory, CompletionSource, Prompt } from '@src/types/chat';
+import { CompletionSource } from '@src/types/investigation';
 
 export const isMocked = (): boolean => {
-  const apiUrl = process.env.AZURE_API_URL;
+  const apiUrl = process.env.TXTAI_API_URL;
   /* istanbul ignore else */
   if (apiUrl) {
     return false;
@@ -36,30 +36,4 @@ export const getScore = (source: CompletionSource): number => {
     const num = source.score * 100;
     return Number(Math.floor(num));
   } else return 0;
-};
-
-export const getChatHistory = (prompts: Prompt[]): ChatHistory[] => {
-  if (prompts.length === 0) {
-    return [];
-  }
-
-  return prompts
-    .filter((prompt) => prompt.completion !== 'Loading...') // Do not include any prompts that are still awaiting a response
-    .reverse() // Chat history is displayed in reverse order in the UI, need to reverse for the API
-    .map((prompt: Prompt) => ({
-      inputs: { question: prompt.prompt },
-      outputs: { answer: prompt.completion },
-    }));
-};
-
-export const hasReport = (prompt: string) => {
-  const searchText = prompt.toLowerCase();
-  if (
-    searchText.indexOf('generate') !== -1 &&
-    searchText.indexOf('report') !== -1
-  ) {
-    return true;
-  } else {
-    return false;
-  }
 };

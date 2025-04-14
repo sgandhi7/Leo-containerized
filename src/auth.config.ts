@@ -4,7 +4,9 @@ import { Configuration, PopupRequest } from '@azure/msal-browser';
 export const msalConfig: Configuration = {
   auth: {
     clientId: process.env.SSO_CLIENT_ID || '',
-    authority: `https://login.microsoftonline.com/${process.env.SSO_TENANT_ID || ''}`,
+    authority: `https://login.microsoftonline.com/${
+      process.env.SSO_TENANT_ID || ''
+    }`,
     redirectUri: '/',
   },
   cache: {

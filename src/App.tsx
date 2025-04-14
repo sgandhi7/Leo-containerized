@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import { Sidebar } from './components/sidebar/sidebar';
 import { Investigation } from './pages/chatwindow';
 import { Dashboard } from './pages/dashboard';
 import { Examples } from './pages/examples';
@@ -45,6 +46,7 @@ export const App = (): React.ReactElement => {
     <div style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
       {isAuthenticated ? (
         <main id="mainSection" className="usa-section">
+          <Sidebar />
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/session" element={<Investigation />} />

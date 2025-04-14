@@ -1,13 +1,29 @@
-# Welcome to the Navigator UI!
+# Welcome to the Comet Starter App!
 
-The goal of this project is to provide Navigator users with a web-based tool for performing chat-based searches, utilizing Natural Language Processing (NLP) and in-context search.
+The goal of this project is to provide a React with TypeScript starter application, which comes pre-configured with the USWDS-based [Comet Component Library](https://github.com/MetroStar/comet) as well as other tools to accelerate development. Some of these tools are as follows:
+
+- Tooling: [Vite](https://vitejs.dev/)
+- Platform: [React](https://react.dev/) with [TypeScript](https://www.typescriptlang.org/)
+- Component Library: [Comet Component Library](https://github.com/MetroStar/comet)
+- Data Visualization: [Victory Charts](https://formidable.com/open-source/victory/)
+- State Management: [Recoil](https://recoiljs.org/)
+- Form Validation: [React Hook Form](https://react-hook-form.com/)
+- Unit Testing: [Jest](https://jestjs.io/) with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- Code Analysis: [ES Lint](https://eslint.org/)
+- Code Formatting: [Prettier](https://prettier.io/)
+- End-to-End (E2E) Testing: [Cypress](https://www.cypress.io/) with [cypress-axe](https://www.npmjs.com/package/cypress-axe)
+- Accessibility Testing: [Unlighthouse](https://unlighthouse.dev/)
+- API support: [Axios](https://axios-http.com/) with [React Query](https://tanstack.com/query/v3/)
+- Authentication support: [Keycloak](https://www.keycloak.org/)
 
 ## Table of Contents
 
 1. [Running the Project Locally](#running-the-project-locally)
 2. [Running Unit Tests](#running-unit-tests)
 3. [Running Code Quality Checks](#running-code-quality-checks)
-4. [Publishing a new Docker Image](#publishing-a-new-docker-image)
+4. [Running End-to-End (E2E) Tests](#running-end-to-end-e2e-tests)
+5. [Contributing](#contributing)
+6. [Next Steps](#next-steps)
 
 ## Running the Project Locally
 
@@ -17,14 +33,11 @@ The goal of this project is to provide Navigator users with a web-based tool for
 npm install
 ```
 
-2. Add a file called `.env.local` to the `2024-intern-main` directory. Copy and paste the template below and replace the placeholder values with your own:
+2. To run locally with SSO, add a file called `.env.local` to the `comet-starter` directory. Copy and paste the template below and replace the placeholder values with your own (optional):
 
-```.env
-AZURE_API_URL=[SOME_API_URL] # Ex: https://some-api.azurecontainerapps.io
-AZURE_API_KEY=[SOME_API_KEY] # Ex: 1234567890asdfghjkl
-AZURE_MODEL_DEPLOYMENT=[SOME_MODEL_DEPLOYMENT] # Ex: deployment-ml-1
-SSO_TENANT_ID=[SOME_TENANT_ID] # Ex: 1234abcd-12ab-34cd-56ef-123456abcdef
-SSO_CLIENT_ID=[SOME_CLIENT_ID] # Ex: 4321dcba-21ba-43dc-65fe-654321fedcba
+```
+SSO_AUTHORITY=[SOME_KEYCLOAK_REALM_URL] # Ex: http://localhost:8088/realms/dev
+SSO_CLIENT_ID=[SOME_CLIENT_ID] # Ex: dev-client
 ```
 
 3. To start the app, run the following:
@@ -58,17 +71,34 @@ npm run format
 
 You can also see the `.vscode/settings.json` file to find how to enable auto-formatting on save.
 
-## Publishing a new Docker Image
+## Running End-to-End (E2E) Tests
 
-To publish a new docker image to the Azure Container Registry, perform the following:
+Note: running E2E tests requires the app to be running as well, run the following:
 
 ```sh
-# Login to Azure and ACI
-az login
-az acr login --name navigator
-
-# Build and Publish image
-docker build . -t navigator-ui
-docker tag navigator-ui navigator.azurecr.io/navigator/ui:1.3.4
-docker push navigator.azurecr.io/navigator/ui:1.3.4
+npm run e2e
 ```
+
+## Contributing
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature_a`)
+3. Commit your Changes (`git commit -m 'Added new feature_a'`)
+4. Push to the Branch (`git push origin feature_a`)
+5. Open a Pull Request
+
+## Next Steps
+
+The following provides a short list of tasks which are potential next steps for this project. These could be steps in making use of this baseline or they could be for learning purposes.
+
+- [ ] Apply/clean-up basic branding (title, header, footer, logo, favicon, etc)
+- [ ] Add/Update Dashboard with applicable content
+- [ ] Enhance Dashboard table functionality (filter, search, paging)
+- [ ] Enhance Item Details page with more applicable content and layout
+- [ ] Integrate with some API (Ex. [Comet API](https://github.com/MetroStar/comet-api))
+- [ ] Add User Management Dashboard and Detail pages
+- [ ] Add Profile Menu (include Sign In/Sign Out, User Management, etc)
+- [ ] Add Site Search functionality (add Search Results page and update Header Search)
+- [ ] Integrate with some API to support Basic Authentication
+- [ ] Integrate with some Identity Provider to support Single Sign-On (SSO)
+- [ ] Deploy to cloud infrastructure

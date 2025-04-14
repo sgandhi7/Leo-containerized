@@ -2,57 +2,54 @@ import react from '@vitejs/plugin-react';
 import autoprefixer from 'autoprefixer';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { defineConfig, loadEnv } from 'vite';
-import EnvironmentPlugin from 'vite-plugin-environment';
+import { defineConfig } from 'vite';
+//import EnvironmentPlugin from 'vite-plugin-environment';
 import eslint from 'vite-plugin-eslint';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const safeEnv: Record<string, string> = {};
+for (const key in process.env) {
+  if (/^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(key)) {
+    safeEnv[key] = process.env[key] as string;
+  }
+}
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
-  // https://main.vitejs.dev/config/#using-environment-variables-in-config
-  const env = loadEnv(mode, process.cwd(), '');
-
-  return {
-    plugins: [
-      react(),
-      tsconfigPaths(),
-      eslint({
-        fix: true,
-        include: ['src/**/*.ts', 'src/**/*.tsx'],
-      }),
-      EnvironmentPlugin('all'),
-    ],
-    resolve: {
-      alias: {
-        '~uswds': path.resolve(__dirname, 'node_modules/@uswds/uswds'),
+export default defineConfig({
+  plugins: [react(), tsconfigPaths(), eslint()],
+  /*EnvironmentPlugin('all')],*/
+  resolve: {
+    alias: {
+      '~uswds': path.resolve(__dirname, 'node_modules/@uswds/uswds'),
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        includePaths: ['node_modules/@uswds/uswds/packages'],
       },
     },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          includePaths: ['node_modules/@uswds/uswds/packages'],
-        },
-      },
-      postcss: {
-        plugins: [autoprefixer],
+    postcss: {
+      plugins: [autoprefixer],
+    },
+  },
+  define: Object.fromEntries(
+    Object.entries(safeEnv).map(([key, value]) => [
+      `process.env.${key}`,
+      JSON.stringify(value),
+    ]),
+  ),
+  server: {
+    open: true,
+    port: 8080,
+    proxy: {
+      '/api': {
+        target: 'https://dvasquez-seattle-vcqoi.eastus.inference.ml.azure.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
-    server: {
-      open: true,
-      port: 8080,
-      hmr: {
-        overlay: false
-      },
-      proxy: {
-        '/api': {
-          target: env.AZURE_API_URL,
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
-        },
-      },
-    },
-  };
+  },
 });

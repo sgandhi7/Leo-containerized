@@ -4,13 +4,13 @@ import { APP_TITLE } from '@src/utils/constants';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { currentUser } from 'src/store';
+import { currentUserState } from 'src/store';
 import Switch from '../Switch/Switch';
 
 export const Sidebar = (): React.ReactElement => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useRecoilState<User | undefined>(currentUser);
+  const [user, setUser] = useRecoilState<User | undefined>(currentUserState);
   const leoImage = '/img/leo.png'; //Initialize leo image
   let modePref; //Holds user preference for light/dark mode
 
