@@ -160,14 +160,17 @@ export const Search = ({
     // Use controller.signal for fetch request
     try {
       // Make API call
-      const response = await fetch('api/PromptFlowAPI', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        } as HeadersInit,
-        body: JSON.stringify(data),
-        signal: newAbortController.signal,
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/PromptFlowAPI`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          } as HeadersInit,
+          body: JSON.stringify(data),
+          signal: newAbortController.signal,
+        },
+      );
 
       if (response.ok) {
         const jsonResponse = await response.json();
@@ -263,12 +266,15 @@ export const Search = ({
     const fetchEmployees = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch('api/EmployeeDataAPI', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          } as HeadersInit,
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/EmployeeDataAPI`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            } as HeadersInit,
+          },
+        );
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }

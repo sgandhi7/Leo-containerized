@@ -68,10 +68,13 @@ export const History: React.FC = () => {
       if (!user?.emailAddress) return;
 
       try {
-        const response = await fetch('/api/fetchSessions', {
-          method: 'POST',
-          body: JSON.stringify({ user: user.emailAddress, action: 'pull' }),
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/fetchSessions`,
+          {
+            method: 'POST',
+            body: JSON.stringify({ user: user.emailAddress, action: 'pull' }),
+          },
+        );
         const tempSessions = await response.json();
         const parsedSessions = tempSessions.map((session: string) => {
           const parsedSession = JSON.parse(session);

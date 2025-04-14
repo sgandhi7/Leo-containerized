@@ -80,7 +80,8 @@ export const Investigation = (): React.ReactElement => {
           prompts: prompts,
           chatHistory: window.sessionStorage.getItem('chat_history'),
         });
-        fetch('/api/fetchSessions', {
+        /*changed fetch statement here to connect front-end to backend when containerizing*/
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/fetchSessions`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -98,10 +99,13 @@ export const Investigation = (): React.ReactElement => {
       if (!user?.emailAddress) return;
 
       try {
-        const response = await fetch('/api/fetchSessions', {
-          method: 'POST',
-          body: JSON.stringify({ user: user.emailAddress, action: 'pull' }),
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/fetchSessions`,
+          {
+            method: 'POST',
+            body: JSON.stringify({ user: user.emailAddress, action: 'pull' }),
+          },
+        );
         const tempSessions = await response.json();
         const parsedSessions = tempSessions.map((session: string) => {
           const parsedSession = JSON.parse(session);

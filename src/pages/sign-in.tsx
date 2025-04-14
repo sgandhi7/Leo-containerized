@@ -156,16 +156,18 @@ export const SignIn = () => {
   const exchangeTokenForServerToken = async (
     clientSideToken: string,
   ): Promise<string> => {
-    const response = await fetch('/api/getProfileOnBehalfOf', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/getProfileOnBehalfOf`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          token: clientSideToken, // Send the token as a JSON object
+        }),
       },
-      body: JSON.stringify({
-        token: clientSideToken, // Send the token as a JSON object
-      }),
-    });
-
+    );
     if (!response.ok) {
       throw new Error('Failed to exchange token');
     }

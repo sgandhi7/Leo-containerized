@@ -32,10 +32,13 @@ export const Dashboard = (): React.ReactElement => {
     const fetchSessions = async () => {
       console.log('Fetching sessions');
       const temp = [];
-      const response = await fetch('/api/fetchSessions', {
-        method: 'POST',
-        body: JSON.stringify({ user: user?.emailAddress, action: 'pull' }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/fetchSessions`,
+        {
+          method: 'POST',
+          body: JSON.stringify({ user: user?.emailAddress, action: 'pull' }),
+        },
+      );
       const tempSessions = await response.json();
       console.log('Sessions: ', tempSessions);
       for (const session of tempSessions) {
