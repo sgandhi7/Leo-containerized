@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { userData } from '../data/user';
 import { currentUserState, signedInState } from '../store';
-import { User } from '../types/user';
 
 const useAuth = () => {
   const { instance } = useMsal();
@@ -13,9 +12,8 @@ const useAuth = () => {
   const [isSignedIn, setIsSignedIn] = useRecoilState<boolean>(signedInState);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [error, setError] = useState<string | null>();
-  const [currentUserData, setCurrentUserData] = useRecoilState<
-    User | undefined
-  >(currentUserState);
+  const [currentUserData, setCurrentUserData] =
+    useRecoilState(currentUserState);
 
   const handleAuthenticationSuccess = useCallback(async () => {
     setCurrentUserData(userData);

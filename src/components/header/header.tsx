@@ -29,7 +29,11 @@ export const Header = (): React.ReactElement => {
 
   useEffect(() => {
     const ref = document.body.style;
-    showMenu ? (ref.overflow = 'hidden') : (ref.overflow = 'visible');
+    if (showMenu) {
+      ref.overflow = 'hidden';
+    } else {
+      ref.overflow = 'visible';
+    }
   }, [showMenu]);
 
   useEffect(() => {

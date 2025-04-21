@@ -1,18 +1,30 @@
-import { render, fireEvent, screen } from '@testing-library/react';
-import { RecoilRoot } from 'recoil';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Sidebar from './sidebar';
+import { RecoilRoot } from 'recoil';
 import { currentUserState } from 'src/store';
+import { User } from 'src/types/user';
+import Sidebar from './sidebar';
 
 jest.mock('@metrostar/comet-uswds', () => ({
-  Button: ({ children, ...props }: any) => (
-    <button {...props}>{children}</button>
+  Button: ({
+    children,
+    ...props
+  }: React.PropsWithChildren<
+    React.ButtonHTMLAttributes<HTMLButtonElement>
+  >) => <button {...props}>{children}</button>,
+  Icon: ({ type, className }: { type: string; className?: string }) => (
+    <span className={className}>{type}</span>
   ),
-  Icon: ({ type, className }: any) => <span className={className}>{type}</span>,
 }));
 
 jest.mock('../Switch/Switch', () => {
-  return ({ isOn, handleToggle }: any) => (
+  const MockSwitch = ({
+    isOn,
+    handleToggle,
+  }: {
+    isOn: boolean;
+    handleToggle: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  }) => (
     <input
       type="checkbox"
       checked={isOn}
@@ -20,9 +32,13 @@ jest.mock('../Switch/Switch', () => {
       data-testid="dark-mode-toggle"
     />
   );
+
+  MockSwitch.displayName = 'MockSwitch';
+
+  return MockSwitch;
 });
 
-const renderSidebar = (user: any = null) =>
+const renderSidebar = (user: User | null = null) =>
   render(
     <RecoilRoot
       initializeState={({ set }) => {
@@ -32,7 +48,7 @@ const renderSidebar = (user: any = null) =>
       <MemoryRouter>
         <Sidebar />
       </MemoryRouter>
-    </RecoilRoot>
+    </RecoilRoot>,
   );
 
 describe('Sidebar', () => {

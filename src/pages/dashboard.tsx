@@ -78,7 +78,7 @@ export const Dashboard = (): React.ReactElement => {
             className="width-100 padding-top-6"
             style={{ textAlign: 'center', marginTop: '100px' }}
           >
-            <h1 className="margin-bottom-4">Let's Discover Top Talent</h1>
+            <h1 className="margin-bottom-4">Let&apos;s Discover Top Talent</h1>
             <div className="button-container">
               <button
                 className="helper-button"

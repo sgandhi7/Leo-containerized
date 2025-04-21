@@ -7,7 +7,7 @@ const instance = axios.create({
   headers: {
     'Content-Type': 'application/json',
     // eslint-disable-next-line prettier/prettier
-    'Authorization': process.env.API_KEY
+    Authorization: process.env.API_KEY,
   },
 });
 

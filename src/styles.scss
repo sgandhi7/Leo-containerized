@@ -47,7 +47,13 @@ body {
   }
 
   .usa-header {
-    background-image: linear-gradient(to right, $color-primary 0%, $color-primary 25%, $color-blue 50%, $color-primary 75%);
+    background-image: linear-gradient(
+      to right,
+      $color-primary 0%,
+      $color-primary 25%,
+      $color-blue 50%,
+      $color-primary 75%
+    );
   }
 
   .usa-menu-btn,
@@ -74,7 +80,10 @@ body {
     width: 100%;
   }
 
-  iframe:focus, [href]:focus, [tabindex]:focus, [contentEditable=true]:focus {
+  iframe:focus,
+  [href]:focus,
+  [tabindex]:focus,
+  [contentEditable='true']:focus {
     outline: 0rem;
   }
 
@@ -134,11 +143,11 @@ body {
   /* Dropdown Menu Styling */
   .dropdown-menu {
     position: absolute;
-    bottom: 100%;  /* Position directly above the search area */
-    left: 13%;    /* Align with the left side of the container */
+    bottom: 100%; /* Position directly above the search area */
+    left: 13%; /* Align with the left side of the container */
     width: 60%; /* Optional: you might adjust this based on design */
     background-color: white;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     z-index: 2; /* Ensure it is above other content */
   }
 
@@ -209,7 +218,8 @@ body {
     cursor: pointer;
   }
 
-  .contact-name, .contact-email {
+  .contact-name,
+  .contact-email {
     flex: 1;
     white-space: nowrap; /* Prevents text from wrapping */
     overflow: hidden; /* Keeps the text within the container */
@@ -217,7 +227,8 @@ body {
     padding: 8px 0px;
   }
 
-  .contact-name:hover, .contact-email:hover {
+  .contact-name:hover,
+  .contact-email:hover {
     background-color: #f1f1f1;
   }
 
@@ -306,13 +317,12 @@ body {
     // align-Items: center;
     width: 100%;
     bottom: 2rem;
-
   }
   .button-container-two {
     margin-bottom: 1rem;
     .helper-button-two {
-      margin: .5rem;
-      padding: .5rem;
+      margin: 0.5rem;
+      padding: 0.5rem;
       border: 2px solid $color-primary;
       cursor: pointer;
       border-radius: 10px;
@@ -581,7 +591,7 @@ body {
 }
 
 // For dark mode
-[data-theme="dark"] {
+[data-theme='dark'] {
   body {
     background-color: $color-primary;
 
@@ -595,7 +605,6 @@ body {
       p {
         color: $color-white;
       }
-
     }
 
     .chat-content-question {
@@ -611,7 +620,6 @@ body {
     }
 
     .search-area {
-
       .search-area-input {
         background-color: #012437;
         border: 1px solid #dfe1e2;
@@ -736,7 +744,6 @@ body {
   .usa-header--basic .usa-nav__link:hover::after {
     background-color: $color-leoblue;
   }
-
 }
 
 /* Mobile */
@@ -824,7 +831,9 @@ body {
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition:
+    transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
   cursor: pointer;
 }
 
@@ -884,11 +893,11 @@ body {
 }
 
 .avatar {
-  background-color: #3F9FD3;
+  background-color: #3f9fd3;
 }
 
 .bot-avatar {
-  background-color: #00BB9D;
+  background-color: #00bb9d;
 }
 
 .user-message p,
@@ -901,11 +910,11 @@ body {
 }
 
 .user-message p {
-  background-color: #E7F5FF;
+  background-color: #e7f5ff;
 }
 
 .bot-message p {
-  background-color: #E7FFF7;
+  background-color: #e7fff7;
 }
 
 @media (max-width: 768px) {

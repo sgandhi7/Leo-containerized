@@ -14,13 +14,12 @@
   background: grey;
   border-radius: 100px;
   position: relative;
-  transition: background-color .2s;
+  transition: background-color 0.2s;
   left: 10px;
-
 }
 
 .react-switch-label::after {
-  background: #06D6A0;
+  background: #06d6a0;
 }
 
 .react-switch-label .react-switch-button {
@@ -44,4 +43,3 @@
 .react-switch-label:active .react-switch-button {
   width: 30px;
 }
-

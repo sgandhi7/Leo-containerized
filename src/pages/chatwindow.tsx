@@ -324,7 +324,9 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
                   onPartComplete={() => {
                     if (index === prompt.completion.split('\n').length - 1) {
                       setLocalTypingComplete(true);
-                      setIsTypingComplete && setIsTypingComplete(true);
+                      if (setIsTypingComplete) {
+                        setIsTypingComplete(true);
+                      }
                     }
                   }}
                 />

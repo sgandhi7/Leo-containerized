@@ -10,7 +10,9 @@ import Switch from '../Switch/Switch';
 export const Sidebar = (): React.ReactElement => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useRecoilState<User | undefined>(currentUserState);
+  const [user, setUser] = useRecoilState<User | null | undefined>(
+    currentUserState,
+  );
   const leoImage = '/img/leo.png'; //Initialize leo image
   let modePref; //Holds user preference for light/dark mode
 

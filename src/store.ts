@@ -8,8 +8,8 @@ const signedInState = atom({
   default: false,
 });
 
-const currentUserState = atom<User | undefined>({
-  key: 'currentUser',
+const currentUserState = atom<User | null | undefined>({
+  key: 'currentUserState',
   default: undefined,
 });
 
