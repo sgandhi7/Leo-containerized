@@ -23,6 +23,7 @@ import { generateGUID } from '@src/utils/api';
 import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import { getApiBaseUrl } from '../utils/env';
 import infinteLoop from '/img/infinteLoop.svg';
 
 function formatConversation(
@@ -160,17 +161,14 @@ export const Search = ({
     // Use controller.signal for fetch request
     try {
       // Make API call
-      const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/PromptFlowAPI`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          } as HeadersInit,
-          body: JSON.stringify(data),
-          signal: newAbortController.signal,
-        },
-      );
+      const response = await fetch(`${getApiBaseUrl()}/PromptFlowAPI`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        } as HeadersInit,
+        body: JSON.stringify(data),
+        signal: newAbortController.signal,
+      });
 
       if (response.ok) {
         const jsonResponse = await response.json();
@@ -266,15 +264,12 @@ export const Search = ({
     const fetchEmployees = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/EmployeeDataAPI`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            } as HeadersInit,
-          },
-        );
+        const response = await fetch(`${getApiBaseUrl()}/EmployeeDataAPI`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          } as HeadersInit,
+        });
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }

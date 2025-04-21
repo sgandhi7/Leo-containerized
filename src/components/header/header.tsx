@@ -51,8 +51,9 @@ export const Header = (): React.ReactElement => {
       <header className="usa-header usa-header--basic">
         <div className="usa-nav-container">
           <img
-            className="chatbot-icon"
+            //className="chatbot-icon"
             src="/img/leo.png"
+            alt="Leo logo"
             width={100}
             height={100}
           ></img>
