@@ -7,7 +7,10 @@ import { currentUserState } from 'src/store';
 import msalInstance from 'src/utils/msal';
 
 export const SignIn = () => {
-  const [user, setUser] = useRecoilState<User | undefined>(currentUserState);
+  const [user, setUser] = useRecoilState<User | null | undefined>(
+    currentUserState,
+  );
+
   const navigate = useNavigate();
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 

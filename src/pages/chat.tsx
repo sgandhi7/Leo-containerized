@@ -80,7 +80,7 @@ export const Search = ({
   const [peopleNames, setPeopleNames] = useState<string[]>([]); // Arrays to store people and emails
   const [peopleEmails, setPeopleEmails] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [userData] = useRecoilState<User | undefined>(currentUserState);
+  const [userData] = useRecoilState<User | null | undefined>(currentUserState);
   const filteredpeople = //Array containing only people with people OR emails that match searchTerm
     searchTerm.length > 0
       ? peopleNames.filter((_, index) => {

@@ -77,7 +77,7 @@ describe('Dashboard', () => {
     fireEvent.click(button);
 
     expect(screen.getByRole('textbox')).toHaveValue(
-      'What job postings best fit Jorge Vasquez&#39;s experience?',
+      'What job postings best fit Jorge Vasquez',
     );
   });
 

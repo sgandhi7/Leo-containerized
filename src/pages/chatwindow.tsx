@@ -179,7 +179,7 @@ export const Investigation = (): React.ReactElement => {
                   sources: [],
                   suggestions: [],
                 }}
-                user={user}
+                user={user || null || undefined}
                 isLatestMessage={true} // This will be the latest message while searching
               />
             )}
@@ -187,7 +187,7 @@ export const Investigation = (): React.ReactElement => {
               <ChatMessage
                 key={`chat-content-${prompt.id}`}
                 prompt={prompt}
-                user={user}
+                user={user || null || undefined}
                 isTypingComplete={isTypingComplete}
                 setIsTypingComplete={setIsTypingComplete}
                 showSources={showSources}
@@ -237,7 +237,7 @@ export const Investigation = (): React.ReactElement => {
 
 interface ChatMessageProps {
   prompt: Prompt;
-  user?: User | undefined;
+  user?: User | null | undefined;
   isLoading?: boolean;
   isTypingComplete?: boolean;
   setIsTypingComplete?: (value: boolean) => void;

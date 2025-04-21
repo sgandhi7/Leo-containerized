@@ -29,7 +29,7 @@ export const App = (): React.ReactElement => {
   const { inProgress } = useMsal();
   const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
-  const [user] = useRecoilState<User | undefined>(currentUserState);
+  const [user] = useRecoilState<User | null | undefined>(currentUserState);
 
   useEffect(() => {
     if (
