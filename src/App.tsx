@@ -62,5 +62,4 @@ export const App = (): React.ReactElement => {
       )}
     </div>
   );
-  const   badFormat  =    true
 };
