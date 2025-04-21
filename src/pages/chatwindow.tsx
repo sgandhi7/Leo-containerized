@@ -20,6 +20,7 @@ import {
   sessions,
 } from 'src/store';
 import { v4 as uuidv4 } from 'uuid';
+import { getApiBaseUrl } from '../utils/env';
 import chatBot from '/img/leo.png';
 import lockIcon from '/img/lockIcon.svg';
 
@@ -81,7 +82,7 @@ export const Investigation = (): React.ReactElement => {
           chatHistory: window.sessionStorage.getItem('chat_history'),
         });
         /*changed fetch statement here to connect front-end to backend when containerizing*/
-        fetch(`${import.meta.env.VITE_API_BASE_URL}/fetchSessions`, {
+        fetch(`${getApiBaseUrl()}/fetchSessions`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -89,7 +90,7 @@ export const Investigation = (): React.ReactElement => {
           body: JSON.stringify({
             user: user?.emailAddress,
             sessionId: sessId,
-            action: 'upload',
+            action: 'push',
             session: session,
           }),
         });
@@ -99,13 +100,13 @@ export const Investigation = (): React.ReactElement => {
       if (!user?.emailAddress) return;
 
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/fetchSessions`,
-          {
-            method: 'POST',
-            body: JSON.stringify({ user: user.emailAddress, action: 'pull' }),
+        const response = await fetch(`${getApiBaseUrl()}/fetchSessions`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        );
+          body: JSON.stringify({ user: user.emailAddress, action: 'pull' }),
+        });
         const tempSessions = await response.json();
         const parsedSessions = tempSessions.map((session: string) => {
           const parsedSession = JSON.parse(session);
