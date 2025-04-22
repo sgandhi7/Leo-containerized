@@ -90,7 +90,7 @@ export const Investigation = (): React.ReactElement => {
           body: JSON.stringify({
             user: user?.emailAddress,
             sessionId: sessId,
-            action: 'push',
+            action: 'upload',
             session: session,
           }),
         });
