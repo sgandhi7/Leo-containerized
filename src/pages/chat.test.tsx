@@ -26,7 +26,7 @@ test('this should fail', () => {
 
 describe('Search Component', () => {
   const setSearchInput = jest.fn();
-
+  expect(true).toBe(false);
   const renderSearch = (input = '') =>
     render(
       <MemoryRouter>
