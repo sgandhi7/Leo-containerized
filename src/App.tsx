@@ -35,7 +35,8 @@ export const App = (): React.ReactElement => {
     if (
       !isAuthenticated &&
       inProgress === InteractionStatus.None &&
-      user === undefined
+      user === undefined &&
+      window.location.pathname !== '/login'
     ) {
       navigate('/login');
     }
@@ -58,6 +59,7 @@ export const App = (): React.ReactElement => {
       ) : (
         <Routes>
           <Route path="/login" element={<SignIn />} />
+          <Route path="*" element={<SignIn />} />
         </Routes>
       )}
     </div>
