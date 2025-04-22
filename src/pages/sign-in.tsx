@@ -89,18 +89,20 @@ export const SignIn = () => {
   };
 
   useEffect(() => {
-    // const handleRedirectPromise = async () => {
-    //   try {
-    //     console.log('Handling redirect promise...');
-    //     const result = await msalInstance.handleRedirectPromise();
-    //     console.log('RedirectPromise result:', result);
-    //     if (result) {
-    //       await handleAuthenticationSuccess(result.accessToken);
-    //     }
-    //   } catch (error) {
-    //     console.error('Error handling redirect:', error);
-    //   }
-    // };
+    const handleRedirectPromise = async () => {
+      try {
+        console.log('Handling redirect promise...');
+        const result = await msalInstance.handleRedirectPromise();
+        console.log('Redirect result:', result);
+        if (result) {
+          await handleAuthenticationSuccess(result.accessToken);
+        }
+      } catch (error) {
+        console.error('Error handling redirect:', error);
+      }
+    };
+
+    handleRedirectPromise();
 
     const initializeUser = async () => {
       if (!user && !isAuthenticating) {
