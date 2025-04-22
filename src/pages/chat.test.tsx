@@ -20,13 +20,8 @@ global.fetch = jest.fn(() =>
   }),
 ) as jest.Mock;
 
-test('this should fail', () => {
-  throw new Error('Failing on purpose');
-});
-
 describe('Search Component', () => {
   const setSearchInput = jest.fn();
-  expect(true).toBe(false);
   const renderSearch = (input = '') =>
     render(
       <MemoryRouter>
