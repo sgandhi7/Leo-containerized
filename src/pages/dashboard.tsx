@@ -18,7 +18,7 @@ export const Dashboard = (): React.ReactElement => {
   const [, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
   const [searchInput, setSearchInput] = useState<string>('');
-  const [user] = useRecoilState<User | undefined>(currentUserState);
+  const [user] = useRecoilState<User | null | undefined>(currentUserState);
   const [sessionsValue, setSessions] = useRecoilState<Session[] | undefined>(
     sessions,
   );

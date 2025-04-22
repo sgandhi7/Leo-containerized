@@ -29,13 +29,14 @@ export const App = (): React.ReactElement => {
   const { inProgress } = useMsal();
   const isAuthenticated = useIsAuthenticated();
   const navigate = useNavigate();
-  const [user] = useRecoilState<User | undefined>(currentUserState);
+  const [user] = useRecoilState<User | null | undefined>(currentUserState);
 
   useEffect(() => {
     if (
       !isAuthenticated &&
       inProgress === InteractionStatus.None &&
-      user === undefined
+      user === undefined &&
+      window.location.pathname !== '/login'
     ) {
       navigate('/login');
     }
@@ -58,6 +59,7 @@ export const App = (): React.ReactElement => {
       ) : (
         <Routes>
           <Route path="/login" element={<SignIn />} />
+          <Route path="*" element={<SignIn />} />
         </Routes>
       )}
     </div>

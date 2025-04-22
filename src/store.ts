@@ -2,14 +2,13 @@
 import { atom } from 'recoil';
 import { Investigation, Session } from './types/investigation';
 import { User } from './types/user';
-
 const signedInState = atom({
   key: 'signedIn',
   default: false,
 });
 
 const currentUserState = atom<User | null | undefined>({
-  key: 'currentUserState',
+  key: 'currentUser',
   default: undefined,
 });
 

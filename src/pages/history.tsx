@@ -22,7 +22,7 @@ interface MiniChatWindowProps {
 
 const MiniChatWindow: React.FC<MiniChatWindowProps> = ({ session }) => {
   const navigate = useNavigate();
-  const [user] = useRecoilState<User | undefined>(currentUserState);
+  const [user] = useRecoilState<User | null | undefined>(currentUserState);
   const [, setSessionId] = useRecoilState<string | undefined>(sessionId);
   const [, setCurrentInvestigation] =
     useRecoilState<Investigation>(currentInvestigation);
@@ -62,7 +62,7 @@ export const History: React.FC = () => {
   const [sessionsValue, setSessions] = useRecoilState<Session[] | undefined>(
     sessions,
   );
-  const [user] = useRecoilState<User | undefined>(currentUserState);
+  const [user] = useRecoilState<User | null | undefined>(currentUserState);
 
   useEffect(() => {
     const fetchSessions = async () => {

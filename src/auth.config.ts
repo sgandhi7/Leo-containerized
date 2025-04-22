@@ -1,11 +1,14 @@
 import { Configuration, PopupRequest } from '@azure/msal-browser';
-
+console.log('ENV Variables:', {
+  clientId: import.meta.env.VITE_SSO_CLIENT_ID,
+  tenantId: import.meta.env.VITE_SSO_TENANT_ID,
+});
 // Config object to be passed to Msal on creation
 export const msalConfig: Configuration = {
   auth: {
-    clientId: process.env.SSO_CLIENT_ID || '',
+    clientId: import.meta.env.VITE_SSO_CLIENT_ID || '',
     authority: `https://login.microsoftonline.com/${
-      process.env.SSO_TENANT_ID || ''
+      import.meta.env.VITE_SSO_TENANT_ID || ''
     }`,
     redirectUri: '/',
   },

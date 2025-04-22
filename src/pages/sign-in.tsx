@@ -7,7 +7,10 @@ import { currentUserState } from 'src/store';
 import msalInstance from 'src/utils/msal';
 
 export const SignIn = () => {
-  const [user, setUser] = useRecoilState<User | undefined>(currentUserState);
+  const [user, setUser] = useRecoilState<User | null | undefined>(
+    currentUserState,
+  );
+
   const navigate = useNavigate();
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
@@ -33,15 +36,22 @@ export const SignIn = () => {
     async (accessToken: string) => {
       const userInfo = await getUserInfoFromGraph(accessToken);
       setUser(userInfo);
+      navigate('/');
     },
-    [setUser],
+    [setUser, navigate],
   );
 
   const authenticateOnWeb = useCallback(async () => {
     try {
-      await msalInstance.initialize();
-      const accounts = msalInstance.getAllAccounts();
+      // First handle any pending redirect callback
+      const result = await msalInstance.handleRedirectPromise();
+      if (result) {
+        await handleAuthenticationSuccess(result.accessToken);
+        return;
+      }
 
+      // Check if we have any accounts
+      const accounts = msalInstance.getAllAccounts();
       if (accounts.length > 0) {
         const silentResult = await msalInstance.acquireTokenSilent({
           scopes: ['User.Read'],
@@ -49,15 +59,16 @@ export const SignIn = () => {
         });
         await handleAuthenticationSuccess(silentResult.accessToken);
       } else {
+        // Start login redirect - don't navigate immediately
         await msalInstance.loginRedirect({
           scopes: ['User.Read'],
         });
       }
-      navigate('/');
     } catch (error) {
       console.error('Authentication error:', error);
+      setIsAuthenticating(false);
     }
-  }, [navigate, handleAuthenticationSuccess]);
+  }, [handleAuthenticationSuccess]);
 
   const authenticateInTeams = useCallback(async () => {
     try {
@@ -86,24 +97,9 @@ export const SignIn = () => {
   };
 
   useEffect(() => {
-    // const handleRedirectPromise = async () => {
-    //   try {
-    //     console.log('Handling redirect promise...');
-    //     const result = await msalInstance.handleRedirectPromise();
-    //     console.log('RedirectPromise result:', result);
-    //     if (result) {
-    //       await handleAuthenticationSuccess(result.accessToken);
-    //     }
-    //   } catch (error) {
-    //     console.error('Error handling redirect:', error);
-    //   }
-    // };
-
     const initializeUser = async () => {
       if (!user && !isAuthenticating) {
         setIsAuthenticating(true);
-        console.log('Starting authentication...');
-        await msalInstance.initialize();
         try {
           const isInTeams = await initializeTeamsApp()
             .then(() => app.getContext())
@@ -117,22 +113,13 @@ export const SignIn = () => {
           }
         } catch (error) {
           console.error('Authentication error:', error);
-        } finally {
           setIsAuthenticating(false);
-          navigate('/');
         }
       }
     };
 
     initializeUser();
-  }, [
-    setUser,
-    authenticateOnWeb,
-    authenticateInTeams,
-    user,
-    isAuthenticating,
-    navigate,
-  ]);
+  }, [user, isAuthenticating, authenticateOnWeb, authenticateInTeams]);
 
   const getUserInfoFromGraph = async (accessToken: string): Promise<User> => {
     const response = await fetch('https://graph.microsoft.com/v1.0/me', {
