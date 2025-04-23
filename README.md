@@ -65,7 +65,6 @@ To make sure your changes do not break any unit tests, run the following:
 npm run test
 ```
 
-
 ## Running Code Quality Checks
 
 To make sure your changes adhere to additional code quality standards, run the following:
