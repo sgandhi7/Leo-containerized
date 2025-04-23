@@ -11,9 +11,6 @@ The goal of this project is to provide a React with TypeScript starter applicati
 - Unit Testing: [Jest](https://jestjs.io/) with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 - Code Analysis: [ES Lint](https://eslint.org/)
 - Code Formatting: [Prettier](https://prettier.io/)
-- End-to-End (E2E) Testing: [Cypress](https://www.cypress.io/) with [cypress-axe](https://www.npmjs.com/package/cypress-axe)
-- Accessibility Testing: [Unlighthouse](https://unlighthouse.dev/)
-- API support: [Axios](https://axios-http.com/) with [React Query](https://tanstack.com/query/v3/)
 - Authentication support: [Keycloak](https://www.keycloak.org/)
 
 ## Table of Contents
@@ -21,7 +18,6 @@ The goal of this project is to provide a React with TypeScript starter applicati
 1. [Running the Project Locally](#running-the-project-locally)
 2. [Running Unit Tests](#running-unit-tests)
 3. [Running Code Quality Checks](#running-code-quality-checks)
-4. [Running End-to-End (E2E) Tests](#running-end-to-end-e2e-tests)
 5. [Contributing](#contributing)
 6. [Next Steps](#next-steps)
 
@@ -46,6 +42,21 @@ SSO_CLIENT_ID=[SOME_CLIENT_ID] # Ex: dev-client
 npm run dev
 ```
 
+4. Build for production
+
+```
+npm run build
+```
+
+5. Run in a docker container
+
+```
+docker build -t leo-frontend .
+docker run -p 8080:8080 leo-frontend
+
+Access the app at http://localhost:8080
+```
+
 ## Running Unit Tests
 
 To make sure your changes do not break any unit tests, run the following:
@@ -54,11 +65,6 @@ To make sure your changes do not break any unit tests, run the following:
 npm run test
 ```
 
-Ensure to review the coverage directory for code coverage details.
-
-```sh
-npm run coverage
-```
 
 ## Running Code Quality Checks
 
@@ -71,13 +77,6 @@ npm run format
 
 You can also see the `.vscode/settings.json` file to find how to enable auto-formatting on save.
 
-## Running End-to-End (E2E) Tests
-
-Note: running E2E tests requires the app to be running as well, run the following:
-
-```sh
-npm run e2e
-```
 
 ## Contributing
 
@@ -91,14 +90,4 @@ npm run e2e
 
 The following provides a short list of tasks which are potential next steps for this project. These could be steps in making use of this baseline or they could be for learning purposes.
 
-- [ ] Apply/clean-up basic branding (title, header, footer, logo, favicon, etc)
-- [ ] Add/Update Dashboard with applicable content
-- [ ] Enhance Dashboard table functionality (filter, search, paging)
-- [ ] Enhance Item Details page with more applicable content and layout
-- [ ] Integrate with some API (Ex. [Comet API](https://github.com/MetroStar/comet-api))
-- [ ] Add User Management Dashboard and Detail pages
-- [ ] Add Profile Menu (include Sign In/Sign Out, User Management, etc)
-- [ ] Add Site Search functionality (add Search Results page and update Header Search)
-- [ ] Integrate with some API to support Basic Authentication
-- [ ] Integrate with some Identity Provider to support Single Sign-On (SSO)
-- [ ] Deploy to cloud infrastructure
+- [ ] Create github workflows to deploy to Azure
