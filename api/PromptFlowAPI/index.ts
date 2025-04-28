@@ -6,7 +6,7 @@ const PromptFlowAPI: AzureFunction = async function (
   req: HttpRequest,
 ): Promise<void> {
   const url = 'https://mss-leo-prod-vcqoi.eastus.inference.ml.azure.com/score';
-  const apiKey = 'G2qOjMVNtLtZlSRCxft6jXeA8nXk88za';
+  const apiKey = process.env.PROMPT_FLOW_API_KEY;
 
   if (!apiKey) {
     throw new Error('A key should be provided to invoke the endpoint');

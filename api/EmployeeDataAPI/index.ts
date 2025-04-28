@@ -11,8 +11,7 @@ const fetchEmployeeData: AzureFunction = async function (
   context: Context,
 ): Promise<void> {
   // SAS token for authenticated access to the Azure Blob Storage
-  const sasToken =
-    'sp=r&st=2024-06-05T14:31:58Z&se=2025-06-05T22:31:58Z&spr=https&sv=2022-11-02&sr=c&sig=9djtlnqXhTLWw01V20Q1eD48Lx8CJhaC7mWpz6mGTOA%3D';
+  const sasToken = process.env.AZURE_SAS_TOKEN;
   // URL of the JSON file in Azure Blob Storage, including SAS token
   const url =
     'https://jorgestorageblob.blob.core.windows.net/people/people.json?' +

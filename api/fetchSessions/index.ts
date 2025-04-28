@@ -8,7 +8,7 @@ import fetch from 'node-fetch';
 // const AZURE_ACCOUNT_NAME = 'mssleoblobs';
 
 // const AZURE_STORAGE_KEY =
-//   'woTyLB3DaG8ERv4/0gnNWxGeaGHGRf/XvwL8dciD7zineJIgIc9+SBzI8iXnJ90rBB+AOOmpJfpX+AStfcKvtw==';
+//   process.env.AZURE_STORAGE_KEY;
 
 // // const blobServiceClient = BlobServiceClient.fromConnectionString(
 // //   AZURE_STORAGE_CONNECTION_STRING,
