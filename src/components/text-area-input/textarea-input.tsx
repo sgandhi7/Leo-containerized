@@ -26,7 +26,7 @@ export const TextAreaInput: React.FC<TextAreaProps> = ({
   onChange,
   onKeyDown,
   onKeyUp,
-  rows = 1,
+  rows = 1.25,
   cols = 1,
   autoFocus = true,
   disabled = false,

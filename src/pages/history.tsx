@@ -97,7 +97,13 @@ export const History: React.FC = () => {
   }, [sessionsValue, setSessions, user?.emailAddress]);
 
   return (
-    <div className="history-container">
+    <div
+      className="history-container"
+      style={{
+        paddingLeft: '5rem', // or match your sidebar width
+        paddingRight: '1rem', // to avoid touching right edge
+      }}
+    >
       <h1>Conversation History</h1>
       <div className="chat-list">
         {sessionsValue?.map((session) => (

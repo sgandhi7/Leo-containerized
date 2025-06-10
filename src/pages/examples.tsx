@@ -21,7 +21,13 @@ export const Examples = (): React.ReactElement => {
   }, [setCurrentInvestigation]);
 
   return (
-    <div className="grid-container">
+    <div
+      className="grid-container"
+      style={{
+        paddingLeft: '5rem', // or match your sidebar width
+        paddingRight: '1rem', // to avoid touching right edge
+      }}
+    >
       <div className="grid-row">
         <div className="grid-col">
           <div
@@ -29,7 +35,7 @@ export const Examples = (): React.ReactElement => {
             style={{ textAlign: 'center' }}
           >
             <h1 className="margin-bottom-4">Example Prompts</h1>
-            <h2>
+            <h2 style={{ textAlign: 'center' }}>
               Here are some example prompts, clicking on one will begin a chat.
             </h2>
             <div className="button-container">
@@ -67,151 +73,12 @@ export const Examples = (): React.ReactElement => {
                 <b>What job posting best fit Daniel Vasquez</b>
               </button>
             </div>
-            <div className="button-container">
-              <button
-                className="helper-button"
-                onClick={() =>
-                  handleButtonClick(
-                    'List employees that have experience with Drupal and PHP',
-                  )
-                }
-              >
-                <b>List employees that have experience with Drupal and PHP</b>
-              </button>
-              <button
-                className="helper-button"
-                style={{ whiteSpace: 'pre-wrap' }}
-                onClick={() =>
-                  handleButtonClick(
-                    'List employees that best fit job posting Associate Systems Engineer 4885',
-                  )
-                }
-              >
-                <b>
-                  List employees that best fit job posting Associate Systems
-                  Engineer 4885
-                </b>
-              </button>
-              <button
-                className="helper-button"
-                style={{ whiteSpace: 'pre-wrap' }}
-                onClick={() =>
-                  handleButtonClick('What job posting best fit Daniel Vasquez')
-                }
-              >
-                <b>What job posting best fit Daniel Vasquez</b>
-              </button>
-            </div>
-            <div className="button-container">
-              <button
-                className="helper-button"
-                onClick={() =>
-                  handleButtonClick(
-                    'List employees that have experience with Drupal and PHP',
-                  )
-                }
-              >
-                <b>List employees that have experience with Drupal and PHP</b>
-              </button>
-              <button
-                className="helper-button"
-                style={{ whiteSpace: 'pre-wrap' }}
-                onClick={() =>
-                  handleButtonClick(
-                    'List employees that best fit job posting Associate Systems Engineer 4885',
-                  )
-                }
-              >
-                <b>
-                  List employees that best fit job posting Associate Systems
-                  Engineer 4885
-                </b>
-              </button>
-              <button
-                className="helper-button"
-                style={{ whiteSpace: 'pre-wrap' }}
-                onClick={() =>
-                  handleButtonClick('What job posting best fit Daniel Vasquez')
-                }
-              >
-                <b>What job posting best fit Daniel Vasquez</b>
-              </button>
-            </div>
-            <div className="button-container">
-              <button
-                className="helper-button"
-                onClick={() =>
-                  handleButtonClick(
-                    'List employees that have experience with Drupal and PHP',
-                  )
-                }
-              >
-                <b>List employees that have experience with Drupal and PHP</b>
-              </button>
-              <button
-                className="helper-button"
-                style={{ whiteSpace: 'pre-wrap' }}
-                onClick={() =>
-                  handleButtonClick(
-                    'List employees that best fit job posting Associate Systems Engineer 4885',
-                  )
-                }
-              >
-                <b>
-                  List employees that best fit job posting Associate Systems
-                  Engineer 4885
-                </b>
-              </button>
-              <button
-                className="helper-button"
-                style={{ whiteSpace: 'pre-wrap' }}
-                onClick={() =>
-                  handleButtonClick('What job posting best fit Daniel Vasquez')
-                }
-              >
-                <b>What job posting best fit Daniel Vasquez</b>
-              </button>
-            </div>
-            <div className="button-container">
-              <button
-                className="helper-button"
-                onClick={() =>
-                  handleButtonClick(
-                    'List employees that have experience with Drupal and PHP',
-                  )
-                }
-              >
-                <b>List employees that have experience with Drupal and PHP</b>
-              </button>
-              <button
-                className="helper-button"
-                style={{ whiteSpace: 'pre-wrap' }}
-                onClick={() =>
-                  handleButtonClick(
-                    'List employees that best fit job posting Associate Systems Engineer 4885',
-                  )
-                }
-              >
-                <b>
-                  List employees that best fit job posting Associate Systems
-                  Engineer 4885
-                </b>
-              </button>
-              <button
-                className="helper-button"
-                style={{ whiteSpace: 'pre-wrap' }}
-                onClick={() =>
-                  handleButtonClick('What job posting best fit Daniel Vasquez')
-                }
-              >
-                <b>What job posting best fit Daniel Vasquez</b>
-              </button>
-            </div>
+
             <div className="padding-top-10" />
             <div
               style={{
                 position: 'relative',
-                // top: '200px',
+                top: '200px',
                 left: '50%',
                 transform: 'translateX(-50%)',
                 zIndex: 999,

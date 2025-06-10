@@ -20,7 +20,6 @@
 **/obj
 **/secrets.dev.yaml
 **/values.dev.yaml
-**/dist
 **/reports
 LICENSE
 README.md

@@ -3,6 +3,7 @@ import {
   Investigation as InvestigationState,
   Prompt,
 } from '@src/types/investigation';
+import { sessionId } from 'src/store';
 // eslint-disable-next-line prettier/prettier
 import { Button, ListItem } from '@metrostar/comet-uswds';
 // eslint-disable-next-line prettier/prettier
@@ -24,6 +25,7 @@ import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { getApiBaseUrl } from '../utils/env';
+import { clearChat } from './chatwindow';
 import infinteLoop from '/img/infinteLoop.svg';
 
 function formatConversation(
@@ -64,9 +66,12 @@ export const Search = ({
 }): React.ReactElement => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [showNewChat, setShowNewChat] = useState(false);
   const [, setQuery] = useState('');
   const [currentInvestigation, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
+  const [, setSessionId] = useRecoilState<string | undefined>(sessionId); // ✅ Directly access Recoil state
+  const [prompts, setPrompts] = useState<Prompt[] | null>(null); // ✅ Local state for prom
   const [isSearching, setIsSearching] = useRecoilState<boolean>(searching);
   const [, setCurrentSearch] = useRecoilState<string>(defaultSearch);
   const [abortControllerRef, setAbortController] =
@@ -79,6 +84,10 @@ export const Search = ({
   const [jsonData, setJsonData] = useState([]); // Variable to store fetched JSON data from Azure Function API call
   const [peopleNames, setPeopleNames] = useState<string[]>([]); // Arrays to store people and emails
   const [peopleEmails, setPeopleEmails] = useState<string[]>([]);
+  // Variables to store job titles and companies (adding to dropdown menu for jobs)
+  const [jobTitles, setJobTitles] = useState<string[]>([]);
+  const [jobCompanies, setJobCompanies] = useState<string[]>([]);
+  const [, setJobJsonData] = useState([]);
   const [error, setError] = useState<string | null>(null);
   const [userData] = useRecoilState<User | null | undefined>(currentUserState);
   const filteredpeople = //Array containing only people with people OR emails that match searchTerm
@@ -109,18 +118,22 @@ export const Search = ({
     if (abortControllerRef) {
       abortControllerRef.abort();
     }
+    //for showing new chat button
+    setShowNewChat(true);
+    //if (searchInput.trim() !== '') {
+    // setShowNewChat(true);✅ Show "New Chat" after first search
+    //}
 
     // Create a new AbortController instance
     const newAbortController = new AbortController();
     setAbortController(newAbortController);
-
-    // Begin chat
-    setIsSearching(true);
-
     // Navigate to chatwindow
     if (location.pathname === '/') {
       navigate('/session');
     }
+
+    // Begin chat
+    setIsSearching(true);
 
     // Intialize chat history
     let chatHistory: object[] = [];
@@ -288,6 +301,24 @@ export const Search = ({
     fetchEmployees();
   }, []);
 
+  // On initial render, call function to fetch job data from Azure Function API
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const res = await fetch(`${getApiBaseUrl()}/JobOpeningsAPI`);
+        const data = await res.json();
+
+        setJobJsonData(data.jobs); // full JSON data
+        setJobTitles(data.titles); // array of job titles
+        setJobCompanies(data.companies); // array of companies
+      } catch (error) {
+        console.error('Failed to fetch jobs:', error);
+      }
+    };
+
+    fetchJobs();
+  }, []);
+
   // Variable to store html, backend logic, and functions for dropdown menu
   const DropdownMenu = () => {
     // State to manage active tab
@@ -331,6 +362,13 @@ export const Search = ({
             onClick={() => handleTabClick('files')} // Handle click to switch to 'files' tab
           >
             Jobs
+          </li>
+          {/* Tab for 'projects' */}
+          <li
+            className={activeTab === 'prjects' ? 'active' : ''} // Apply 'active' class if 'people' tab is active
+            onClick={() => handleTabClick('projects')} // Handle click to switch to 'people' tab
+          >
+            Projects
           </li>
           {/* Close button for the dropdown */}
           <button className="close-button" onClick={handleClose}>
@@ -386,25 +424,29 @@ export const Search = ({
             ))}
           {/* Content for 'Jobs' tab */}
           {activeTab === 'files' && (
-            // (isLoading ? (
-            //   // Show loading state if data is still loading
-            //   <ul>
-            //     <div className="contact-item">
-            //       <div className="contact-name">Loading ... </div>
-            //     </div>
-            //   </ul>
-            // ) : (
-            //   // List of files
-            // <ul>
-            //   {filesData.map((file) => (
-            //     <li key={file} onClick={() => handleItemClick(file)}>
-            //       {file}
-            //     </li>
-            //   ))}
-            // </ul>
-            // ))
             <ul>
-              <li>Coming Soon...</li>
+              {Array.isArray(jobTitles) && jobTitles.length === 0 ? (
+                <li>No jobs found</li>
+              ) : (
+                jobTitles.map((title, index) => (
+                  <div className="contact-item" key={index}>
+                    <div
+                      className="contact-name"
+                      onClick={() =>
+                        handleItemClick(jobCompanies[index], index)
+                      }
+                    >
+                      {jobCompanies[index]}
+                    </div>
+                    <div
+                      className="contact-email"
+                      onClick={() => handleItemClick(title, index)}
+                    >
+                      {title}
+                    </div>
+                  </div>
+                ))
+              )}
             </ul>
           )}
         </div>
@@ -499,47 +541,51 @@ export const Search = ({
       style={{ zIndex: 1 }}
     >
       <div
-        className={`display-flex flex-justify-center search-area ${
+        className={`display-flex flex-justify-center search-area position-relative ${
           location.pathname === '/'
             ? 'search-area-home'
             : 'search-area-investigation'
         }`}
       >
-        <TextAreaInput
-          id="search-input"
-          name="search-input"
-          label="Ask me anything or type / to add people, files, and more"
-          className="search-area-input"
-          autoFocus
-          placeholder="Ask me anything or type / to add people, files, and more"
-          disabled={isSearching}
-          value={searchInput}
-          onChange={handleOnChange}
-          onKeyDown={(event) => {
-            if (event.key === 'Enter' && !event.shiftKey) {
-              event.preventDefault();
-            }
-          }}
-          onKeyUp={(event) => {
-            if (
-              event.key === 'Enter' &&
-              !event.shiftKey &&
-              searchInput.trim() !== ''
-            ) {
-              submitSearch();
-            }
-          }}
-        />
+        <div className="search-input-wrapper">
+          <TextAreaInput
+            id="search-input"
+            name="search-input"
+            label="Ask me anything or type / to add people, files, and more"
+            className="search-area-input"
+            autoFocus
+            placeholder="Ask me anything or type / to add people, files, and more"
+            disabled={isSearching}
+            value={searchInput}
+            onChange={handleOnChange}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+              }
+            }}
+            onKeyUp={(event) => {
+              if (
+                event.key === 'Enter' &&
+                !event.shiftKey &&
+                searchInput.trim() !== ''
+              ) {
+                submitSearch();
+              }
+            }}
+          />
+        </div>
         {isSearching ? (
           <>
-            <img src={infinteLoop} alt="Loading" className="searching" />
-            <Button
-              id="cancel-btn"
-              className="search-input"
-              onClick={handleCancel}
-            >
-              Cancel
-            </Button>
+            <div className="align-send-and-loop">
+              <img src={infinteLoop} alt="Loading" className="searching" />
+              <Button
+                id="cancel-btn"
+                className="search-input"
+                onClick={handleCancel}
+              >
+                Cancel
+              </Button>
+            </div>
           </>
         ) : (
           <>
@@ -550,8 +596,8 @@ export const Search = ({
                 border: 'none',
                 cursor: 'pointer',
                 padding: '0.5rem',
-                marginRight: '0.5rem',
-                transform: 'translateX(-160%)',
+                //marginRight: '4rem',
+                // transform: 'translateX(-160%)',
               }}
               onClick={handleSearch}
               onMouseEnter={handleMouseHover('/img/sendbuttonhover.png')}
@@ -560,6 +606,23 @@ export const Search = ({
               <img src={image} alt="Send" width={26} height={26} />
             </button>
           </>
+        )}
+        {showNewChat && (
+          <Button
+            id="clear-chat-btn"
+            className="new-chat-button"
+            onClick={() => {
+              clearChat(setPrompts, setSessionId, setCurrentInvestigation);
+              console.log('Clearing chat and prompts:', prompts);
+            }}
+            style={{
+              position: 'relative',
+              float: 'left',
+              zIndex: 2,
+            }}
+          >
+            New Chat
+          </Button>
         )}
       </div>
       {showDropdown && <DropdownMenu />}

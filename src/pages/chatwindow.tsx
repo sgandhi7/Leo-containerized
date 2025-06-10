@@ -24,6 +24,19 @@ import { getApiBaseUrl } from '../utils/env';
 import chatBot from '/img/leo.png';
 import lockIcon from '/img/lockIcon.svg';
 
+export const clearChat = (
+  setPrompts: React.Dispatch<React.SetStateAction<Prompt[] | null>>,
+  setSessionId: React.Dispatch<React.SetStateAction<string | undefined>>,
+  setCurrentInvestigation: React.Dispatch<
+    React.SetStateAction<InvestigationState>
+  >,
+) => {
+  window.sessionStorage.removeItem('chat_history');
+  setPrompts([]);
+  setSessionId(undefined);
+  setCurrentInvestigation((prev) => ({ ...prev, prompts: [] }));
+};
+
 export const Investigation = (): React.ReactElement => {
   const { id } = useParams();
   const { getItem, item } = useApi();
@@ -45,12 +58,12 @@ export const Investigation = (): React.ReactElement => {
     }
   };
 
-  const clearChat = () => {
-    window.sessionStorage.removeItem('chat_history');
-    setPrompts([]);
-    setSessionId(undefined);
-    setCurrentInvestigation((prev) => ({ ...prev, prompts: [] }));
-  };
+  // const clearChat = () => {
+  //   window.sessionStorage.removeItem('chat_history');
+  //   setPrompts([]);
+  //   setSessionId(undefined);
+  //   setCurrentInvestigation((prev) => ({ ...prev, prompts: [] }));
+  // };
 
   const handleButtonClick = (buttonText: string) => {
     setSearchInput(buttonText);
@@ -154,35 +167,38 @@ export const Investigation = (): React.ReactElement => {
   }, []);
 
   return (
-    <div className="grid-container">
+    <div className="grid-container grid-scrollable">
       <div
         className="grid-row display-flex height-viewport"
-        style={{ width: '140vh' }}
+        style={{ width: '100%' }}
       >
         <div
           className="flex-align-self-start margin-x-auto margin-y-auto"
           style={{
             overflowY: 'auto',
+            overflowX: 'auto',
             width: '90%',
             maxHeight: 'calc(100vh - 200px)',
           }}
           ref={chatContentRef}
         >
           <div className="chat-content">
-            {isSearching && (
-              <ChatMessage
-                isLoading={true}
-                prompt={{
-                  id: 'temp-id',
-                  prompt: currentSearch,
-                  completion: 'Generating response...',
-                  sources: [],
-                  suggestions: [],
-                }}
-                user={user || null || undefined}
-                isLatestMessage={true} // This will be the latest message while searching
-              />
-            )}
+            <div style={{ textAlign: 'center' }}>
+              {isSearching && (
+                <ChatMessage
+                  isLoading={true}
+                  prompt={{
+                    id: 'temp-id',
+                    prompt: currentSearch,
+                    completion: 'Generating response...',
+                    sources: [],
+                    suggestions: [],
+                  }}
+                  user={user || null || undefined}
+                  isLatestMessage={true} // This will be the latest message while searching
+                />
+              )}
+            </div>
             {prompts?.map((prompt: Prompt, index: number) => (
               <ChatMessage
                 key={`chat-content-${prompt.id}`}
@@ -199,9 +215,11 @@ export const Investigation = (): React.ReactElement => {
           </div>
         </div>
         <div className="flex-align-self-end width-full">
-          <Button
+          {/* <Button
             id="clear-chat-btn"
-            onClick={clearChat}
+            onClick={() =>
+              clearChat(setPrompts, setSessionId, setCurrentInvestigation)
+            }
             style={{
               position: 'relative',
               float: 'left',
@@ -211,7 +229,7 @@ export const Investigation = (): React.ReactElement => {
             }}
           >
             New Chat
-          </Button>
+          </Button> */}
           <Search searchInput={searchInput} setSearchInput={setSearchInput} />
           <div
             className="md:px-[60px]"
