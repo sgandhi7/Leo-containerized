@@ -1,16 +1,7 @@
-import { Button, Icon } from '@metrostar/comet-uswds';
-import Typewriter from '@src/components/text-area-input/typewriter';
-import useApi from '@src/hooks/use-api';
-import { Search } from '@src/pages/chat';
-import {
-  Investigation as InvestigationState,
-  Prompt,
-  Session,
-} from '@src/types/investigation';
-import { User } from '@src/types/user';
-import React, { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+//import { Button, Icon } from '@metrostar/comet-uswds';
+import Typewriter from '@/components/text-area-input/typewriter';
+import useApi from '@/hooks/use-api';
+import { Search } from '@/pages/chat';
 import {
   currentUserState,
   currentInvestigation as defaultInvestigation,
@@ -18,10 +9,28 @@ import {
   searching,
   sessionId,
   sessions,
-} from 'src/store';
+} from '@/store';
+import {
+  Investigation as InvestigationState,
+  Prompt,
+  Session,
+} from '@/types/investigation';
+import { User } from '@/types/user';
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Image,
+  Text,
+  Wrap,
+  WrapItem,
+} from '@chakra-ui/react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
 import { getApiBaseUrl } from '../utils/env';
-import chatBot from '/img/leo.png';
 import lockIcon from '/img/lockIcon.svg';
 
 export const clearChat = (
@@ -167,7 +176,7 @@ export const Investigation = (): React.ReactElement => {
   }, []);
 
   return (
-    <div className="grid-container grid-scrollable">
+    <div className="grid-container">
       <div
         className="grid-row display-flex height-viewport"
         style={{ width: '100%' }}
@@ -177,7 +186,7 @@ export const Investigation = (): React.ReactElement => {
           style={{
             overflowY: 'auto',
             overflowX: 'auto',
-            width: '90%',
+            width: '100%',
             maxHeight: 'calc(100vh - 200px)',
           }}
           ref={chatContentRef}
@@ -190,6 +199,7 @@ export const Investigation = (): React.ReactElement => {
                   prompt={{
                     id: 'temp-id',
                     prompt: currentSearch,
+                    //should add the infinity symbol here
                     completion: 'Generating response...',
                     sources: [],
                     suggestions: [],
@@ -243,9 +253,26 @@ export const Investigation = (): React.ReactElement => {
               zIndex: 1,
             }}
           >
-            <span>
-              Leo can make mistakes. Please verify the information provided.
-            </span>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '4px', // space between the texts and icon
+                color: 'gray',
+                width: '100%',
+              }}
+            >
+              <img
+                src={lockIcon}
+                alt="Lock Icon"
+                style={{ width: '18px', height: '18px' }}
+              />
+              <span>Leo can make mistakes.</span>
+              <span>
+                Work content and chats are private to your organization
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -267,7 +294,7 @@ interface ChatMessageProps {
 
 const ChatMessage: React.FC<ChatMessageProps> = ({
   prompt,
-  user,
+  //user,
   isLoading = false,
   setIsTypingComplete,
   showSources = false,
@@ -278,100 +305,115 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
   const [localTypingComplete, setLocalTypingComplete] = useState(false);
 
   return (
-    <div>
-      <div className="chat-content-question margin-bottom-2">
-        <div className="grid-row">
-          {user && (
-            <div className="grid-col-1">
-              <div className="avatar">
-                {user && user.firstName?.charAt(0).toUpperCase()}
-                {user && user.lastName?.charAt(0).toUpperCase()}
-              </div>
-            </div>
-          )}
-          <div className="grid-col-11">{prompt.prompt}</div>
-        </div>
-      </div>
-      <div className="chat-content-answer margin-bottom-2">
-        <div className="grid-row">
-          <div className="grid-col-1">
-            <img
-              className="usa__logo-mark"
-              src={chatBot}
-              height={50}
-              width={40}
-              alt="Leo Logo"
-            />
-          </div>
-          <div className="grid-col-11">
-            <div
-              style={{
-                color: 'gray',
-                display: 'flex',
-                alignItems: 'center',
-                fontSize: '0.9rem',
-                justifyContent: 'center',
-                marginTop: '-20px',
-              }}
-            >
-              <img
-                src={lockIcon}
-                alt="Lock Icon"
-                style={{ width: '18px', height: '18px' }}
+    <Box px={4} py={2} maxW="100%" overflowX="hidden">
+      {/* USER MESSAGE */}
+      <Flex justify="flex-end" mb={2}>
+        <Box
+          bg="white"
+          border="1px solid"
+          borderColor="gray.200"
+          borderRadius="lg"
+          px={4}
+          py={2}
+          maxW="75%"
+          wordBreak="break-word"
+          boxShadow="sm"
+        >
+          <Text fontSize="sm" whiteSpace="pre-wrap">
+            {prompt.prompt}
+          </Text>
+        </Box>
+      </Flex>
+
+      {/* BOT MESSAGE */}
+      <Flex justify="flex-start" mb={4}>
+        <Box
+          border="none"
+          px={2}
+          py={1}
+          maxW="75%"
+          wordBreak="break-word"
+          whiteSpace="pre-wrap"
+        >
+          {isLoading ? (
+            <Flex justify="flex-start">
+              <Image
+                src="/img/infinteLoop.svg"
+                alt="Loading..."
+                boxSize="40px"
               />
-              Work content and chats cannot be seen outside your organization
-            </div>
-            {isLoading ? (
+            </Flex>
+          ) : (
+            prompt.completion.split('\n').map((part, index) => (
               <Typewriter
-                sentence={prompt.completion}
-                delay={0}
-                index={0}
-                length={1}
-                sources={[]}
-                onPartComplete={() => {}}
-              />
-            ) : (
-              prompt.completion.split('\n').map((part, index) => (
-                <Typewriter
-                  key={index}
-                  sentence={part.trim()}
-                  delay={700}
-                  index={index}
-                  length={prompt.completion.split('\n').length}
-                  sources={prompt.sources}
-                  onPartComplete={() => {
-                    if (index === prompt.completion.split('\n').length - 1) {
-                      setLocalTypingComplete(true);
-                      if (setIsTypingComplete) {
-                        setIsTypingComplete(true);
-                      }
+                key={index}
+                sentence={part.trim()}
+                delay={700}
+                index={index}
+                length={prompt.completion.split('\n').length}
+                sources={prompt.sources}
+                onPartComplete={() => {
+                  if (index === prompt.completion.split('\n').length - 1) {
+                    setLocalTypingComplete(true);
+                    if (setIsTypingComplete) {
+                      setIsTypingComplete(true);
                     }
-                  }}
-                />
-              ))
+                  }
+                }}
+              />
+            ))
+          )}
+
+          {/* SOURCES (if available) */}
+          {prompt.sources &&
+            localTypingComplete &&
+            prompt.sources.length > 0 && (
+              <SourcesSection
+                prompt={prompt}
+                showSources={showSources}
+                setShowSources={setShowSources || (() => {})}
+              />
             )}
-            {prompt.sources &&
-              localTypingComplete &&
-              prompt.sources.length > 0 && (
-                <SourcesSection
-                  prompt={prompt}
-                  showSources={showSources}
-                  setShowSources={setShowSources || (() => {})}
-                />
-              )}
-          </div>
+
+          {/* SUGGESTED PROMPTS */}
           {prompt.suggestions &&
             prompt.suggestions.length > 0 &&
             localTypingComplete &&
             isLatestMessage && (
-              <SuggestionsButtons
-                suggestions={prompt.suggestions}
-                handleButtonClick={handleButtonClick || (() => {})}
-              />
+              <Wrap mt={4} spacing={2} justify="space-between" width="100%">
+                {prompt.suggestions.slice(0, 3).map((suggestion, index) => (
+                  <WrapItem key={index} minW="200px" maxW="100%">
+                    <Button
+                      bgGradient="linear(to-r, rgba(70, 101, 202, 0.8), rgba(3, 8, 78, 0.8))"
+                      _hover={{
+                        bgGradient:
+                          'linear(to-r, rgba(169, 203, 247, 0.8), rgba(132, 192, 248, 0.8))',
+                      }}
+                      color="#f6f6fe"
+                      borderRadius="xl"
+                      fontSize="sm"
+                      fontWeight="medium"
+                      whiteSpace="normal"
+                      wordBreak="break-word"
+                      textAlign="left"
+                      px={4}
+                      py={4}
+                      width="100%"
+                      w="100%"
+                      height="auto"
+                      lineHeight="1.4"
+                      boxShadow="md"
+                      onClick={() => handleButtonClick?.(suggestion)}
+                    >
+                      {suggestion}
+                    </Button>
+                  </WrapItem>
+                ))}
+              </Wrap>
             )}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Flex>
+    </Box>
   );
 };
 
@@ -401,6 +443,9 @@ const SourcesSection: React.FC<SourcesSectionProps> = ({
             variant="unstyled"
             onClick={() => setShowSources(!showSources)}
             className="font-sans-3xs"
+            style={{
+              paddingTop: '9px',
+            }}
           >
             {showSources ? 'Hide' : 'Show'} Source
           </Button>
@@ -424,34 +469,34 @@ const SourcesSection: React.FC<SourcesSectionProps> = ({
   </>
 );
 
-interface SuggestionsButtonsProps {
-  suggestions: string[];
-  handleButtonClick: (text: string) => void;
-}
+// interface SuggestionsButtonsProps {
+//   suggestions: string[];
+//   handleButtonClick: (text: string) => void;
+// }
 
-const SuggestionsButtons: React.FC<SuggestionsButtonsProps> = ({
-  suggestions,
-  handleButtonClick,
-}) => (
-  <div
-    className="button-container-two"
-    style={{
-      margin: '.5rem',
-      justifyContent: 'center',
-    }}
-  >
-    {suggestions.slice(0, 3).map((suggestion, index) => (
-      <button
-        key={index}
-        className="helper-button-two"
-        style={{
-          whiteSpace: 'pre-wrap',
-          fontSize: '13px',
-        }}
-        onClick={() => handleButtonClick(suggestion)}
-      >
-        {suggestion}
-      </button>
-    ))}
-  </div>
-);
+// const SuggestionsButtons: React.FC<SuggestionsButtonsProps> = ({
+//   suggestions,
+//   handleButtonClick,
+// }) => (
+//   <div
+//     className="button-container-two"
+//     style={{
+//       margin: '.5rem',
+//       justifyContent: 'center',
+//     }}
+//   >
+//     {suggestions.slice(0, 3).map((suggestion, index) => (
+//       <button
+//         key={index}
+//         className="helper-button-two"
+//         style={{
+//           whiteSpace: 'pre-wrap',
+//           fontSize: '13px',
+//         }}
+//         onClick={() => handleButtonClick(suggestion)}
+//       >
+//         {suggestion}
+//       </button>
+//     ))}
+//   </div>
+// );

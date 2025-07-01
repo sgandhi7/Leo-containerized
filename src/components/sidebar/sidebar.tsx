@@ -1,3 +1,9 @@
+import {
+  Switch as ChakraSwitch,
+  useColorMode,
+  useColorModeValue,
+} from '@chakra-ui/react';
+import { ClockIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import { Button, Icon } from '@metrostar/comet-uswds';
 import { User } from '@src/types/user';
 import { APP_TITLE } from '@src/utils/constants';
@@ -5,7 +11,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { currentUserState } from 'src/store';
-import Switch from '../Switch/Switch';
 
 export const Sidebar = (): React.ReactElement => {
   const navigate = useNavigate();
@@ -14,7 +19,10 @@ export const Sidebar = (): React.ReactElement => {
     currentUserState,
   );
   const leoImage = '/img/leo.png'; //Initialize leo image
-  let modePref; //Holds user preference for light/dark mode
+  const loop_logo = '/img/loop_logo.png'; //Initialize loop logo
+  //let modePref; //Holds user preference for light/dark mode
+  const { colorMode, toggleColorMode } = useColorMode();
+  const textColor = useColorModeValue('white', 'white');
 
   // Get user info
   if (user === undefined) {
@@ -50,34 +58,34 @@ export const Sidebar = (): React.ReactElement => {
   }
 
   // Update modePref based on the data-theme attribute
-  if (document.documentElement.getAttribute('data-theme') == 'dark') {
-    modePref = true;
-  } else {
-    modePref = false;
-  }
-  const [dark, setDark] = useState(modePref);
+  // if (document.documentElement.getAttribute('data-theme') == 'dark') {
+  //   modePref = true;
+  // } else {
+  //   modePref = false;
+  // }
+  //const [dark, setDark] = useState(modePref);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
   //Updates the value of 'dark', then sets the document attribute and preferred mode in local storage accordingly
-  function changeLightMode(
-    setIsDark: boolean | ((prevState: boolean) => boolean),
-  ) {
-    return () => {
-      setDark(setIsDark);
-      document.documentElement.setAttribute(
-        'data-theme',
-        setIsDark ? 'dark' : 'light',
-      );
-      if (setIsDark) {
-        localStorage.setItem('prefersDarkMode', 'true');
-      } else {
-        localStorage.setItem('prefersDarkMode', 'false');
-      }
-    };
-  }
+  // function changeLightMode(
+  //   setIsDark: boolean | ((prevState: boolean) => boolean),
+  // ) {
+  //   return () => {
+  //     setDark(setIsDark);
+  //     document.documentElement.setAttribute(
+  //       'data-theme',
+  //       setIsDark ? 'dark' : 'light',
+  //     );
+  //     if (setIsDark) {
+  //       localStorage.setItem('prefersDarkMode', 'true');
+  //     } else {
+  //       localStorage.setItem('prefersDarkMode', 'false');
+  //     }
+  //   };
+  // }
 
   return (
     <nav id="sidebar-nav">
@@ -103,7 +111,7 @@ export const Sidebar = (): React.ReactElement => {
                       src={leoImage}
                       alt="Leo Logo"
                       height={50}
-                      width={50}
+                      width={60}
                       style={{ marginLeft: '-1px' }}
                     />
                     <em
@@ -112,8 +120,9 @@ export const Sidebar = (): React.ReactElement => {
                         fontSize: '35px',
                         height: '52px',
                         color: 'white',
-                        marginLeft: '10px',
+                        marginLeft: '11px',
                         marginTop: '8px',
+                        textDecoration: 'none',
                       }}
                     >
                       {APP_TITLE}
@@ -180,17 +189,19 @@ export const Sidebar = (): React.ReactElement => {
                 aria-label="history"
                 onClick={() => navigate('/history')}
               >
-                <Icon
-                  id="history-icon"
-                  type="history"
-                  className="text-white"
-                  size="size-4"
-                />
-                {isOpen ? (
-                  <span className="sidebar-text text-white">History</span>
-                ) : (
-                  <></>
-                )}
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <ClockIcon
+                    style={{ width: '35px', height: '35px', color: 'white' }}
+                  />
+                  {isOpen ? (
+                    <span
+                      className="sidebar-text text-white"
+                      style={{ marginTop: '18px' }}
+                    >
+                      History
+                    </span>
+                  ) : null}
+                </div>
               </Button>
             </div>
             <div>
@@ -200,20 +211,22 @@ export const Sidebar = (): React.ReactElement => {
                 aria-label="frequently asked questions"
                 onClick={() => navigate('/faqs')}
               >
-                <Icon
-                  id="faqs-icon"
-                  type="help_outline"
-                  className="text-white"
-                  size="size-4"
-                />
-                {isOpen ? (
-                  <span className="sidebar-text text-white">FAQs</span>
-                ) : (
-                  <></>
-                )}
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <QuestionMarkCircleIcon
+                    style={{ width: '35px', height: '35px', color: 'white' }}
+                  />
+                  {isOpen ? (
+                    <span
+                      className="sidebar-text text-white"
+                      style={{ marginTop: '18px' }}
+                    >
+                      FAQs
+                    </span>
+                  ) : null}
+                </div>
               </Button>
             </div>
-            <div>
+            {/* <div>
               <Button
                 id="examples-btn"
                 variant="unstyled"
@@ -234,7 +247,16 @@ export const Sidebar = (): React.ReactElement => {
                   <></>
                 )}
               </Button>
-            </div>
+            </div> */}
+
+            {/* example code (delete soon)
+             <img
+                  className="chatbot-logo"
+                  src={leoImage}
+                  alt="Leo Logo"
+                  height={50}
+                  style={{ marginLeft: '3px' }}
+                /> */}
             <div>
               <Button
                 id="feedback-btn"
@@ -247,30 +269,43 @@ export const Sidebar = (): React.ReactElement => {
                   )
                 }
               >
-                <Icon
-                  id="examples-icon"
-                  type="chat"
+                <img
+                  id="loop_logo"
+                  src={loop_logo}
+                  alt="loop logo"
+                  height={28}
+                  width={28}
                   className="text-white"
-                  size="size-4"
+                  style={{ marginLeft: '3px' }}
                 />
                 {isOpen ? (
-                  <span className="sidebar-text text-white">Feedback</span>
+                  <span className="sidebar-text-feedback text-white">
+                    Feedback
+                  </span>
                 ) : (
                   <></>
                 )}
               </Button>
             </div>
-            <div style={{ display: 'flex', marginTop: '10px' }}>
-              <Switch isOn={dark} handleToggle={changeLightMode(!dark)} />
-              {isOpen ? (
+            <div
+              style={{ display: 'flex', marginTop: '10px', marginLeft: '15px' }}
+            >
+              <ChakraSwitch
+                isChecked={colorMode === 'dark'}
+                onChange={toggleColorMode}
+                colorScheme="blue"
+              />
+              {isOpen && (
                 <span
                   className="sidebar-text text-white"
-                  style={{ top: '1px', left: '18px' }}
+                  style={{
+                    marginLeft: '-1px',
+                    marginTop: '10px',
+                    color: textColor,
+                  }}
                 >
                   Dark Mode
                 </span>
-              ) : (
-                <></>
               )}
             </div>
           </div>

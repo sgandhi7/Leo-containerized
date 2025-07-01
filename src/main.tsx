@@ -4,17 +4,20 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { App } from './App.tsx';
+import { Provider } from './components/ui/provider';
 import './styles.scss';
 import msalInstance from './utils/msal.ts';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <MsalProvider instance={msalInstance}>
-        <RecoilRoot>
-          <App />
-        </RecoilRoot>
-      </MsalProvider>
-    </BrowserRouter>
+    <Provider>
+      <BrowserRouter>
+        <MsalProvider instance={msalInstance}>
+          <RecoilRoot>
+            <App />
+          </RecoilRoot>
+        </MsalProvider>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
 );

@@ -1,14 +1,16 @@
 // eslint-disable-next-line prettier/prettier
+import { sessionId } from '@/store';
 import {
   Investigation as InvestigationState,
   Prompt,
-} from '@src/types/investigation';
-import { sessionId } from 'src/store';
+} from '@/types/investigation';
 // eslint-disable-next-line prettier/prettier
-import { Button, ListItem } from '@metrostar/comet-uswds';
+import { ListItem } from '@metrostar/comet-uswds';
 // eslint-disable-next-line prettier/prettier
-import { TextAreaInput } from '@src/components/text-area-input/textarea-input';
+import TextAreaInput from '@/components/text-area-input/textarea-input';
 // eslint-disable-next-line prettier/prettier
+//import { Button as ChakraButton } from '@chakra-ui/react';
+import NewChatModal from '@/components/NewChatModal';
 import {
   abortController,
   currentUserState,
@@ -16,17 +18,18 @@ import {
   currentSearch as defaultSearch,
   searching,
   showDropdownMenu,
-} from 'src/store';
+} from '@/store';
+import { ListItem as ChakraListItem, UnorderedList } from '@chakra-ui/react';
 // eslint-disable-next-line prettier/prettier
 // import { employees } from '@src/data/employeeData.ts';
-import { User } from '@src/types/user';
-import { generateGUID } from '@src/utils/api';
+import { User } from '@/types/user';
+import { generateGUID } from '@/utils/api';
 import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { getApiBaseUrl } from '../utils/env';
 import { clearChat } from './chatwindow';
-import infinteLoop from '/img/infinteLoop.svg';
+//import infinteLoop from '/img/infinteLoop.svg';
 
 function formatConversation(
   history: Array<object>,
@@ -67,6 +70,14 @@ export const Search = ({
   const navigate = useNavigate();
   const location = useLocation();
   const [showNewChat, setShowNewChat] = useState(false);
+  //going to be used for new chat modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
+  const handleConfirmNewChat = () => {
+    clearChat(setPrompts, setSessionId, setCurrentInvestigation);
+    console.log('Clearing chat and prompts:', prompts);
+  };
   const [, setQuery] = useState('');
   const [currentInvestigation, setCurrentInvestigation] =
     useRecoilState<InvestigationState>(defaultInvestigation);
@@ -106,23 +117,20 @@ export const Search = ({
   const [isLoading, setIsLoading] = useState(false);
   const [recentIndices, setRecentIndices] = useState<number[]>([]); // Array containing indices of recently-autofilled names
 
-  const updateFocus = () => {
-    const input = document.querySelector('textarea');
-    if (input) {
-      input.focus();
-    }
-  };
+  // const updateFocus = () => {
+  //   const input = document.querySelector('textarea');
+  //   if (input) {
+  //     input.focus();
+  //   }
+  // };
 
   const submitSearch = async () => {
     // Cancel the previous request if it exists
-    if (abortControllerRef) {
-      abortControllerRef.abort();
-    }
+    // if (abortControllerRef) {
+    //   abortControllerRef.abort();
+    // }
     //for showing new chat button
     setShowNewChat(true);
-    //if (searchInput.trim() !== '') {
-    // setShowNewChat(true);✅ Show "New Chat" after first search
-    //}
 
     // Create a new AbortController instance
     const newAbortController = new AbortController();
@@ -348,53 +356,53 @@ export const Search = ({
     ) : (
       // Otherwise, display the dropdown menu
       <div className="dropdown-menu">
-        <ul className="tab-list">
+        <UnorderedList className="tab-list">
           {/* Tab for 'people' */}
-          <li
+          <ChakraListItem
             className={activeTab === 'people' ? 'active' : ''} // Apply 'active' class if 'people' tab is active
             onClick={() => handleTabClick('people')} // Handle click to switch to 'people' tab
           >
             People
-          </li>
+          </ChakraListItem>
           {/* Tab for 'Files' */}
-          <li
+          <ChakraListItem
             className={activeTab === 'files' ? 'active' : ''} // Apply 'active' class if 'files' tab is active
             onClick={() => handleTabClick('files')} // Handle click to switch to 'files' tab
           >
             Jobs
-          </li>
+          </ChakraListItem>
           {/* Tab for 'projects' */}
-          <li
+          <ChakraListItem
             className={activeTab === 'prjects' ? 'active' : ''} // Apply 'active' class if 'people' tab is active
             onClick={() => handleTabClick('projects')} // Handle click to switch to 'people' tab
           >
             Projects
-          </li>
+          </ChakraListItem>
           {/* Close button for the dropdown */}
           <button className="close-button" onClick={handleClose}>
             &times;
           </button>
-        </ul>
+        </UnorderedList>
         <div className="tab-content">
           {/* Content for 'People' tab */}
           {activeTab === 'people' &&
             (isLoading ? (
               // Show loading state if data is still loading
-              <ul>
+              <UnorderedList>
                 <div className="contact-item">
                   <div className="contact-name">Loading ... </div>
                 </div>
-              </ul>
+              </UnorderedList>
             ) : filteredpeople.length === 0 ? (
               // Show 'No matching results' if no people match the filter
-              <ul>
+              <UnorderedList>
                 <div className="contact-item">
                   <div className="contact-name">No matching results</div>
                 </div>
-              </ul>
+              </UnorderedList>
             ) : (
               // List of filtered people
-              <ul>
+              <UnorderedList>
                 {filteredpeople.map((person) => (
                   <div className="contact-item" key={person}>
                     {/* Display contact name and handle click */}
@@ -420,11 +428,11 @@ export const Search = ({
                     </div>
                   </div>
                 ))}
-              </ul>
+              </UnorderedList>
             ))}
           {/* Content for 'Jobs' tab */}
           {activeTab === 'files' && (
-            <ul>
+            <UnorderedList>
               {Array.isArray(jobTitles) && jobTitles.length === 0 ? (
                 <li>No jobs found</li>
               ) : (
@@ -447,7 +455,7 @@ export const Search = ({
                   </div>
                 ))
               )}
-            </ul>
+            </UnorderedList>
           )}
         </div>
       </div>
@@ -522,18 +530,18 @@ export const Search = ({
     };
   }, [abortControllerRef, isNavigationEvent, location.pathname]);
 
-  useEffect(() => {
-    if (!isSearching) {
-      updateFocus();
-    }
-  }, [isSearching]);
+  // useEffect(() => {
+  //   if (!isSearching) {
+  //     updateFocus();
+  //   }
+  // }, [isSearching]);
 
-  const [image, setImage] = useState('/img/sendbutton.png');
-  function handleMouseHover(imagePath: React.SetStateAction<string>) {
-    return () => {
-      setImage(imagePath);
-    };
-  }
+  // const [image, setImage] = useState('/img/sendbutton.png');
+  // function handleMouseHover(imagePath: React.SetStateAction<string>) {
+  //   return () => {
+  //     setImage(imagePath);
+  //   };
+  // }
 
   return (
     <div
@@ -549,21 +557,34 @@ export const Search = ({
       >
         <div className="search-input-wrapper">
           <TextAreaInput
-            id="search-input"
-            name="search-input"
-            label="Ask me anything or type / to add people, files, and more"
-            className="search-area-input"
-            autoFocus
-            placeholder="Ask me anything or type / to add people, files, and more"
+            //id="search-input"
+            //message={searchInput}
+            //name="search-input"
+            //label="Ask me anything or type / to add people, files, and more"
+            //className="search-area-input"
+            onSend={handleSearch}
+            onCancel={handleCancel}
+            showNewChat={showNewChat}
+            onNewChat={handleOpenModal}
+            // onNewChat={() => {
+            //   clearChat(setPrompts, setSessionId, setCurrentInvestigation);
+            //   console.log('Clearing chat and prompts:', prompts);
+            // }}
+            //autoFocus
+            //placeholder="Ask me anything or type / to add people, files, and more"
             disabled={isSearching}
             value={searchInput}
             onChange={handleOnChange}
-            onKeyDown={(event) => {
+            onKeyDown={(event: {
+              key: string;
+              shiftKey: unknown;
+              preventDefault: () => void;
+            }) => {
               if (event.key === 'Enter' && !event.shiftKey) {
                 event.preventDefault();
               }
             }}
-            onKeyUp={(event) => {
+            onKeyUp={(event: { key: string; shiftKey: unknown }) => {
               if (
                 event.key === 'Enter' &&
                 !event.shiftKey &&
@@ -572,60 +593,38 @@ export const Search = ({
                 submitSearch();
               }
             }}
+            isLoading={false}
           />
         </div>
         {isSearching ? (
           <>
             <div className="align-send-and-loop">
-              <img src={infinteLoop} alt="Loading" className="searching" />
-              <Button
-                id="cancel-btn"
-                className="search-input"
+              {/* <ChakraButton
+                //id="cancel-btn"
+                //className="search-input"
+                bg="#blue.800 !important"
+                color="white"
+                borderRadius="9999px"
+                _hover={{
+                  backgroundColor: 'blue.800',
+                }}
+                variant="solid"
                 onClick={handleCancel}
               >
                 Cancel
-              </Button>
+              </ChakraButton> */}
             </div>
           </>
         ) : (
-          <>
-            <button
-              type="submit"
-              style={{
-                background: 'transparent',
-                border: 'none',
-                cursor: 'pointer',
-                padding: '0.5rem',
-                //marginRight: '4rem',
-                // transform: 'translateX(-160%)',
-              }}
-              onClick={handleSearch}
-              onMouseEnter={handleMouseHover('/img/sendbuttonhover.png')}
-              onMouseLeave={handleMouseHover('/img/sendbutton.png')}
-            >
-              <img src={image} alt="Send" width={26} height={26} />
-            </button>
-          </>
-        )}
-        {showNewChat && (
-          <Button
-            id="clear-chat-btn"
-            className="new-chat-button"
-            onClick={() => {
-              clearChat(setPrompts, setSessionId, setCurrentInvestigation);
-              console.log('Clearing chat and prompts:', prompts);
-            }}
-            style={{
-              position: 'relative',
-              float: 'left',
-              zIndex: 2,
-            }}
-          >
-            New Chat
-          </Button>
+          <></>
         )}
       </div>
       {showDropdown && <DropdownMenu />}
+      <NewChatModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmNewChat}
+      />
     </div>
   );
 };

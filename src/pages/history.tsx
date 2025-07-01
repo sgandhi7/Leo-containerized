@@ -1,3 +1,4 @@
+import { Text } from '@chakra-ui/react';
 import { Investigation, Session } from '@src/types/investigation';
 import { User } from '@src/types/user';
 import React, { useEffect } from 'react';
@@ -104,7 +105,9 @@ export const History: React.FC = () => {
         paddingRight: '1rem', // to avoid touching right edge
       }}
     >
-      <h1>Conversation History</h1>
+      <Text fontSize="52px" fontWeight="700" color="#081049">
+        Conversation History
+      </Text>{' '}
       <div className="chat-list">
         {sessionsValue?.map((session) => (
           <MiniChatWindow key={session.sessionId} session={session} />

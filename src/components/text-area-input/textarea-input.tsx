@@ -1,71 +1,133 @@
-import { Label, TextArea } from '@metrostar/comet-uswds';
-import React, { ChangeEvent, KeyboardEvent } from 'react';
+/* eslint-disable react/prop-types */
+import { AddIcon } from '@chakra-ui/icons';
+import {
+  Box,
+  Button,
+  Flex,
+  HStack,
+  IconButton,
+  Textarea,
+  VStack,
+} from '@chakra-ui/react';
+
 interface TextAreaProps {
-  id: string;
-  label?: string;
-  name?: string;
   value: string;
-  placeholder?: string;
-  className?: string;
-  onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  onKeyDown: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
-  onKeyUp: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
-  rows?: number;
-  cols?: number;
-  autoFocus?: boolean;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onKeyDown: (event: React.KeyboardEvent<HTMLTextAreaElement>) => void;
+  onKeyUp: (event: React.KeyboardEvent<HTMLTextAreaElement>) => void;
+  onSend: () => void;
+  onCancel: () => void;
+  onNewChat: () => void;
+  showNewChat: boolean;
+  isLoading: boolean;
   disabled?: boolean;
 }
 
 export const TextAreaInput: React.FC<TextAreaProps> = ({
-  id,
-  label,
-  name,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  //id,
   value,
-  className,
-  placeholder,
   onChange,
   onKeyDown,
   onKeyUp,
-  rows = 1.25,
-  cols = 1,
-  autoFocus = true,
+  onSend,
+  onCancel,
+  onNewChat,
+  showNewChat,
+  isLoading,
   disabled = false,
 }) => {
-  const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    onChange(event);
-    const textarea = document.querySelector('textarea');
-    // Set the height of the textarea to its scrollHeight
-    textarea?.style.setProperty('height', 'auto'); // Reset the height to auto to prevent scrollHeight limitation
-    textarea?.style.setProperty('height', `${textarea?.scrollHeight}px`);
-  };
+  //const isMobile = useBreakpointValue({ base: true, md: false });
 
   return (
-    <>
-      <div className="text-container">
-        <Label htmlFor={id}>{label}</Label>
-        <TextArea
-          id={id}
-          className={className}
-          name={name}
-          value={value}
-          onChange={handleInputChange}
-          onKeyDown={onKeyDown}
-          onKeyUp={onKeyUp}
-          placeholder={placeholder}
-          rows={rows}
-          cols={cols}
-          disabled={disabled}
-          autoFocus={autoFocus}
-          style={{
-            minHeight: `${rows * 3.5}rem`,
-            maxHeight: `${rows * 20}rem`,
-            borderRadius: '10px',
-            margin: '1rem',
-            padding: '1rem',
-            paddingRight: '2.5rem',
-          }}
-        />
-      </div>
-    </>
+    <Box w="100%" maxW="container.xl" mx="auto" px={4}>
+      {showNewChat && (
+        <Flex justify="flex-end" mb={2}>
+          <Button
+            leftIcon={<AddIcon />}
+            bg="blue.800"
+            color="white"
+            borderRadius="full"
+            fontWeight="500"
+            h="32px"
+            fontSize="14px"
+            _hover={{ bg: 'blue.300' }}
+            onClick={onNewChat}
+          >
+            New Chat
+          </Button>
+        </Flex>
+      )}
+
+      <Flex justifyContent="center" alignItems="center" w="100%" mx="auto">
+        <Box
+          borderRadius="32px"
+          border="1px solid #E8E8E8"
+          bg="white"
+          p={3}
+          height="110px"
+          maxW="900px"
+          w="100%"
+        >
+          <VStack align="flex-start" spacing={3} w="100%">
+            <Textarea
+              value={value}
+              onChange={onChange}
+              onKeyDown={onKeyDown}
+              onKeyUp={onKeyUp}
+              placeholder="Ask me anything or type / to add people, files, and more"
+              resize="none"
+              border="none"
+              px={4}
+              py={3}
+              bg="transparent"
+              height="20px"
+              w="100%"
+              minW={0}
+              overflow="hidden"
+            />
+
+            {/* ✅ Send or Cancel row */}
+            <HStack w="100%" justify="flex-end" mt={-50}>
+              {isLoading ? (
+                <Button
+                  onClick={onCancel}
+                  borderRadius="full"
+                  h="36px"
+                  fontSize="14px"
+                >
+                  Cancel
+                </Button>
+              ) : (
+                <IconButton
+                  aria-label="Send"
+                  onClick={onSend}
+                  borderRadius="full"
+                  bg="blue.600"
+                  size="md"
+                  _hover={{ bg: 'blue.200' }}
+                  icon={
+                    <img
+                      src="/img/sendbutton.png"
+                      alt="Send"
+                      style={{
+                        width: '22px',
+                        height: '22px',
+                        objectFit: 'contain',
+                        color: 'white',
+                      }}
+                    />
+                  }
+                  isDisabled={disabled || !value.trim()}
+                  //ml="auto"
+                />
+              )}
+            </HStack>
+          </VStack>
+        </Box>
+      </Flex>
+    </Box>
   );
 };
+
+export default TextAreaInput;

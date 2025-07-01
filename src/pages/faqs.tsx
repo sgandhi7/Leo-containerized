@@ -1,57 +1,86 @@
+import {
+  Box,
+  Container,
+  Flex,
+  Heading,
+  SimpleGrid,
+  Text,
+} from '@chakra-ui/react';
 import React from 'react';
 
-export const Faqs = (): React.ReactElement => {
+const faqs = [
+  {
+    question: 'What is Leo?',
+    answer:
+      'Leo is an AI-powered tool designed to analyze resumes and discover top talent.',
+  },
+  {
+    question: 'Why use Leo?',
+    answer:
+      'To save time by utilizing various data sources such as SharePoint Repo and Greenhouse for job requisitions.',
+  },
+  {
+    question: 'How does Leo work?',
+    answer:
+      'Leo matches resumes with internal roles using systems like Greenhouse and SharePoint.',
+  },
+  {
+    question: 'Who can use Leo?',
+    answer:
+      'Leo is designed for talent acquisition teams to streamline resume analysis and role matching.',
+  },
+];
+
+export const Faqs: React.FC = () => {
   return (
-    <div className="grid-container usa-section faqs-container">
-      <div className="grid-row">
-        <div className="grid-col">
-          <h1 className="faqs-heading">
-            Frequently <span className="highlight">Asked</span> Questions
-          </h1>
-        </div>
-      </div>
+    <Flex
+      direction="column"
+      height="100vh"
+      overflowY="auto"
+      overflowX="hidden"
+      align="center"
+      bg="#f6f6fe"
+      pl={{ base: '0px', md: '60px' }}
+    >
+      <Container
+        maxW="7xl"
+        py={{ base: 10, md: 16 }}
+        px={{ base: 4, md: 8 }}
+        pl={{ base: '80px', md: '15' }}
+      >
+        <Heading
+          fontSize="52px !important"
+          fontWeight="700 !important"
+          textAlign="center"
+          mb={{ base: 12, md: 30 }}
+        >
+          Frequently{' '}
+          <Box as="span" color="#00A3E0">
+            Asked
+          </Box>{' '}
+          Questions
+        </Heading>
 
-      <div className="grid-row grid-gap faqs-grid">
-        <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-3 faq-box">
-          <h2 className="faq-question">
-            <b>What is Leo?</b>
-          </h2>
-          <p className="faq-answer">
-            Leo is an AI-powered tool designed to analyze resumes and discover
-            top talent.
-          </p>
-        </div>
-
-        <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-3 faq-box">
-          <h2 className="faq-question">
-            <b>Why use Leo?</b>
-          </h2>
-          <p className="faq-answer">
-            To save time by utilizing various data sources such as SharePoint
-            Repo and Greenhouse for job requisitions.
-          </p>
-        </div>
-
-        <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-3 faq-box">
-          <h2 className="faq-question">
-            <b>How does Leo work?</b>
-          </h2>
-          <p className="faq-answer">
-            Leo matches resumes with internal roles using systems like
-            Greenhouse and SharePoint.
-          </p>
-        </div>
-
-        <div className="grid-col-12 tablet:grid-col-6 desktop:grid-col-3 faq-box">
-          <h2 className="faq-question">
-            <b>Who can use Leo?</b>
-          </h2>
-          <p className="faq-answer">
-            Leo is designed for talent acquisition teams to streamline resume
-            analysis and role matching.
-          </p>
-        </div>
-      </div>
-    </div>
+        <SimpleGrid columns={{ base: 1, md: 2 }} gap={8}>
+          {faqs.map(({ question, answer }) => (
+            <Box
+              key={question}
+              bg="white"
+              borderRadius="xl"
+              boxShadow="md"
+              p={8}
+              transition="transform 0.2s"
+            >
+              <Heading as="h2" size="md" color="#00A3E0" mb={4}>
+                {question}
+              </Heading>
+              <Text fontSize="md" color="#333">
+                {answer}
+              </Text>
+            </Box>
+          ))}
+        </SimpleGrid>
+      </Container>
+    </Flex>
   );
 };

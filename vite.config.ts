@@ -35,6 +35,11 @@ export default defineConfig({
       plugins: [autoprefixer],
     },
   },
+  // Vitest config has been moved to vitest.config.ts
+  esbuild: {
+    target: 'esnext',
+    format: 'esm', // ✅ ensure ESM output
+  },
   define: Object.fromEntries(
     Object.entries(safeEnv).map(([key, value]) => [
       `process.env.${key}`,
